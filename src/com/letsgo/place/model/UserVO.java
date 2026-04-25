@@ -1,12 +1,12 @@
 package com.letsgo.place.model;
 
-public class MemberVO {
+public class UserVO {
 	private String userID;
 	private String email;
 	private String name;
 	private String password;
 	
-	public MemberVO(String userID, String email, String name, String password) {
+	public UserVO(String userID, String email, String name, String password) {
 		setUserID(userID);
 		setEmail(email);
 		setName(name);
