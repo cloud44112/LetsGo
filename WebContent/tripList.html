@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+
+    <style>
+        ul {
+            list-style: none;
+        }
+        a {
+            text-decoration: none;
+            outline: none;
+        }
+        .page {
+            width: 1440px;
+            margin: 0 auto;
+        }
+        header {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header > h2 {
+            margin-left: 20px;
+        }
+        header > nav {
+            width: 600px;
+            height: 100%;
+        }
+        header ul {
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        header ul > li {
+            font-size: 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        body, html {
+            margin: 0; padding: 0; height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            display: flex;
+            height: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+        .list-area {
+            flex: 1 1 400px;
+            border-right: 1px solid #ccc;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .list-area ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .list-area li {
+            background: #f7f7f7;
+            margin-bottom: 8px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            cursor: grab;
+            user-select: none;
+            font-size: 18px;
+        }
+        .map-area {
+            flex: 2 1 800px;
+            position: relative;
+        }
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <header>
+        <h2>레스고</h2>
+        <nav>
+            <ul>
+                <li><a href="#">홈</a></li>
+                <li><a href="">일정생성</a></li>
+                <li><a href="">내일정</a></li>
+                <li><a href="">홍길동</a></li>
+            </ul>
+        </nav>
+    </header>
+</div>
+
+<div class="container">
+    <div class="list-area">
+        <ul id="sortable-list">
+            <li>항목 1</li>
+            <li>항목 2</li>
+            <li>항목 3</li>
+            <li>항목 4</li>
+            <li>항목 5</li>
+        </ul>
+    </div>
+    <div class="map-area">
+        <div id="map">여기에 지도가 표시됩니다.</div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+
+
+<script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=nw9515cuj4"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const list = document.getElementById('sortable-list');
+        Sortable.create(list, {
+            animation: 150,
+            ghostClass: 'sortable-ghost'
+        });
+
+        
+        const map = new naver.maps.Map('map', {
+            center: new naver.maps.LatLng(37.5665, 126.9780),
+            zoom: 10
+        });
+    });
+</script>
+
+</body>
+</html>

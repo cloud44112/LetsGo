@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- <link rel = "stylesheet" href ="letsgo.css"> -->
+<meta charset="UTF-8" />
+<style>
+body {
+	margin: 0;
+	display: flex;
+	height: 100vh;
+	font-family: system-ui, sans-serif;
+}
+
+aside.sidebar {
+	width: 220px;
+	border-right: 1px solid #000;
+	padding: 10px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100vh;
+}
+
+aside.sidebar ul {
+	list-style: none;
+	padding: 0;
+	margin: 0 0 20px 0;
+}
+
+aside.sidebar li {
+	margin-bottom: 10px;
+}
+
+aside.sidebar button {
+	width: 100%;
+	padding: 6px 0;
+	margin-bottom: 10px;
+	border: 1px solid #000;
+	background: transparent;
+	cursor: pointer;
+	font-size: 1rem;
+}
+
+main {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+header {
+	height: 50px;
+	border-bottom: 1px solid #000;
+	padding: 10px 20px;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-weight: 600;
+}
+
+.content-container {
+	flex-grow: 1;
+	display: flex;
+}
+
+.content-left, .content-right {
+	flex: 1;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+.divider {
+	width: 1px;
+	background-color: #000;
+}
+
+.search-area {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 20px;
+}
+
+.search-area input[type="text"] {
+	flex-grow: 1;
+	padding: 6px 8px;
+	font-size: 1rem;
+	box-sizing: border-box;
+}
+
+.search-area button {
+	padding: 6px 12px;
+	font-size: 1rem;
+	cursor: pointer;
+}
+
+#sortableList {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	border: 1px solid #ccc;
+	max-width: 300px;
+}
+
+.sortable-item {
+	padding: 10px 15px;
+	border-bottom: 1px solid #ccc;
+	background-color: #fafafa;
+	cursor: grab;
+	user-select: none;
+}
+
+.sortable-item:last-child {
+	border-bottom: none;
+}
+
+.sortable-item:active {
+	cursor: grabbing;
+}
+
+.content-right {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+.content-right-top, .content-right-bottom {
+	flex: 1;
+	border: 1px solid #ccc;
+	padding: 15px;
+	box-sizing: border-box;
+}
+
+.box-placeholder {
+	width: 100%;
+	height: 200px;
+	border: 2px solid #000;
+	border-radius: 8px;
+	background: #f0f0f0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	color: #666;
+	text-decoration: none;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+
+.figure {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: center;
+}
+
+.box-placeholder {
+	width: 300px;
+	height: 200px;
+	border: 2px solid #000;
+	border-radius: 8px;
+	background-color: #f0f0f0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 20px;
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+a {
+	text-decoration: none;
+	outline: none;
+}
+</style>
+</head>
+<body>
+
+	<aside class="sidebar">
+		<div>
+			<ul>
+				<li><details>
+						<summary>호텔</summary>
+						<ul>
+							<li><label><input type="radio" name="land-leisure">
+									호텔</label></li>
+						</ul>
+					</details></li>
+
+				<li><details>
+						<summary>콘도</summary>
+						<ul>
+							<li><label><input type="radio" name="water-leisure">
+									콘도</label></li>
+							<li><label><input type="radio" name="water-leisure">
+									레지던스</label></li>
+						</ul>
+					</details></li>
+
+				<li><details>
+						<summary>펜션/민박</summary>
+						<ul>
+							<li><label><input type="radio" name="air-leisure">
+									펜션</label></li>
+							<li><label><input type="radio" name="air-leisure">
+									한옥스테이</label></li>
+							<li><label><input type="radio" name="air-leisure">
+									농어촌</label></li>
+							<li><label><input type="radio" name="air-leisure">
+									민박</label></li>
+							<li><label><input type="radio" name="air-leisure">
+									홈스테이</label></li>
+						</ul>
+					</details></li>
+
+				<li><details>
+						<summary>모텔</summary>
+						<ul>
+							<li><label><input type="radio"
+									name="complex-leisure"> 모텔</label></li>
+						</ul>
+					</details></li>
+
+				<li><details>
+						<summary>캠핑</summary>
+						<ul>
+							<li><label><input type="radio"
+									name="complex-leisure"> 일반야영장</label></li>
+							<li><label><input type="radio"
+									name="complex-leisure"> 오토캠핑장</label></li>
+							<li><label><input type="radio"
+									name="complex-leisure"> 카라반</label></li>
+							<li><label><input type="radio"
+									name="complex-leisure"> 글램핑장</label></li>
+						</ul>
+					</details></li>
+			</ul>
+		</div>
+	</aside>
+
+	<main> <header>
+		<div class="logo">레스고!</div>
+		<ul class="menu"
+			style="list-style: none; display: flex; padding: 0; margin: 0;">
+			<li style="margin-right: 20px;">홈</li>
+			<li style="margin-right: 20px;">플레이스 조회</li>
+			<li style="margin-right: 20px;">일정게시판</li>
+			<li style="margin-right: 20px;">내일정</li>
+			<li>로그인</li>
+		</ul>
+	</header>
+
+	<div class="content-container">
+		<div class="content-left">
+			<div class="search-area">
+				<input type="text" placeholder="장소 이름이나 지역을 검색하세요" />
+				<button type="button">검색하기</button>
+				<ul>
+					<li><a href="#">거리순</a></li>
+					<li><a href="">인기순</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<figure class="figure">
+			<a href="#" class="box-placeholder">이미지</a>
+			<figcaption class="figure-caption">솔내음 캠핑장</figcaption>
+			수원
+			<button>담기</button>
+		</figure>
+		<figure class="figure">
+			<a href="#" class="box-placeholder">이미지</a>
+			<figcaption class="figure-caption">캠핑온</figcaption>
+			수원
+			<button>담기</button>
+		</figure>
+		<figure class="figure">
+			<a href="#" class="box-placeholder">이미지</a>
+			<figcaption class="figure-caption">고릴라 캠핑</figcaption>
+			수원
+			<button>담기</button>
+		</figure>
+		<figure class="figure">
+			<a href="#" class="box-placeholder">이미지</a>
+			<figcaption class="figure-caption">가족 캠핑장</figcaption>
+			수원
+			<button>담기</button>
+		</figure>
+		<figure class="figure">
+			<a href="#" class="box-placeholder">이미지</a>
+			<figcaption class="figure-caption">왕송호수 캠핑장</figcaption>
+			수원
+			<button>담기</button>
+		</figure>
+		<figure class="figure">
+			<a href="#" class="box-placeholder">이미지</a>
+			<figcaption class="figure-caption">엘리 캠핑장</figcaption>
+			수원
+			<button>담기</button>
+		</figure>
+	</div>
+
+
+	</main>
+
+
+</body>
+</html>

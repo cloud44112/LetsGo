@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    min-height: 100vh; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin: 0; 
+}
+
+.loginbox {
+    width: 300px;
+    border: 1px solid black;
+    padding: 10px; 
+    box-sizing: border-box; 
+}
+
+.id {
+    width: 100%; 
+    height: 50px; 
+    margin-bottom: 10px; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.pw {
+    width: 100%; 
+    height: 50px; 
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginbox > div {
+    border: 1px solid;
+    margin-bottom: 10px; 
+    text-align: center; 
+    padding: 5px 0; 
+}
+
+input {
+    width: 80%; 
+    padding: 8px;
+    margin: auto; 
+}
+</style>
+<meta charset="UTF-8">
+</head>
+
+<body>
+
+    <div class="loginbox">
+        <div class="id">
+            <input placeholder="아이디">
+        </div>
+        <div class="pw">
+            <input type="password" placeholder="비밀번호">
+        </div>
+
+        <div>
+            <button>로그인</button>
+        </div>
+        <div>
+            <a href="#">아이디 찾기</a> <a href="#">비밀번호 찾기</a> <a href="#">회원가입</a>
+        </div>
+    </div>
+</body>
+</html>

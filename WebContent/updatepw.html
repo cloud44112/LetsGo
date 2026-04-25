@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    min-height: 100vh; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin: 0; 
+}
+
+.updatepwdbox {
+    width: 350px;
+    border: 1px solid black;
+    padding: 10px; 
+    box-sizing: border-box; 
+}
+
+.id {
+    width: 100%; 
+    height: 50px; 
+    margin-bottom: 10px; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.pw {
+    width: 100%; 
+    height: 50px; 
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.updatepwdbox > div {
+    border: 1px solid;
+    margin-bottom: 10px; 
+    text-align: center; 
+    padding: 5px 0; 
+}
+
+input {
+    width: 80%; 
+    padding: 8px;
+    margin: auto; 
+}
+</style>
+<meta charset="UTF-8">
+</head>
+
+<body>
+    <div class="updatepwdbox">
+        <div class="id">
+            <input placeholder="아이디">
+        </div>
+        <div class="emaile">
+            <input type="password" placeholder="이메일"><button>코드 전송</button>
+        </div>
+
+		<div class = "checkcode"> 
+			<input placeholder="인증코드"><button>인증</button>
+		</div>
+		<div>
+			<input placeholder="새비밀번호"> 
+		</div>
+		<div>
+			<input placeholder="새비밀번호 확인"> 
+		</div>
+		
+        <div>
+            <button>비밀번호 변경</button> <a href="#">로그인</a>
+        </div>
+    </div>
+</body>
+</html>

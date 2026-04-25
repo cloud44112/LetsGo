@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.getidbox {
+    width: 400px;
+    border: 1px solid black;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.id {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pw {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.getidbox > div {
+    border: 1px solid;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 5px 0;
+}
+
+input {
+    width: 80%;
+    padding: 8px;
+    margin: auto;
+}
+</style>
+<meta charset="UTF-8">
+</head>
+
+<body>
+
+    <div class="getidbox">
+        <div class="name">
+            <input placeholder="이름">
+        </div>
+        <div class="emaile">
+            <input type="password" placeholder="이메일"><button>코드 전송</button>
+        </div>
+
+        <div class="checkcode">
+            <input placeholder="인증코드"><button>인증</button>
+        </div>
+        <div>
+            회원님의 아이디는 "example123"입니다.
+        </div>
+        <div>
+            <a href="#">로그인</a>
+        </div>
+    </div>
+</body>
+</html>

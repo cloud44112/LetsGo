@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+        ul {
+            list-style: none;
+        }
+        a {
+            text-decoration: none;
+            outline: none;
+        }
+        .page {
+            width: 1440px;
+            margin: 0 auto;
+        }
+        header {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header > h2 {
+            margin-left: 20px;
+        }
+        header > nav {
+            width: 600px;
+            height: 100%;
+        }
+        header ul {
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        header ul > li {
+            font-size: 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-container {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .search-container input[type="text"] {
+            width: 800px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .search-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .box-placeholder {
+            width: 300px;
+            height: 200px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .figure {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .box-placeholder {
+            width: 100%;
+            height: 200px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #666;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .box-placeholder:hover {
+            background: #e0e0e0;
+        }
+
+        .figure-caption {
+            margin-top: 6px;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .button-container {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        }
+
+        .sort-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <header>
+        <h2>레스고</h2>
+        <nav>
+            <ul>
+                <li><a href="#">홈</a></li>
+                <li><a href="">일정생성</a></li>
+                <li><a href="">내일정</a></li>
+                <li><a href="">홍길동</a></li>
+            </ul>
+        </nav>
+    </header>
+</div>
+<div class="search-container">
+    <input type="text" placeholder="장소 이름이나 지역을 검색하세요."/>
+    <button>검색</button>
+</div>
+<div class="sort-container">
+    <select>
+        <option>
+            거리순
+        </option>
+        <option>
+            인기순
+        </option>
+    </select>
+</div>
+
+<div>
+    <ul>
+        <li><details>
+            <summary>육상레저스포츠</summary>
+            <ul>
+                <li><label><input type="radio" name="land-leisure">
+                    인라인</label></li>
+                <li><label><input type="radio" name="land-leisure">
+                    자전거</label></li>
+                <li><label><input type="radio" name="land-leisure">
+                    카트</label></li>
+                <li><label><input type="radio" name="land-leisure">
+                    골프</label></li>
+                <li><label><input type="radio" name="land-leisure">
+                    경마</label></li>
+                <li><label><input type="radio" name="land-leisure">
+                    승마</label></li>
+                <li><label><input type="radio" name="land-leisure">
+                    스키/스노보드</label></li>
+                <li><label><input type="radio" name="land-leisure">
+                    스케이트</label></li>
+                <li><label><input type="radio" name="land-leisure">
+                    썰매장</label></li>
+                <li><label><input type="radio" name="land-leisure">
+                    사격장</label></li>
+                <li><label><input type="radio" name="land-leisure">
+                    서바이벌게임</label></li>
+                <li><label><input type="radio" name="land-leisure">
+                    번지점프</label></li>
+                <li><label><input type="radio" name="land-leisure">
+                    오프로드</label></li>
+                <li><label><input type="radio" name="land-leisure">
+                    기타육상레저스포츠</label></li>
+            </ul>
+        </details></li>
+
+        <li><details>
+            <summary>수상레저스포츠</summary>
+            <ul>
+                <li><label><input type="radio" name="water-leisure">
+                    윈드서핑/제트스키</label></li>
+                <li><label><input type="radio" name="water-leisure">
+                    카약/카누</label></li>
+                <li><label><input type="radio" name="water-leisure">
+                    요트</label></li>
+                <li><label><input type="radio" name="water-leisure">
+                    스노쿨링/스킨스쿠버다이빙</label></li>
+                <li><label><input type="radio" name="water-leisure">
+                    낚시</label></li>
+                <li><label><input type="radio" name="water-leisure">
+                    수영</label></li>
+                <li><label><input type="radio" name="water-leisure">
+                    수상오토바이</label></li>
+                <li><label><input type="radio" name="water-leisure">
+                    수상자전거</label></li>
+                <li><label><input type="radio" name="water-leisure">
+                    워터슬레드</label></li>
+                <li><label><input type="radio" name="water-leisure">
+                    패러세일</label></li>
+                <li><label><input type="radio" name="water-leisure">
+                    기타수상레저스포츠</label></li>
+            </ul>
+        </details></li>
+
+        <li><details>
+            <summary>항공레저스포츠</summary>
+            <ul>
+                <li><label><input type="radio" name="air-leisure">
+                    스카이다이빙</label></li>
+                <li><label><input type="radio" name="air-leisure">
+                    초경량비행</label></li>
+                <li><label><input type="radio" name="air-leisure">
+                    헹글라이딩/패러글라이딩</label></li>
+                <li><label><input type="radio" name="air-leisure">
+                    열기구</label></li>
+                <li><label><input type="radio" name="air-leisure">
+                    무인비행장치(드론)</label></li>
+                <li><label><input type="radio" name="air-leisure">
+                    기타항공레저스포츠</label></li>
+            </ul>
+        </details></li>
+
+        <li><details>
+            <summary>복합레저스포츠</summary>
+            <ul>
+                <li><label><input type="radio" name="complex-leisure">
+                    복합레저스포츠</label></li>
+            </ul>
+        </details></li>
+    </ul>
+</div>
+<div class="container">
+    <figure class="figure">
+        <a href="#" class="box-placeholder">이미지</a>
+        <figcaption class="figure-caption">금원수원 수영장</figcaption>
+        ⭐⭐ 경기 안양<button>담기</button>
+    </figure>
+    <figure class="figure">
+        <a href="#" class="box-placeholder">이미지</a>
+        <figcaption class="figure-caption">덕진 수영장</figcaption>
+        ⭐⭐⭐⭐ 서울 동구<button>담기</button>
+    </figure>
+    <figure class="figure">
+        <a href="#" class="box-placeholder">이미지</a>
+        <figcaption class="figure-caption">덕주 수영장</figcaption>
+        ⭐⭐⭐⭐ 대구 경북<button>담기</button>
+    </figure>
+    <figure class="figure">
+        <a href="#" class="box-placeholder">이미지</a>
+        <figcaption class="figure-caption">박태환 수영장</figcaption>
+        ⭐⭐⭐⭐⭐ 인천 미추홀구<button>담기</button>
+    </figure>
+    <figure class="figure">
+        <a href="#" class="box-placeholder">이미지</a>
+        <figcaption class="figure-caption">한강시민 공원 수영장</figcaption>
+        ⭐⭐⭐ 서울 중구<button>담기</button>
+    </figure>
+    <figure class="figure">
+        <a href="#" class="box-placeholder">이미지</a>
+        <figcaption class="figure-caption">EVO 수영장</figcaption>
+        ⭐⭐⭐⭐⭐ 서울 중구<button>담기</button>
+    </figure>
+</div>
+
+<button>날짜 지정</button>
+<div class = " button-container">
+    <button>숙박</button>
+    <button>내가 담은 방문지</button>
+</div>
+</body>
+</html>

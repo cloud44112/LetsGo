@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- <link rel = "stylesheet" href ="letsgo.css"> -->
+<meta charset="UTF-8" />
+<style>
+body {
+	margin: 0;
+	display: flex;
+	height: 100vh;
+	font-family: system-ui, sans-serif;
+}
+
+aside.sidebar {
+	width: 220px;
+	border-right: 1px solid #000;
+	padding: 10px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100vh;
+}
+
+aside.sidebar ul {
+	list-style: none;
+	padding: 0;
+	margin: 0 0 20px 0;
+}
+
+aside.sidebar li {
+	margin-bottom: 10px;
+}
+
+aside.sidebar button {
+	width: 100%;
+	padding: 6px 0;
+	margin-bottom: 10px;
+	border: 1px solid #000;
+	background: transparent;
+	cursor: pointer;
+	font-size: 1rem;
+}
+
+main {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+header {
+	height: 50px;
+	border-bottom: 1px solid #000;
+	padding: 10px 20px;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-weight: 600;
+}
+
+.content-container {
+	flex-grow: 1;
+	display: flex;
+}
+
+.content-left, .content-right {
+	flex: 1;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+.divider {
+	width: 1px;
+	background-color: #000;
+}
+
+.search-area {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 20px;
+}
+
+.search-area input[type="text"] {
+	flex-grow: 1;
+	padding: 6px 8px;
+	font-size: 1rem;
+	box-sizing: border-box;
+}
+
+.search-area button {
+	padding: 6px 12px;
+	font-size: 1rem;
+	cursor: pointer;
+}
+
+#sortableList {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	border: 1px solid #ccc;
+	max-width: 300px;
+}
+
+.sortable-item {
+	padding: 10px 15px;
+	border-bottom: 1px solid #ccc;
+	background-color: #fafafa;
+	cursor: grab;
+	user-select: none;
+}
+
+.sortable-item:last-child {
+	border-bottom: none;
+}
+
+.sortable-item:active {
+	cursor: grabbing;
+}
+
+.content-right {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+.content-right-top, .content-right-bottom {
+	flex: 1;
+	border: 1px solid #ccc;
+	padding: 15px;
+	box-sizing: border-box;
+}
+
+.box-placeholder {
+	width: 100%;
+	height: 200px;
+	border: 2px solid #000;
+	border-radius: 8px;
+	background: #f0f0f0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	color: #666;
+	text-decoration: none;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+
+.figure {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: center;
+}
+
+.box-placeholder {
+	width: 300px;
+	height: 200px;
+	border: 2px solid #000;
+	border-radius: 8px;
+	background-color: #f0f0f0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 20px;
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+a {
+	text-decoration: none;
+	outline: none;
+}
+</style>
+</head>
+<body>
+
+	<aside class="sidebar">
+		<div>
+			<div>
+				<button>전체</button>
+			</div>
+			<div>
+				<button>내가올린 일정</button>
+			</div>
+			<div>
+				<button>좋아요 누른 게시물</button>
+			</div>
+		</div>
+	</aside>
+
+	<main> <header>
+		<div class="logo">레스고!</div>
+		<ul class="menu"
+			style="list-style: none; display: flex; padding: 0; margin: 0;">
+			<li style="margin-right: 20px;">홈</li>
+			<li style="margin-right: 20px;">플레이스 조회</li>
+			<li style="margin-right: 20px;">일정게시판</li>
+			<li style="margin-right: 20px;">내일정</li>
+			<li>로그인</li>
+		</ul>
+	</header>
+
+	<div class="content-container">
+		<div class="content-left">
+			<div class="search-area">
+				<input type="text" placeholder="장소 이름이나 지역을 검색하세요" />
+				<button type="button">검색하기</button>
+				<ul>
+					<li><a href="#">좋아요순</a></li>
+					<li><a href="">조회순</a></li>
+					<li><a href="">게시일순</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div>
+	<button>수정하기</button>
+	</div>
+
+	<div class="container">
+		<figure class="figure">
+			<div>내일정1</div>
+			<a href="#" class="box-placeholder">이미지</a>
+			<figcaption class="figure-caption">수원수영장/수원떡볶이/진호텔 수원</figcaption>
+			<div>
+				<button>❤</button>
+				123 조회수:123 
+			</div>
+		</figure>
+		<figure class="figure">
+			<div>내일정1</div>
+			<a href="#" class="box-placeholder">이미지</a>
+			<figcaption class="figure-caption">수원수영장/수원떡볶이/진호텔 수원</figcaption>
+			<div>
+				<button>❤</button>
+				123 조회수:123
+			</div>
+		</figure>
+		
+		
+	</div>
+
+	</main>
+
+
+</body>
+</html>
