@@ -1,2 +1,22 @@
+# 이클립스 설정 파일
+.metadata
+.bin/
+.tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
 
+# 이클립스 프로젝트 파일 (팀 프로젝트 정책에 따라 포함하기도 함)
+.project
+.classpath
+.factorypath
+
+# 빌드 결과물
+bin/
 /build/
+target/
