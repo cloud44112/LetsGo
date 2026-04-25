@@ -11,7 +11,7 @@ local.properties
 .loadpath
 .recommenders
 
-# 이클립스 프로젝트 파일 (팀 프로젝트 정책에 따라 포함하기도 함)
+# 이클립스 프로젝트 파일
 .project
 .classpath
 .factorypath
