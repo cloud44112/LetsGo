@@ -8,27 +8,25 @@ public class MyScheduleVO {
 	private String isShared;
 	private String visitItemId;
 	private String placeId;
-	private String visitItem;
 	private String placeTitle;
 	private String addr1;
 	private String firstImage;
 
 	public MyScheduleVO(String myScheduleId, String myScheduleTitle, String startAt, String isShared,
-			String visitItemId, String placeId, String visitItem, String placeTitle, String addr1, String firstImage) {
+			String visitItemId, String placeId, String placeTitle, String addr1, String firstImage) {
 		setMyScheduleId(myScheduleId);
 		setMyScheduleTitle(myScheduleTitle);
 		setStartAt(startAt);
 		setIsShared(isShared);
 		setVisitItemId(visitItemId);
 		setPlaceId(placeId);
-		setVisitItem(visitItem);
 		setPlaceTitle(placeTitle);
 		setAddr1(addr1);
 		setFirstImage(firstImage);
 	}
-	
+
 	public MyScheduleVO(String myScheduleId, String myScheduleTitle, String startAt, String isShared) {
-		this(myScheduleId, myScheduleTitle, startAt ,isShared, null, null, null, null, null, null);
+		this(myScheduleId, myScheduleTitle, startAt, isShared, null, null, null, null, null);
 	}
 
 	public String getMyScheduleId() {
@@ -53,10 +51,6 @@ public class MyScheduleVO {
 
 	public String getPlaceId() {
 		return placeId;
-	}
-
-	public String getVisitItem() {
-		return visitItem;
 	}
 
 	public String getPlaceTitle() {
@@ -93,10 +87,6 @@ public class MyScheduleVO {
 
 	public void setPlaceId(String placeId) {
 		this.placeId = placeId;
-	}
-
-	public void setVisitItem(String visitItem) {
-		this.visitItem = visitItem;
 	}
 
 	public void setPlaceTitle(String placeTitle) {
