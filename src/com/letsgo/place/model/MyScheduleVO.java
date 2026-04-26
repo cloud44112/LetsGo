@@ -26,6 +26,10 @@ public class MyScheduleVO {
 		setAddr1(addr1);
 		setFirstImage(firstImage);
 	}
+	
+	public MyScheduleVO(String myScheduleId, String myScheduleTitle, String startAt, String isShared) {
+		this(myScheduleId, myScheduleTitle, startAt ,isShared, null, null, null, null, null, null);
+	}
 
 	public String getMyScheduleId() {
 		return myScheduleId;

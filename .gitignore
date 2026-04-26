@@ -15,6 +15,7 @@ local.properties
 .project
 .classpath
 .factorypath
+ERD_diagram.png
 
 # 빌드 결과물
 bin/
