@@ -112,13 +112,11 @@ public class MyScheduleDAO {
 		return flag;
 	}
 
-	public String setMySchedule(String[] visitItemId, String[] visitOrder, String[] distanceToNext, String scheduleId,
+	public boolean setMySchedule(String[] visitItemId, String[] visitOrder, String[] distanceToNext, String scheduleId,
 			String title, String startAt, String budgetDetail, String todoDetail, String userId, int isShared) {
-		String str = null;
-
-		String sql = "";
-
+		boolean flag = false;
 		try {
+			String sql = "";
 			Connection conn = DBCP.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			for (int i = 0; i < visitItemId.length; i++) {
@@ -139,14 +137,37 @@ public class MyScheduleDAO {
 			stmt.setLong(5, isShared);
 			stmt.setString(6, scheduleId);
 			stmt.setString(7, userId);
+			flag = (stmt.executeUpdate()==1);
 
 			stmt.close();
 			conn.close();
-			str = userId;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return str;
+		return flag;
+	}
+
+	public boolean setMyScheduleTitle(String title, String myScheduleId, String userId) {
+		boolean flag = false;
+
+		try {
+			Connection conn = DBCP.getConnection();
+
+			String sql = "UPDATE MY_SCHEDULE SET TITLE = ? WHERE MY_SCHEDULE_ID = ? AND USER_ID = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+
+			stmt.setString(1, title);
+			stmt.setString(2, myScheduleId);
+			stmt.setString(3, userId);
+
+			flag = (stmt.executeUpdate() == 1);
+			stmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
 	}
 
 }
