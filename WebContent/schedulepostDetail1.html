@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- <link rel = "stylesheet" href ="letsgo.css"> -->
+    <meta charset="UTF-8" />
+  <style>
+        body {
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            font-family: system-ui, sans-serif;
+        }
+
+        aside.sidebar {
+            width: 220px;
+            border-right: 1px solid #000;
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100vh;
+        }
+
+        aside.sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        aside.sidebar li {
+            margin-bottom: 10px;
+        }
+
+        aside.sidebar button {
+            width: 100%;
+            padding: 6px 0;
+            margin-bottom: 10px;
+            border: 1px solid #000;
+            background: transparent;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            height: 50px;
+            border-bottom: 1px solid #000;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .content-container {
+            flex-grow: 1;
+            display: flex;
+        }
+		
+		.content-right {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .divider {
+            width: 1px;
+            background-color: #000;
+        }
+
+        .search-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .search-area input[type="text"] {
+            flex-grow: 1;
+            padding: 6px 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .search-area button {
+            padding: 6px 12px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        #sortableList {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border: 1px solid #ccc;
+            max-width: 300px;
+        }
+
+        .sortable-item {
+            padding: 10px 15px;
+            border-bottom: 1px solid #ccc;
+            background-color: #fafafa;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .sortable-item:last-child {
+            border-bottom: none;
+        }
+
+        .sortable-item:active {
+            cursor: grabbing;
+        }
+        
+        .content-right {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .content-right-top, .content-right-bottom {
+            flex: 1;
+            border: 1px solid #ccc;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        
+        #map {
+        	width: 100%;
+            height: 100%;
+        }
+        
+        .content-left {
+			flex: 1;
+		    padding: 20px;
+		    box-sizing: border-box;
+		    display: flex;
+		    flex-direction: column;
+		    justify-content: space-between;
+		}
+        
+        .content-left-bottom {
+		    border-top: 1px solid #ccc;
+		    padding-top: 12px;
+		    display: flex;
+		    align-items: center;
+		    gap: 150px;
+		    justify-content: center;
+		}
+    </style>  
+</head>
+<body>
+
+<aside class="sidebar">
+     <ul>
+       <button><a href="schedulepostDetail1.html">동선관리</a></button>
+       <button><a href="schedulepostDetail2.html">예산관리</a></button>
+       <button><a href="schedulepostDetail3.html">To-Do 리스트</a></button>
+    </ul>
+    <div>
+        <button type="button">공유하기</button>
+        <button type="button">저장하기</button>
+        <button type="button">삭제하기</button>
+    </div>
+</aside>
+
+<main>
+    <header>
+        <div class="logo">레스고!</div>
+        <ul class="menu" style="list-style:none; display:flex; padding:0; margin:0;">
+			<li style="margin-right: 20px;"><a href="index.html">홈</a></li>
+			<li style="margin-right: 20px;"><a href="leisere.html">플레이스 조회</a></li>
+			<li style="margin-right: 20px;"><a href="schedulepostAll.html">일정게시판</a></li>
+			<li style="margin-right: 20px;"><a href="#">내일정</a></li>
+            <li>로그인</li>
+        </ul>
+    </header>
+
+    <div class="content-container">
+        <div class="content-left">
+            <ul id="sortableList">
+                <li class="sortable-item">1번 요소</li>
+                <li class="sortable-item">2번 요소</li>
+                <li class="sortable-item">3번 요소</li>
+                <li class="sortable-item">4번 요소</li>
+            </ul>
+            
+			<div class="content-left-bottom">
+			  <button type="button">♥ 좋아요!</button>
+			  <span class="like-count">♥ + 222</span>
+			</div>
+        </div>
+        <div class="divider"></div>
+        <div class="content-right">
+            <div class="content-right-top">
+            	<div class="map-area">
+			        <div id="map"></div>
+			    </div>
+            </div>
+            <div class="content-right-bottom">
+                1. 금원 수원 수영장</br>
+
+                2. 빽돈 망포점</br>
+
+                3. 포크너 광교아븐뉴 프라점</br>
+
+                4. 앰배서더 수원</br>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=nw9515cuj4"></script>
+
+<script>
+    
+    window.onload = function () {
+        var map = new naver.maps.Map('map', {
+            center: new naver.maps.LatLng(37.5665, 126.9780),
+            zoom: 10
+        });
+    };
+    
+</script>
+</body>
+</html>
