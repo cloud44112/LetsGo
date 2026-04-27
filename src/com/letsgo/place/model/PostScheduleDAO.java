@@ -19,7 +19,7 @@ public class PostScheduleDAO {
 	}
 	
 	
-	public void getPostScheduleList(String keyword, String searchType, String sortType) {
+	public List<PostScheduleVO> getPostScheduleList(String keyword, String searchType, String sortType) {
 		List<PostScheduleVO> tmp = new ArrayList<>();
 
 		StringBuilder sql = new StringBuilder();
@@ -55,6 +55,7 @@ public class PostScheduleDAO {
 //			sql.append("ORDER BY p.like_count ASC, v.VISIT_ORDER ASC");
 		}else if("view".equals(sortType)){ //조회
 			standard = "p.view_count ASC";
+		}	
 //			sql.append("ORDER BY p.view_count ASC, v.VISIT_ORDER ASC");
 //		}else if(("latest".equals(sortType))) {
 //			sql.append("ORDER BY p.posted_at ASC, v.VISIT_ORDER ASC");
@@ -81,8 +82,8 @@ public class PostScheduleDAO {
 			e.printStackTrace();
 		}
 		return tmp;
-	}
-}
+		}
+
 		
 		public boolean deletePostSchedule(String userId, String scheduleId) {
 			boolean flag = false;
@@ -110,4 +111,4 @@ public class PostScheduleDAO {
 		}
 
 	}
-	}
+
