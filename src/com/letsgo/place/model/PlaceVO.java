@@ -4,18 +4,30 @@ public class PlaceVO {
 	private String placeId;
 	private String title;
 	private String addr1;
+	private String mapx;
+	private String mapy;
 	private String firstImage;
-	private String likeCount;
-	private String scheduleType;
-
-	public PlaceVO(String placeId, String title, String addr1, String firstImage, String likeCount,
-			String scheduleType) {
+	private int likeCount;
+	private String placeType;
+	
+	public PlaceVO(String placeId, String title, String addr1, String mapx, String mapy, String firstImage,
+			int likeCount, String placeType) {
 		setPlaceId(placeId);
 		setTitle(title);
 		setAddr1(addr1);
+		setMapx(mapx);
+		setMapy(mapy);
 		setFirstImage(firstImage);
 		setLikeCount(likeCount);
-		setScheduleType(scheduleType);
+		setPlaceType(placeType);
+	}
+	
+	public PlaceVO(String placeId, String title, String addr1, String mapx, String mapy) {
+		setPlaceId(placeId);
+		setTitle(title);
+		setAddr1(addr1);
+		setMapx(mapx);
+		setMapy(mapy);
 	}
 
 	public String getPlaceId() {
@@ -41,6 +53,22 @@ public class PlaceVO {
 	public void setAddr1(String addr1) {
 		this.addr1 = addr1;
 	}
+	
+	public String getMapx() {
+		return mapx;
+	}
+
+	public void setMapx(String mapx) {
+		this.mapx = mapx;
+	}
+
+	public String getMapy() {
+		return mapy;
+	}
+
+	public void setMapy(String mapy) {
+		this.mapy = mapy;
+	}
 
 	public String getFirstImage() {
 		return firstImage;
@@ -50,20 +78,21 @@ public class PlaceVO {
 		this.firstImage = firstImage;
 	}
 
-	public String getLikeCount() {
+	public int getLikeCount() {
 		return likeCount;
 	}
 
-	public void setLikeCount(String likeCount) {
+	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
 	}
 
-	public String getScheduleType() {
-		return scheduleType;
+	public String getPlaceType() {
+		return placeType;
 	}
 
-	public void setScheduleType(String scheduleType) {
-		this.scheduleType = scheduleType;
+	public void setPlaceType(String placeType) {
+		this.placeType = placeType;
 	}
 
+	
 }
