@@ -119,6 +119,10 @@ header {
 	cursor: grabbing;
 }
 
+.sort-area {
+	text-align: right;
+}
+
 .content-right {
 	display: flex;
 	flex-direction: column;
@@ -186,13 +190,13 @@ a {
 	<aside class="sidebar">
 		<div>
 			<div>
-				<button>전체</button>
+				<a href="schedulepostAll.html"><button>전체</button></a>
 			</div>
 			<div>
-				<button>내가올린 일정</button>
+				<a href="schedulepostMy.html"><button>내가올린 일정</button></a>
 			</div>
 			<div>
-				<button>좋아요 누른 게시물</button>
+				<a href="schedulepostLike.html"><button>좋아요 누른 게시물</button></a>
 			</div>
 		</div>
 	</aside>
@@ -201,10 +205,10 @@ a {
 		<div class="logo">레스고!</div>
 		<ul class="menu"
 			style="list-style: none; display: flex; padding: 0; margin: 0;">
-			<li style="margin-right: 20px;">홈</li>
-			<li style="margin-right: 20px;">플레이스 조회</li>
-			<li style="margin-right: 20px;">일정게시판</li>
-			<li style="margin-right: 20px;">내일정</li>
+			<li style="margin-right: 20px;"><a href="index.html">홈</a></li>
+			<li style="margin-right: 20px;"><a href="leisere.html">플레이스 조회</a></li>
+			<li style="margin-right: 20px;"><a href="schedulepostAll.html">일정게시판</a></li>
+			<li style="margin-right: 20px;"><a href="#">내일정</a></li>
 			<li>로그인</li>
 		</ul>
 	</header>
@@ -214,12 +218,15 @@ a {
 			<div class="search-area">
 				<input type="text" placeholder="장소 이름이나 지역을 검색하세요" />
 				<button type="button">검색하기</button>
-				<ul>
-					<li><a href="#">좋아요순</a></li>
-					<li><a href="">조회순</a></li>
-					<li><a href="">게시일순</a></li>
-				</ul>
+
 			</div>
+			<div class="sort-area">
+       			 <select name="sortOrder" >
+        		    <option value="like">좋아요순</option>
+        		    <option value="view">조회순</option>
+        		    <option value="latest">게시일순</option>
+     		   </select>
+   			</div>
 		</div>
 	</div>
 	<div>
