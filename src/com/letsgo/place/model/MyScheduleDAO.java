@@ -88,29 +88,30 @@ public class MyScheduleDAO {
 
 	}
 
-	public boolean deleteMyScheduleList(String userId, String[] scheduleId) {
+	public boolean deleteMyScheduleList(String userId, String[] scheduleIds) {
 		boolean flag = false;
-		String sql = "";
-		try {
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			for (String tmp : scheduleId) {
-				sql = "DELETE FROM VISIT_ITEM WHERE SCHEDULE_ID = ?";
-				stmt = conn.prepareStatement(sql);
-				stmt.setString(1, tmp);
-				stmt.executeUpdate();
+	    String sqlVisit = "DELETE FROM VISIT_ITEM WHERE SCHEDULE_ID = ?";
+	    String sqlSchedule = "DELETE FROM MY_SCHEDULE WHERE MY_SCHEDULE_ID = ? AND USER_ID = ?";
 
-				sql = "DELETE FROM MY_SCHEDULE WHERE MY_SCHEDULE_ID = ? AND USER_ID = ?";
-				stmt = conn.prepareStatement(sql);
-				stmt.setString(1, tmp);
-				stmt.executeUpdate();
-			}
-			stmt.close();
-			flag = true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	    try {
+	    	PreparedStatement stmtVisit = conn.prepareStatement(sqlVisit);
+	        PreparedStatement stmtSch = conn.prepareStatement(sqlSchedule);
 
-		return flag;
+	        for (String schId : scheduleIds) {
+
+	            stmtVisit.setString(1, schId);
+	            stmtVisit.executeUpdate();
+
+	            stmtSch.setString(1, schId);
+	            stmtSch.setString(2, userId); 
+	            stmtSch.executeUpdate();
+	        }
+	        flag = true;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+
+	    }
+	    return flag;
 	}
 
 	public boolean setMySchedule(String[] visitItemId, int[] visitOrder, String[] distanceToNext, String scheduleId,
@@ -257,7 +258,7 @@ public class MyScheduleDAO {
 		boolean flag = false;
 		try {
 			String sql = "INSERT INTO VISIT_ITEM (VISIT_ITEM_ID, VISIT_ORDER, SCHDULE_TYPE, PLACE_ID, SCHEDULE_ID) "
-					+ "VALUES (SEQ_VISIT_ITEM.NEXTVAL, ?, 'MY_SCH', ?, ?')";
+					+ "VALUES (SEQ_VISIT_ITEM.NEXTVAL, ?, 'MY_SCH', ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
 			stmt.setInt(1, visitOrder);
@@ -363,12 +364,12 @@ public class MyScheduleDAO {
 	
 			String sql = "INSERT INTO SCHEDULE_POST (POST_ID, TITLE, BUDGET_DETAILS, TODO_DETAILS, IS_ANONYMOUS, VIEW_COUNT, LIKE_COUNT, POSTED_AT, USER_ID) "
 					+ "SELECT ('P' || LPAD(SEQ_SCHEDULE_POST.NEXTVAL, 3, '0')), TITLE, BUDGET_DETAILS, TODO_DETAILS, ?, 0, 0, SYSDATE, ? "
-					+ "FROM MY_SCHEDULE WHERE MY_SCHEDULE_ID = ? AND USER_ID = ?";
+					+ "FROM MY_SCHEDULE WHERE MY_SCHEDULE_ID = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
 			stmt.setInt(1, isAnonymous);
-			stmt.setString(2, myScheduleId);
-			stmt.setString(3, userId);
+			stmt.setString(2, userId);
+			stmt.setString(3, myScheduleId);
 
 			stmt.executeUpdate();
 
