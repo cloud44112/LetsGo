@@ -185,10 +185,9 @@ a {
 	justify-content: flex-end;
 	gap: 10px;
 }
-
 </style>
 
-	<script type="text/javascript">
+<script type="text/javascript">
 	
 		window.onload = function(){
 			document.querySelector("#restaurant").onclick = function(){
@@ -304,7 +303,8 @@ a {
 		<ul class="menu"
 			style="list-style: none; display: flex; padding: 0; margin: 0;">
 			<li style="margin-right: 20px;"><a href="index.html">홈</a></li>
-			<li style="margin-right: 20px;"><a href="leisere.html">플레이스 조회</a></li>
+			<li style="margin-right: 20px;"><a href="leisere.html">플레이스
+					조회</a></li>
 			<li style="margin-right: 20px;"><a href="schedulepostAll.html">일정게시판</a></li>
 			<li style="margin-right: 20px;"><a href="#">내일정</a></li>
 			<li>로그인</li>
@@ -316,10 +316,14 @@ a {
 			<div class="search-area">
 				<input type="text" placeholder="장소 이름이나 지역을 검색하세요" />
 				<button type="button">검색하기</button>
-				<ul>
-					<li><a href="#">거리순</a></li>
-					<li><a href="">인기순</a></li>
-				</ul>
+
+				<div class="sort-area">
+					<select name="sortOrder">
+						<option value="distance">거리순</option>
+						<option value="like">인기순</option>
+					</select>
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -328,45 +332,45 @@ a {
 		<figure class="figure">
 			<a href="#" class="box-placeholder">이미지</a>
 			<figcaption class="figure-caption">금원수원 수영장</figcaption>
-			 경기 안양
+			경기 안양
 			<button>담기</button>
 		</figure>
 		<figure class="figure">
 			<a href="#" class="box-placeholder">이미지</a>
 			<figcaption class="figure-caption">덕진 수영장</figcaption>
-			 서울 동구
+			서울 동구
 			<button>담기</button>
 		</figure>
 		<figure class="figure">
 			<a href="#" class="box-placeholder">이미지</a>
 			<figcaption class="figure-caption">덕주 수영장</figcaption>
-			 대구 경북
+			대구 경북
 			<button>담기</button>
 		</figure>
 		<figure class="figure">
 			<a href="#" class="box-placeholder">이미지</a>
 			<figcaption class="figure-caption">박태환 수영장</figcaption>
-			 인천 미추홀구
+			인천 미추홀구
 			<button>담기</button>
 		</figure>
 		<figure class="figure">
 			<a href="#" class="box-placeholder">이미지</a>
 			<figcaption class="figure-caption">한강시민 공원 수영장</figcaption>
-			 서울 중구
+			서울 중구
 			<button>담기</button>
 		</figure>
 		<figure class="figure">
 			<a href="#" class="box-placeholder">이미지</a>
 			<figcaption class="figure-caption">EVO 수영장</figcaption>
-			 서울 중구
+			서울 중구
 			<button>담기</button>
 		</figure>
 	</div>
-	
-	<div class = "button-container">
+
+	<div class="button-container">
 		<button onclick="function()" id="restaurant">음식점</button>
-	    <button onclick="function()" id="stay">숙박</button>
-	    <button>내가 담은 방문지</button>
+		<button onclick="function()" id="stay">숙박</button>
+		<button>내가 담은 방문지</button>
 	</div>
 
 	</main>

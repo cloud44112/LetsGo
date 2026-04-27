@@ -241,10 +241,12 @@ a {
 			<div class="search-area">
 				<input type="text" placeholder="장소 이름이나 지역을 검색하세요" />
 				<button type="button">검색하기</button>
-				<ul>
-					<li><a href="#">거리순</a></li>
-					<li><a href="">인기순</a></li>
-				</ul>
+				<div class="sort-area">
+					<select name="sortOrder">
+						<option value="distance">거리순</option>
+						<option value="like">인기순</option>
+					</select>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<style>
+body {
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    font-family: system-ui, sans-serif;
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    height: 50px;
+    border-bottom: 1px solid #000;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+
+.modal {
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+}
+
+.modal_body {
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-start;
+    width: 1200px;
+    height: 600px;
+    padding: 40px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+}
+
+.shoppingbox {
+    width: 48%;
+    border: 1px solid black;
+    padding: 10px;
+    height: 100%;
+    box-sizing: border-box;
+    text-align: left; 
+}
+
+.box {
+    width: 48%;
+    border: 1px solid black;
+    padding: 10px;
+    height: 100%;
+    box-sizing: border-box;
+    text-align: left; 
+}
+
+.btn-open-modal{
+    margin: 400px;
+    width: 48%;
+    background: none;
+    border:0;
+}
+
+.btn-open-modal {	
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 70px;
+    height: 70px;
+    margin: 0;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+
+}
+</style>
+</head>
+<body>
+
+    <main> <header>
+        <div class="logo">레스고!</div>
+        <ul class="menu"
+            style="list-style: none; display: flex; padding: 0; margin: 0;">
+            <li style="margin-right: 20px;"><a href="index.html">홈</a></li>
+            <li style="margin-right: 20px;"><a href="leisere.html">플레이스 조회</a></li>
+            <li style="margin-right: 20px;"><a href="schedulepostAll.html">일정게시판</a></li>
+            <li style="margin-right: 20px;"><a href="#">내일정</a></li>
+            <li>로그인</li>
+        </ul>
+    </header>
+
+    <!-- 모달 -->
+    <div class="modal">
+        <div class="modal_body">
+
+            <div style="padding: 20px">
+                <h2>🛒총 <span id="place-count">4</span>개 플레이스</h2>
+               
+                <div style="margin-top: 10px;">
+                    <button id="btn-select-all">전체 선택</button>
+                    <button id="btn-delete-selected">선택 삭제</button>
+                </div>
+            </div>
+
+            <div class="shoppingbox" id="shoppingbox">
+                <div class="place-item"><input type='checkbox' class="place-checkbox" /> 금원 수원 수영장</div>
+                <div class="place-item"><input type='checkbox' class="place-checkbox" /> 앰베서더 수원</div>
+                <div class="place-item"><input type='checkbox' class="place-checkbox" /> 빽돈망포점</div>
+                <div class="place-item"><input type='checkbox' class="place-checkbox" /> 포크너 광교 아브뉴 프랑점</div>
+            </div>
+
+            <div class="box">
+                레저스포츠 1곳<br>
+                먹거리 2곳<br>
+                숙박 1곳<br>
+                <button>저장하기</button>
+            </div>
+
+            <button id="btn-close-modal">✖</button>
+        </div>
+    </div>
+
+    <button class="btn-open-modal"><h1>🛒</h1></button>
+    </main>
+
+    <script>
+        const modal = document.querySelector('.modal');
+        const btnOpenModal = document.querySelector('.btn-open-modal');
+        const btnCloseModal = document.getElementById('btn-close-modal');
+        const btnSelectAll = document.getElementById('btn-select-all');
+        const btnDeleteSelected = document.getElementById('btn-delete-selected');
+        const shoppingbox = document.getElementById('shoppingbox');
+        const placeCount = document.getElementById('place-count');
+
+    
+        btnOpenModal.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+
+       
+        btnCloseModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // 총 개수 업데이트
+        function updateCount() {
+            const items = shoppingbox.querySelectorAll('.place-item');
+            placeCount.textContent = items.length;
+        }
+
+        // 전체 선택 / 전체 해제 토글
+        btnSelectAll.addEventListener('click', () => {
+            const checkboxes = shoppingbox.querySelectorAll('.place-checkbox');
+            
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            checkboxes.forEach(cb => {
+                cb.checked = !allChecked;
+            });
+            
+            btnSelectAll.textContent = allChecked ? '전체 선택' : '전체 해제';
+        });
+
+        // 선택 삭제
+        btnDeleteSelected.addEventListener('click', () => {
+            const checkboxes = shoppingbox.querySelectorAll('.place-checkbox:checked');
+            if (checkboxes.length === 0) {
+                alert('삭제할 항목을 선택해주세요.');
+                return;
+            }
+            if (confirm(`선택한 ${checkboxes.length}개 항목을 삭제하시겠습니까?`)) {
+                checkboxes.forEach(cb => {
+                   
+                    cb.closest('.place-item').remove();
+                });
+               
+                updateCount();
+                
+                btnSelectAll.textContent = '전체 선택';
+            }
+        });
+    </script>
+
+</body>
+</html>
