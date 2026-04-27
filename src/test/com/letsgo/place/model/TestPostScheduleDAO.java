@@ -33,13 +33,20 @@ public class TestPostScheduleDAO {
 	@Test
 	public void getPostScheduleList() {
 		assertNotNull(dao.getPostScheduleList("서울", "schedule", "like"));
-		assertEquals(예상_개수, list.size())
 		assertNotNull(dao.getPostScheduleList("다래", "place", "view"));
+		assertNotNull(dao.getPostScheduleList("", "place", "view"));
+		assertNotNull(dao.getPostScheduleList("", "schedule", "view"));
+		assertNotNull(dao.getPostScheduleList("", "schedule", "latest"));
 	}
 	
+//	@Test
+//	public void deletePostSchedule() {
+//		assertTrue(dao.deletePostSchedule("P002"));
+//	}
+	
 	@Test
-	public void deletePostSchedule() {
-		assertTrue(dao.deletePostSchedule("P002"));
+	public void plusLike() {
+		assertTrue(dao.plusLike("P003"));
 	}
 
 

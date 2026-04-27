@@ -55,7 +55,9 @@ public class PostScheduleDAO {
 //			sql.append("ORDER BY p.like_count ASC, v.VISIT_ORDER ASC");
 		}else if("view".equals(sortType)){ //조회
 			standard = "p.view_count ASC";
-		}	
+		}else if("latest".equals(sortType)){
+			standard = "p.posted_at ASC";
+		}
 //			sql.append("ORDER BY p.view_count ASC, v.VISIT_ORDER ASC");
 //		}else if(("latest".equals(sortType))) {
 //			sql.append("ORDER BY p.posted_at ASC, v.VISIT_ORDER ASC");
@@ -149,6 +151,8 @@ public class PostScheduleDAO {
 			}
 			return tmp;
 			}
+		
+		
 	
 		
 
@@ -176,6 +180,25 @@ public class PostScheduleDAO {
 			}
 			return flag;
 
+		}
+		
+		public boolean plusLike(String postId) {
+			boolean flag = false;
+			try {
+				String sql = "UPDATE SCHEDULE_POST SET LIKE_COUNT = LIKE_COUNT + 1 WHERE POST_ID = ?";
+				PreparedStatement stmt = conn.prepareStatement(sql);
+				
+				stmt.setString(1, postId);
+
+				flag = (stmt.executeUpdate() == 1);
+
+				stmt.close();
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+
+			return flag;
 		}
 
 	}
