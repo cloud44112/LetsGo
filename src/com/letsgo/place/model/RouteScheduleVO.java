@@ -1,12 +1,12 @@
 package com.letsgo.place.model;
 
-public class ScheduleRouteVO {
+public class RouteScheduleVO {
 
 	private String placeId;
 	private String visitOrder;
 	private String title;
 
-	public ScheduleRouteVO(String placeId, String visitOrder, String title) {
+	public RouteScheduleVO(String placeId, String visitOrder, String title) {
         setPlaceId(placeId);
         setPlaceType(visitOrder);
         setTitle(title);

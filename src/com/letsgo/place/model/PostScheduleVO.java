@@ -1,6 +1,6 @@
 package com.letsgo.place.model;
 
-public class SchedulePostVO {
+public class PostScheduleVO {
 
 	private String postId;
 	private String title;
@@ -13,7 +13,7 @@ public class SchedulePostVO {
 	private String addr1;
 	private String userName;
 
-	public SchedulePostVO(String postId, String title, String likeCount, String viewCount, String isAnonymous,
+	public PostScheduleVO(String postId, String title, String likeCount, String viewCount, String isAnonymous,
 			String visitItemId, String placeTitle, String firstImage, String addr1, String userName) {
 		setPostId(postId);
 		setTitle(title);

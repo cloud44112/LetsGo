@@ -1,6 +1,6 @@
 package com.letsgo.place.model;
 
-public class ScheduleSaveVO {
+public class SaveScheduleVO {
 
 	private String visitOrder;
 	private String distanceToNext;
@@ -11,7 +11,7 @@ public class ScheduleSaveVO {
 	private String startAt;
 	private String budgetDetails;
 
-	public ScheduleSaveVO(String visitOrder, String distanceToNext, String placeType, String scheduleId,
+	public SaveScheduleVO(String visitOrder, String distanceToNext, String placeType, String scheduleId,
 			String visitItemId, String mySchedule, String startAt, String budgetDetails) {
 		setVisitOrder(visitOrder);
 		setDistanceToNext(distanceToNext);

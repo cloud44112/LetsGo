@@ -1,11 +1,11 @@
 package com.letsgo.place.model;
 
-public class ScheduleTodoVO {
+public class TodoScheduleVO {
 
 	private String todoDetails;
 	private String myScheduleId;
 
-	public ScheduleTodoVO(String todoDetails, String myScheduleId) {
+	public TodoScheduleVO(String todoDetails, String myScheduleId) {
 		setTodoDetails(todoDetails);
 		setMyScheduleId(myScheduleId);
 	}

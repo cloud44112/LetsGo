@@ -216,9 +216,9 @@ public class MyScheduleDAO {
 
 	}
 	
-	public List<ScheduleRouteVO> getScheduleRoute(String userId, String scheduleId) {
-		List<ScheduleRouteVO> list;
-		list = new ArrayList<ScheduleRouteVO>();
+	public List<RouteScheduleVO> getScheduleRoute(String userId, String scheduleId) {
+		List<RouteScheduleVO> list;
+		list = new ArrayList<RouteScheduleVO>();
 		try {
 			Connection conn = DBCP.getConnection();
 			String sql = "SELECT s.MY_SCHEDULE_ID, v.VISIT_ORDER, p.TITLE FROM MY_SCHEDULE s JOIN VISIT_ITEM v ON s.MY_SCHEDULE_ID = v.SCHEDULE_ID JOIN PLACE p ON v.PLACE_ID = p.PLACE_ID WHERE s.USER_ID = ? AND s.MY_SCHEDULE_ID = ? ORDER BY v.VISIT_ORDER ASC";
@@ -228,7 +228,7 @@ public class MyScheduleDAO {
 			stmt.setString(2, scheduleId);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()){
-				list.add(new ScheduleRouteVO(rs.getString("MY_SCHEDULE_ID"), rs.getString("VISIT_ORDER"), rs.getString("TITLE")));
+				list.add(new RouteScheduleVO(rs.getString("MY_SCHEDULE_ID"), rs.getString("VISIT_ORDER"), rs.getString("TITLE")));
 			}
 			
 			

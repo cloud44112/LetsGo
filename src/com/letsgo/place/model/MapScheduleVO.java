@@ -1,6 +1,6 @@
 package com.letsgo.place.model;
 
-public class ScheduleMapVO {
+public class MapScheduleVO {
 	private String placeId;
 	private String placeType;
 	private String title;
@@ -8,7 +8,7 @@ public class ScheduleMapVO {
 	private String mapY;
 	private String addr1;
 
-	public ScheduleMapVO(String placeId, String placeType, String title, String mapX, String mapY, String addr1) {
+	public MapScheduleVO(String placeId, String placeType, String title, String mapX, String mapY, String addr1) {
         setPlaceId(placeId);
         setPlaceType(placeType);
         setTitle(title);
