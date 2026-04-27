@@ -133,6 +133,11 @@
             padding: 15px;
             box-sizing: border-box;
         }
+        
+        #map {
+        	width: 100%;
+            height: 100%;
+        }
     </style>  
 </head>
 <body>
@@ -179,8 +184,9 @@
         <div class="divider"></div>
         <div class="content-right">
             <div class="content-right-top">
-            	지도 들어가야함
-
+            	<div class="map-area">
+			        <div id="map"></div>
+			    </div>
             </div>
             <div class="content-right-bottom">
                 1. 금원 수원 수영장</br>
@@ -196,11 +202,21 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=nw9515cuj4"></script>
+
 <script>
     new Sortable(document.getElementById('sortableList'), {
         animation: 150,
         ghostClass: 'sortable-ghost'
     });
+    
+    window.onload = function () {
+        var map = new naver.maps.Map('map', {
+            center: new naver.maps.LatLng(37.5665, 126.9780),
+            zoom: 10
+        });
+    };
+    
 </script>
 </body>
 </html>
