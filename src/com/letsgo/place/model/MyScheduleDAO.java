@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyScheduleDAO {
-
+	
 	public List<MyScheduleVO> getMyScheduleList(String userId, String keyword, String sortType, boolean sharedFilter) {
 		List<MyScheduleVO> tmp = new ArrayList<>();
 
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT s.MY_SCHEDULE_ID, s.TITLE AS SCH_TITLE, s.START_AT, s.IS_SHARED, p.TITLE AS PLACE_TITLE, p.ADDR1, p.FIRST_IMAGE ");
+		sql.append(
+				"SELECT s.MY_SCHEDULE_ID, s.TITLE AS SCH_TITLE, s.START_AT, s.IS_SHARED, p.TITLE AS PLACE_TITLE, p.ADDR1, p.FIRST_IMAGE ");
 		sql.append("FROM MY_SCHEDULE s ");
 		sql.append("JOIN VISIT_ITEM v ON s.MY_SCHEDULE_ID = v.SCHEDULE_ID ");
 		sql.append("JOIN PLACE p ON v.PLACE_ID = p.PLACE_ID ");
@@ -32,7 +33,7 @@ public class MyScheduleDAO {
 		} else {
 			sql.append("ORDER BY s.START_AT DESC");
 		}
-		
+
 		try {
 			Connection conn = DBCP.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(sql.toString());
@@ -46,9 +47,8 @@ public class MyScheduleDAO {
 			}
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				tmp.add(new MyScheduleVO(rs.getString(1), rs.getString(2),
-						rs.getString(3), rs.getString(4), rs.getString(5),
-						rs.getString(6), rs.getString(7)));
+				tmp.add(new MyScheduleVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7)));
 			}
 			stmt.close();
 			conn.close();
@@ -111,24 +111,24 @@ public class MyScheduleDAO {
 	}
 
 	public boolean setMySchedule(String[] visitItemId, int[] visitOrder, String[] distanceToNext, String scheduleId,
-			String title, String startAt, String budgetDetail, String todoDetail, String userId, int isShared) {
+			String scheduleTitle, String startAt, String budgetDetail, String todoDetail, String userId, int isShared) {
 		boolean flag = false;
 		try {
 			String sql = "";
 			Connection conn = DBCP.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt;
 			for (int i = 0; i < visitItemId.length; i++) {
 
 				sql = "UPDATE VISIT_ITEM SET VISIT_ORDER = ?, DISTANCE_TO_NEXT = ? WHERE VISIT_ITEM_ID = ?";
 				stmt = conn.prepareStatement(sql);
-				stmt.setString(1, visitItemId[i]);
-				stmt.setInt(2, visitOrder[i]);
-				stmt.setString(3, distanceToNext[i]);
+				stmt.setInt(1, visitOrder[i]);
+				stmt.setString(2, distanceToNext[i]);
+				stmt.setString(3, visitItemId[i]);
 				stmt.executeUpdate();
 			}
-			sql = "UPDATE MY_SCHEDULE SET TITLE = ?, START_AT = ?, BUDGET_DETAILS = ?, TODO_DETAILS = ?, IS_SHARED = ? WHERE MY_SCHEDULE_ID = ?' AND USER_ID = ?";
+			sql = "UPDATE MY_SCHEDULE SET TITLE = ?, START_AT = ?, BUDGET_DETAILS = ?, TODO_DETAILS = ?, IS_SHARED = ? WHERE MY_SCHEDULE_ID = ? AND USER_ID = ?";
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, title);
+			stmt.setString(1, scheduleTitle);
 			stmt.setString(2, startAt);
 			stmt.setString(3, budgetDetail);
 			stmt.setString(4, todoDetail);
@@ -200,7 +200,8 @@ public class MyScheduleDAO {
 
 			stmt.setString(1, scheduleId);
 			ResultSet rs = stmt.executeQuery();
-			str = rs.getString(1);
+			if (rs.next())
+				str = rs.getString(1);
 
 			stmt.close();
 			conn.close();
@@ -390,26 +391,25 @@ public class MyScheduleDAO {
 		String str = "";
 		try {
 			Connection conn = DBCP.getConnection();
-			
+
 			String sql = "INSERT INTO SCHEDULE_POST (POST_ID, TITLE, BUDGET_DETAILS, TODO_DETAILS, IS_ANONYMOUS, VIEW_COUNT, LIKE_COUNT, POSTED_AT, USER_ID) "
 					+ "SELECT ('P' || LPAD(SEQ_SCHEDULE_POST.NEXTVAL, 3, '0')), TITLE, BUDGET_DETAILS, TODO_DETAILS, ?, 0, 0, SYSDATE, ? "
 					+ "FROM MY_SCHEDULE WHERE MY_SCHEDULE_ID = ? AND USER_ID = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			
+
 			stmt.setInt(1, isAnonymous);
 			stmt.setString(2, myScheduleId);
 			stmt.setString(3, userId);
-			
+
 			stmt.executeUpdate();
-			
+
 			sql = "INSERT INTO VISIT_ITEM (VISIT_ITEM_ID, VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_TYPE, SCHEDULE_TYPE, PLACE_ID, SCHEDULE_ID) "
 					+ "SELECT SEQ_VISIT_ITEM.NEXTVAL, VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_TYPE, 'POST', PLACE_ID, 'P' || LPAD(SEQ_SCHEDULE_POST.CURRVAL) "
 					+ "FROM VISIT_ITEM WHERE SCHEDULE_ID = ?";
-			
+
 			stmt.setString(1, myScheduleId);
 			stmt.executeUpdate();
-			
-			
+
 			stmt.close();
 			conn.close();
 
