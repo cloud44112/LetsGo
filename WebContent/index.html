@@ -179,6 +179,10 @@ a {
 	text-decoration: none;
 	outline: none;
 }
+
+.sort-area {
+	text-align: right;
+}
 </style>
 </head>
 <body>
@@ -196,11 +200,13 @@ a {
 	</header>
 	<h1>추천 레저스포츠 리스트</h1>
 
-	<ul>
-		<li><a href="#">거리순</a></li>
-		<li><a href="">인기순</a></li>
-		<li><a href="">위치서비스</a></li>
-	</ul>
+	<div class="sort-area">
+       			 <select name="sortOrder">
+        		    <option value="distance">거리순</option>
+        		    <option value="like">인기순</option>
+     		   </select>
+     		   <li><a href="">위치서비스</a></li>
+   			 </div>
 
 
 
