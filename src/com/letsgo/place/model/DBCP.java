@@ -15,7 +15,7 @@ public class DBCP {
 		if(dbcp == null){
 			dbcp = new DBCP();
 		}
-		String uri = "jdbc:oracle:thin:@192.168.0.233:1521:xe";
+		String uri = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
 		return DriverManager.getConnection(uri, "hr", "hr");
 	}
 }

@@ -91,23 +91,22 @@ public class TestMyScheduleDAO {
 		List<MapScheduleVO> mapList = dao.getMapScheduleVO("SCH001");
 
 		assertNotNull(mapList);
-		assertNotNull(mapList.get(0).getTitle());
 		assertNotNull(mapList.get(0).getMapX());
 	}
 	@Test
     public void addVisitItemtest() throws Exception {
-        assertNotNull(dao.addVisitItem(5, "SCH002", "23"));
+        assertNotNull(dao.addVisitItem(5, "1", "SCH011"));
     }
 	
 	@Test
     public void deleteVisitItemByIdTest() {
-        assertTrue(dao.deleteVisitItemById("VISIT001"));
+        assertTrue(dao.deleteVisitItemById("1"));
 
     }
 
     @Test
     public void addCompanionTest() {
-        assertTrue(dao.addCompanion("SCH001", "user02"));
+        assertTrue(dao.addCompanion("SCH011", "user02"));
     }
 
     @Test

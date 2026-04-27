@@ -257,7 +257,7 @@ public class MyScheduleDAO {
 	public boolean addVisitItem(int visitOrder, String placeId, String scheduleId) {
 		boolean flag = false;
 		try {
-			String sql = "INSERT INTO VISIT_ITEM (VISIT_ITEM_ID, VISIT_ORDER, SCHDULE_TYPE, PLACE_ID, SCHEDULE_ID) "
+			String sql = "INSERT INTO VISIT_ITEM (VISIT_ITEM_ID, VISIT_ORDER, SCHEDULE_TYPE, PLACE_ID, SCHEDULE_ID) "
 					+ "VALUES (SEQ_VISIT_ITEM.NEXTVAL, ?, 'MY_SCH', ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
