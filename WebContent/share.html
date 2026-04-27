@@ -1,0 +1,322 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+  <style>
+        body {
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            font-family: system-ui, sans-serif;
+        }
+
+        aside.sidebar {
+            width: 220px;
+            border-right: 1px solid #000;
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100vh;
+        }
+
+        aside.sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        aside.sidebar li {
+            margin-bottom: 10px;
+        }
+
+        aside.sidebar button {
+            width: 100%;
+            padding: 6px 0;
+            margin-bottom: 10px;
+            border: 1px solid #000;
+            background: transparent;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            height: 50px;
+            border-bottom: 1px solid #000;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .content-container {
+            flex-grow: 1;
+            display: flex;
+        }
+
+        .content-left, .content-right {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .divider {
+            width: 1px;
+            background-color: #000;
+        }
+
+        .search-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .search-area input[type="text"] {
+            flex-grow: 1;
+            padding: 6px 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .search-area button {
+            padding: 6px 12px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        #sortableList {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border: 1px solid #ccc;
+            max-width: 300px;
+        }
+
+        .sortable-item {
+            padding: 10px 15px;
+            border-bottom: 1px solid #ccc;
+            background-color: #fafafa;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .sortable-item:last-child {
+            border-bottom: none;
+        }
+
+        .sortable-item:active {
+            cursor: grabbing;
+        }
+        
+        .content {
+            flex-grow: 1;
+            padding: 30px 40px;
+            overflow-y: auto;
+            max-width: 600px;
+        }
+
+        h3 {
+            margin: 0 0 14px 0;
+            font-size: 1.1rem;
+        }
+
+        .invite-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        
+        .invite-row input[type="text"] {
+            flex-grow: 1;
+            padding: 7px 10px;
+            font-size: 0.95rem;
+            border: 1px solid #999;
+            border-radius: 4px;
+        }
+        
+        .invite-row button {
+            padding: 7px 16px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: 1px solid #000;
+            background: #000;
+            color: #fff;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .member-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .member-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: #fafafa;
+        }
+
+        .member-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .member-info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .member-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .member-email {
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .member-badge {
+            font-size: 0.8rem;
+            color: #888;
+            background: #eee;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        .member-select select {
+            padding: 4px 8px;
+            font-size: 0.85rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .export-section {
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .export-section p {
+            margin: 0 0 8px 0;
+            font-size: 0.9rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .export-btn {
+            padding: 9px 18px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: 1px solid #000;
+            background: transparent;
+            border-radius: 4px;
+            text-align: left;
+            transition: background 0.15s;
+            width: fit-content;
+        }
+        
+        .export-btn:hover {
+            background: #f0f0f0;
+        }
+        
+    </style>
+</head>
+<body>
+
+<aside class="sidebar">
+    <ul>
+        <li><a href="mylist.html">동선관리</a></li>
+        <li><a href="priceManage.html">예산관리</a></li>
+        <li><a href="todoList.html">To-Do 리스트</a></li>
+    </ul>
+    <div>
+        <button type="button">공유하기</button>
+        <button type="button">저장하기</button>
+        <button type="button">삭제하기</button>
+    </div>
+</aside>
+
+<main>
+    <header>
+        <div class="logo">레스고!</div>
+        <ul class="menu" style="list-style:none; display:flex; padding:0; margin:0;">
+			<li style="margin-right: 20px;"><a href="index.html">홈</a></li>
+			<li style="margin-right: 20px;"><a href="leisere.html">플레이스 조회</a></li>
+			<li style="margin-right: 20px;"><a href="schedulepostAll.html">일정게시판</a></li>
+			<li style="margin-right: 20px;"><a href="#">내일정</a></li>
+            <li>로그인</li>
+        </ul>
+    </header>
+    
+    <div class="content">
+        <h3>동반자 추가</h3>
+
+        <div class="invite-row">
+            <input type="text" placeholder="email@gmail.com" />
+            <button type="button">공유하기</button>
+        </div>
+
+        <div class="member-list">
+            <!-- 나 -->
+            <div class="member-item">
+                <span class="member-icon">◈</span>
+                <div class="member-info">
+                    <span class="member-name">홍길동</span>
+                    <span class="member-email">example@naver.com</span>
+                </div>
+                <span class="member-badge">나</span>
+            </div>
+
+            <div class="member-item">
+                <span class="member-icon">▣</span>
+                <div class="member-info">
+                    <span class="member-name">한상민</span>
+                    <span class="member-email">exam123@gmail.com</span>
+                </div>
+                <div class="member-select">
+                    <select>
+                        <option value="edit">편집 허용</option>
+                        <option value="read">읽기 허용</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="export-section">
+            <p>내보내기 / 공유</p>
+            <button class="export-btn" type="button">📋 게시판에 공유</button>
+            <button class="export-btn" type="button">📄 PDF로 내보내기</button>
+            <button class="export-btn" type="button">🖼️ 사진으로 내보내기</button>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script>
+    new Sortable(document.getElementById('sortableList'), {
+        animation: 150,
+        ghostClass: 'sortable-ghost'
+    });
+</script>
+
+</body></html>
