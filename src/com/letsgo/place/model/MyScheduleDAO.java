@@ -13,8 +13,7 @@ public class MyScheduleDAO {
 		List<MyScheduleVO> tmp = new ArrayList<>();
 
 		StringBuilder sql = new StringBuilder();
-		sql.append(
-				"SELECT s.MY_SCHEDULE_ID, s.TITLE AS SCH_TITLE, s.START_AT, s.IS_SHARED, p.TITLE AS PLACE_TITLE, p.ADDR1, p.FIRST_IMAGE, p.PLACE_TYPE ");
+		sql.append("SELECT s.MY_SCHEDULE_ID, s.TITLE AS SCH_TITLE, s.START_AT, s.IS_SHARED, p.TITLE AS PLACE_TITLE, p.ADDR1, p.FIRST_IMAGE ");
 		sql.append("FROM MY_SCHEDULE s ");
 		sql.append("JOIN VISIT_ITEM v ON s.MY_SCHEDULE_ID = v.SCHEDULE_ID ");
 		sql.append("JOIN PLACE p ON v.PLACE_ID = p.PLACE_ID ");
@@ -29,15 +28,14 @@ public class MyScheduleDAO {
 		}
 
 		if ("title".equals(sortType)) {
-			sql.append("ORDER BY s.TITLE ASC, v.VISIT_ORDER ASC");
+			sql.append("ORDER BY s.TITLE ASC");
 		} else {
-			sql.append("ORDER BY s.START_AT DESC, v.VISIT_ORDER ASC");
+			sql.append("ORDER BY s.START_AT DESC");
 		}
-
+		
 		try {
 			Connection conn = DBCP.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(sql.toString());
-
 			int idx = 1;
 			stmt.setString(idx++, userId);
 
@@ -48,10 +46,9 @@ public class MyScheduleDAO {
 			}
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				tmp.add(new MyScheduleVO(rs.getString("MY_SCHEDULE_ID"), rs.getString("SCH_TITLE"),
-						rs.getString("START_AT"), rs.getString("IS_SHARED"), rs.getString("placeId"),
-						rs.getString("PLACE_TITLE"), rs.getString("ADDR1"), rs.getString("FIRST_IMAGE"),
-						rs.getString("PLACE_TYPE")));
+				tmp.add(new MyScheduleVO(rs.getString(1), rs.getString(2),
+						rs.getString(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7)));
 			}
 			stmt.close();
 			conn.close();
@@ -66,7 +63,7 @@ public class MyScheduleDAO {
 		try {
 			Connection conn = DBCP.getConnection();
 
-			String sql = "DELETE FROM VISIT_ITEM WHERE MY_SCHEDULE_ID = ?";
+			String sql = "DELETE FROM VISIT_ITEM WHERE SCHEDULE_ID = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, scheduleId);
 			stmt.executeUpdate();
@@ -98,7 +95,7 @@ public class MyScheduleDAO {
 				stmt.setString(1, tmp);
 				stmt.executeUpdate();
 
-				sql = "DELETE FROM MY_SCHEDULE WHERE MY_SCHEDULE_ID = ?";
+				sql = "DELETE FROM MY_SCHEDULE WHERE MY_SCHEDULE_ID = ? AND USER_ID = ?";
 				stmt = conn.prepareStatement(sql);
 				stmt.setString(1, tmp);
 				stmt.executeUpdate();
