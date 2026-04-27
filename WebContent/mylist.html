@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<!-- <link rel = "stylesheet" href ="letsgo.css"> -->
     <meta charset="UTF-8" />
-  <style>
+    <style>
         body {
             margin: 0;
             display: flex;
@@ -118,7 +117,7 @@
         .sortable-item:active {
             cursor: grabbing;
         }
-        
+
         .content-right {
             display: flex;
             flex-direction: column;
@@ -133,20 +132,27 @@
             padding: 15px;
             box-sizing: border-box;
         }
+
         
-        #map {
-        	width: 100%;
+        .map-area {
+            width: 100%;
             height: 100%;
         }
-    </style>  
+
+        #map {
+            width: 100%;
+            height: 100%;
+            min-height: 300px; 
+        }
+    </style>
 </head>
 <body>
 
 <aside class="sidebar">
-     <ul>
-       <button><a href="mylist.html">동선관리</a></button>
-       <button><a href="priceManage.html">예산관리</a></button>
-       <button><a href="todoList.html">To-Do 리스트</a></button>
+    <ul>
+        <button><a href="mylist.html">동선관리</a></button>
+        <button><a href="priceManage.html">예산관리</a></button>
+        <button><a href="todoList.html">To-Do 리스트</a></button>
     </ul>
     <div>
         <button type="button">공유하기</button>
@@ -159,11 +165,11 @@
     <header>
         <div class="logo">레스고!</div>
         <ul class="menu" style="list-style:none; display:flex; padding:0; margin:0;">
-			<li style="margin-right: 20px;"><a href="index.html">홈</a></li>
-			<li style="margin-right: 20px;"><a href="leisere.html">플레이스 조회</a></li>
-			<li style="margin-right: 20px;"><a href="schedulepostAll.html">일정게시판</a></li>
-			<li style="margin-right: 20px;"><a href="#">내일정</a></li>
-            <li><a href ="login.html">로그인</a></li>
+            <li style="margin-right: 20px;"><a href="index.html">홈</a></li>
+            <li style="margin-right: 20px;"><a href="leisere.html">플레이스 조회</a></li>
+            <li style="margin-right: 20px;"><a href="schedulepostAll.html">일정게시판</a></li>
+            <li style="margin-right: 20px;"><a href="#">내일정</a></li>
+            <li><a href="login.html">로그인</a></li>
         </ul>
     </header>
 
@@ -184,39 +190,46 @@
         <div class="divider"></div>
         <div class="content-right">
             <div class="content-right-top">
-            	<div class="map-area">
-			        <div id="map"></div>
-			    </div>
+                <div class="map-area">
+                    <div id="map"></div>
+                </div>
             </div>
             <div class="content-right-bottom">
-                1. 금원 수원 수영장</br>
-
-                2. 빽돈 망포점</br>
-
-                3. 포크너 광교아븐뉴 프라점</br>
-
-                4. 앰배서더 수원</br>
+                1. 금원 수원 수영장<br>
+                2. 빽돈 망포점<br>
+                3. 포크너 광교아븐뉴 프라점<br>
+                4. 앰배서더 수원<br>
             </div>
         </div>
     </div>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-<script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=nw9515cuj4"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+
+
+<script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=fkk2j8zd0a"></script>
+
+	
 <script>
+    // SortableJS 초기화
     new Sortable(document.getElementById('sortableList'), {
         animation: 150,
-        ghostClass: 'sortable-ghost'
+        ghostClass: 'sortable-ghost' 
     });
-    
+
+    // 네이버 지도 초기화
     window.onload = function () {
         var map = new naver.maps.Map('map', {
-            center: new naver.maps.LatLng(37.5665, 126.9780),
-            zoom: 10
+            center: new naver.maps.LatLng(37.2636, 127.0286),
+            zoom: 13
+        });
+
+        var marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(37.2636, 127.0286),
+            map: map
         });
     };
-    
 </script>
 </body>
 </html>

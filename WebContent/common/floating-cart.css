@@ -1,0 +1,75 @@
+.modal {
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+}
+
+.modal_body {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 1200px;
+    height: 600px;
+    padding: 40px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+}
+
+.shoppingbox {
+    width: 48%;
+    border: 1px solid black;
+    padding: 10px;
+    height: 100%;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.box {
+    width: 48%;
+    border: 1px solid black;
+    padding: 10px;
+    height: 100%;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.btn-open-modal {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 70px;
+    height: 70px;
+    margin: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: #4A90D9;
+    color: white;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-open-modal:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-open-modal h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 32px;
+    line-height: 1;
+}
