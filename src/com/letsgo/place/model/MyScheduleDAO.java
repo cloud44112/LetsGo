@@ -8,6 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyScheduleDAO {
+	private Connection conn;
+	
+	public MyScheduleDAO() throws Exception{
+		conn = DBCP.getConnection();
+	}
+	
+	public MyScheduleDAO(Connection conn) throws Exception{
+		this.conn = conn;
+	}
+	
 	
 	public List<MyScheduleVO> getMyScheduleList(String userId, String keyword, String sortType, boolean sharedFilter) {
 		List<MyScheduleVO> tmp = new ArrayList<>();
@@ -35,7 +45,6 @@ public class MyScheduleDAO {
 		}
 
 		try {
-			Connection conn = DBCP.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(sql.toString());
 			int idx = 1;
 			stmt.setString(idx++, userId);
@@ -51,7 +60,6 @@ public class MyScheduleDAO {
 						rs.getString(5), rs.getString(6), rs.getString(7)));
 			}
 			stmt.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -61,8 +69,6 @@ public class MyScheduleDAO {
 	public boolean deleteMySchedule(String userId, String scheduleId) {
 		boolean flag = false;
 		try {
-			Connection conn = DBCP.getConnection();
-
 			String sql = "DELETE FROM VISIT_ITEM WHERE SCHEDULE_ID = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, scheduleId);
@@ -74,7 +80,6 @@ public class MyScheduleDAO {
 			stmt.executeUpdate();
 
 			stmt.close();
-			conn.close();
 			flag = true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,7 +92,6 @@ public class MyScheduleDAO {
 		boolean flag = false;
 		String sql = "";
 		try {
-			Connection conn = DBCP.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			for (String tmp : scheduleId) {
 				sql = "DELETE FROM VISIT_ITEM WHERE SCHEDULE_ID = ?";
@@ -101,7 +105,6 @@ public class MyScheduleDAO {
 				stmt.executeUpdate();
 			}
 			stmt.close();
-			conn.close();
 			flag = true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -115,7 +118,6 @@ public class MyScheduleDAO {
 		boolean flag = false;
 		try {
 			String sql = "";
-			Connection conn = DBCP.getConnection();
 			PreparedStatement stmt;
 			for (int i = 0; i < visitItemId.length; i++) {
 
@@ -138,8 +140,6 @@ public class MyScheduleDAO {
 			flag = (stmt.executeUpdate() == 1);
 
 			stmt.close();
-			conn.close();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -150,8 +150,6 @@ public class MyScheduleDAO {
 		boolean flag = false;
 
 		try {
-			Connection conn = DBCP.getConnection();
-
 			String sql = "UPDATE MY_SCHEDULE SET TITLE = ? WHERE MY_SCHEDULE_ID = ? AND USER_ID = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -161,7 +159,6 @@ public class MyScheduleDAO {
 
 			flag = (stmt.executeUpdate() == 1);
 			stmt.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -171,7 +168,6 @@ public class MyScheduleDAO {
 	public boolean setTodoDetail(String scheduleId, String todoDetail) {
 		boolean flag = false;
 		try {
-			Connection conn = DBCP.getConnection();
 			String sql = "UPDATE MY_SCHEDULE SET TODO_DETAILS = ? WHERE MY_SCHEDULE_ID = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -180,8 +176,6 @@ public class MyScheduleDAO {
 
 			flag = (stmt.executeUpdate() == 1);
 			stmt.close();
-			conn.close();
-
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -194,7 +188,6 @@ public class MyScheduleDAO {
 	public String getTodoDetail(String scheduleId) {
 		String str = "";
 		try {
-			Connection conn = DBCP.getConnection();
 			String sql = "SELECT TODO_DETAILS FROM MY_SCHEDULE WHERE MY_SCHEDULE_ID = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -204,8 +197,6 @@ public class MyScheduleDAO {
 				str = rs.getString(1);
 
 			stmt.close();
-			conn.close();
-
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -219,7 +210,6 @@ public class MyScheduleDAO {
 		List<RouteScheduleVO> list;
 		list = new ArrayList<RouteScheduleVO>();
 		try {
-			Connection conn = DBCP.getConnection();
 			String sql = "SELECT v.VISIT_ITEM_ID, v.VISIT_ORDER, p.PLACE_ID, p.TITLE FROM MY_SCHEDULE s JOIN VISIT_ITEM v ON s.MY_SCHEDULE_ID = v.SCHEDULE_ID JOIN PLACE p ON v.PLACE_ID = p.PLACE_ID WHERE s.USER_ID = ? AND s.MY_SCHEDULE_ID = ? ORDER BY v.VISIT_ORDER ASC";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -232,8 +222,6 @@ public class MyScheduleDAO {
 			}
 			rs.close();
 			stmt.close();
-			conn.close();
-
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -247,7 +235,6 @@ public class MyScheduleDAO {
 		List<MapScheduleVO> list;
 		list = new ArrayList<MapScheduleVO>();
 		try {
-			Connection conn = DBCP.getConnection();
 			String sql = "SELECT p.TITLE, v.VISIT_ORDER, p.MAPX, p.MAPY, v.DISTANCE_TO_NEXT FROM MY_SCHEDULE s JOIN VISIT_ITEM v ON s.MY_SCHEDULE_ID = v.SCHEDULE_ID JOIN PLACE p ON v.PLACE_ID = p.PLACE_ID WHERE s.MY_SCHEDULE_ID = ? ORDER BY v.VISIT_ORDER ASC";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -259,8 +246,6 @@ public class MyScheduleDAO {
 			}
 			rs.close();
 			stmt.close();
-			conn.close();
-
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -271,7 +256,6 @@ public class MyScheduleDAO {
 	public boolean addVisitItem(int visitOrder, String placeId, String scheduleId) {
 		boolean flag = false;
 		try {
-			Connection conn = DBCP.getConnection();
 			String sql = "INSERT INTO VISIT_ITEM (VISIT_ITEM_ID, VISIT_ORDER, SCHDULE_TYPE, PLACE_ID, SCHEDULE_ID) "
 					+ "VALUES (SEQ_VISIT_ITEM.NEXTVAL, ?, 'MY_SCH', ?, ?')";
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -283,8 +267,6 @@ public class MyScheduleDAO {
 			flag = (stmt.executeUpdate() == 1);
 
 			stmt.close();
-			conn.close();
-
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -296,7 +278,6 @@ public class MyScheduleDAO {
 	public boolean deleteVisitItemById(String visitItemId) {
 		boolean flag = false;
 		try {
-			Connection conn = DBCP.getConnection();
 			String sql = "DELETE FROM VISIT_ITEM WHERE VISIT_ITEM_ID = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -305,8 +286,6 @@ public class MyScheduleDAO {
 			flag = (stmt.executeUpdate() == 1);
 
 			stmt.close();
-			conn.close();
-
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -318,7 +297,6 @@ public class MyScheduleDAO {
 	public boolean addCompanion(String myScheduleId, String sharedUserId) {
 		boolean flag = false;
 		try {
-			Connection conn = DBCP.getConnection();
 			String sql = "INSERT INTO SCHEDULE_SHARE_USER (SHARE_ID, PERMISSION, MY_SCHEDULE_ID, SHARED_USER_ID) VALUES (SEQ_SCHEDULE_SHARE_USER.NEXTVAL, 'R', ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -328,8 +306,6 @@ public class MyScheduleDAO {
 			flag = (stmt.executeUpdate() == 1);
 
 			stmt.close();
-			conn.close();
-
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -341,7 +317,6 @@ public class MyScheduleDAO {
 	public boolean setCompanionPermission(String myScheduleId, String sharedUserId, String permission) {
 		boolean flag = false;
 		try {
-			Connection conn = DBCP.getConnection();
 			String sql = "UPDATE SCHEDULE_SHARE_USER SET PERMISSION = ? WHERE MY_SCHEDULE_ID = ? AND SHARED_USER_ID = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -352,8 +327,6 @@ public class MyScheduleDAO {
 			flag = (stmt.executeUpdate() == 1);
 
 			stmt.close();
-			conn.close();
-
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -366,7 +339,6 @@ public class MyScheduleDAO {
 		List<ColleagueVO> list;
 		list = new ArrayList<ColleagueVO>();
 		try {
-			Connection conn = DBCP.getConnection();
 			String sql = "SELECT U.USER_ID, U.NAME, U.EMAIL, SSU.PERMISSION FROM SCHEDULE_SHARE_USER SSU JOIN USERS U ON SSU.SHARED_USER_ID = U.USER_ID WHERE SSU.MY_SCHEDULE_ID = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
@@ -378,8 +350,6 @@ public class MyScheduleDAO {
 			}
 			rs.close();
 			stmt.close();
-			conn.close();
-
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -390,8 +360,7 @@ public class MyScheduleDAO {
 	public String shareToPost(String myScheduleId, String userId, int isAnonymous) {
 		String str = "";
 		try {
-			Connection conn = DBCP.getConnection();
-
+	
 			String sql = "INSERT INTO SCHEDULE_POST (POST_ID, TITLE, BUDGET_DETAILS, TODO_DETAILS, IS_ANONYMOUS, VIEW_COUNT, LIKE_COUNT, POSTED_AT, USER_ID) "
 					+ "SELECT ('P' || LPAD(SEQ_SCHEDULE_POST.NEXTVAL, 3, '0')), TITLE, BUDGET_DETAILS, TODO_DETAILS, ?, 0, 0, SYSDATE, ? "
 					+ "FROM MY_SCHEDULE WHERE MY_SCHEDULE_ID = ? AND USER_ID = ?";
@@ -411,8 +380,6 @@ public class MyScheduleDAO {
 			stmt.executeUpdate();
 
 			stmt.close();
-			conn.close();
-
 		} catch (Exception e) {
 
 			e.printStackTrace();

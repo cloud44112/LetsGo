@@ -16,7 +16,7 @@ public class TestMyScheduleDAO {
 	private MyScheduleDAO dao;
 
 	@Before
-	public void daoImport() {
+	public void daoImport() throws Exception {
 		dao = new MyScheduleDAO();
 	}
 
