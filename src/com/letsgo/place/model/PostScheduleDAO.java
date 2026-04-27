@@ -19,35 +19,36 @@ public class PostScheduleDAO {
 	}
 	
 	
-	public void getPostScheduleList(String userId, String keyword, String sortType) {
+	public void getPostScheduleList(String keyword, String searchType, String sortType) {
 		List<PostScheduleVO> tmp = new ArrayList<>();
 
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT p.POST_ID, p.TITLE AS POST_TITLE, p.LIKE_COUNT, p.VIEW_COUNT, p.IS_ANONYMOUS, p.USER_ID, ");
+		sql.append("SELECT p.POST_ID, p.TITLE AS POST_TITLE, p.LIKE_COUNT, p.VIEW_COUNT, p.IS_ANONYMOUS, ");
+		sql.append("u.NAME, ");
 		sql.append("v.VISIT_ITEM_ID, v.VISIT_ORDER, v.SCHEDULE_TYPE, ");
-		sql.append("pl.TITLE AS PLACE_TITLE, pl.FIRST_IMAGE, pl.PLACE_TYPE ");
+		sql.append("pl.TITLE AS PLACE_TITLE, pl.addr1,pl.FIRST_IMAGE, pl.PLACE_TYPE ");
 		sql.append("FROM SCHEDULE_POST p ");
 		sql.append("JOIN VISIT_ITEM v ON p.POST_ID = v.SCHEDULE_ID ");
 		sql.append("JOIN PLACE pl ON v.PLACE_ID = pl.PLACE_ID ");
+		sql.append("JOIN USERS u ON u.user_id = p.user_id ");
 
 		
-		//게시물 일정 이름으로 검색하기
+		//게시물 일정 이름 or 플레이스 이름으로 검색하기
 		if (keyword != null && !keyword.trim().isEmpty()) {
-			sql.append("WHERE p.TITLE LIKE ? ");
+			if ("schedule".equals(searchType)) {
+				sql.append("WHERE p.TITLE LIKE ? ");
+			}else if("place".equals(searchType)){
+				sql.append("WHERE p.POST_ID IN (");
+				sql.append("SELECT v2.SCHEDULE_ID ");
+				sql.append("FROM VISIT_ITEM v2 ");
+				sql.append("JOIN PLACE pl2 ON v2.PLACE_ID = pl2.PLACE_ID ");
+				sql.append("WHERE pl2.TITLE LIKE ? ");
+				sql.append(")");
+			}
 		}
 		
-		//게시물 일정 상세 플레이스명(장소)으로 검색하기
-		if (keyword != null && !keyword.trim().isEmpty()) {
-			sql.append("WHERE p.POST_ID IN (");
-			sql.append("SELECT v2.SCHEDULE_ID ");
-			sql.append("FROM VISIT_ITEM v2 ");
-			sql.append("JOIN PLACE pl2 ON v2.PLACE_ID = pl2.PLACE_ID ");
-			sql.append("WHERE pl2.TITLE LIKE '%여의나루%'");
-			sql.append(")");
-		}
-
 		//정렬(좋아요, 조회, 게시일) AND VISIT_ORDER(기본값)
-		String standard = "p.post_at ASC"; //게시일
+		String standard = "p.posted_at ASC"; //게시일
 		
 		if ("like".equals(sortType)) { //좋아요
 			standard = "p.like_count ASC";
@@ -58,36 +59,29 @@ public class PostScheduleDAO {
 //		}else if(("latest".equals(sortType))) {
 //			sql.append("ORDER BY p.posted_at ASC, v.VISIT_ORDER ASC");
 //		}
-		sql.append("ORDER BY ");
+		sql.append(" ORDER BY ");
 		sql.append(standard);
 		sql.append(", p.post_id ASC");
 		sql.append(", v.VISIT_ORDER ASC");
 
 		try {
-			Connection conn = DBCP.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(sql.toString());
-
 			int idx = 1;
-			stmt.setString(idx++, userId);
 
 			if (keyword != null && !keyword.trim().isEmpty()) {
 				String searchKey = "%" + keyword + "%";
 				stmt.setString(idx++, searchKey);
-				stmt.setString(idx++, searchKey);
 			}
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-//				tmp.add(new MyScheduleVO(rs.getString("MY_SCHEDULE_ID"), rs.getString("SCH_TITLE"),
-//						rs.getString("START_AT"), rs.getString("IS_SHARED"), rs.getString("placeId"),
-//						rs.getString("PLACE_TITLE"), rs.getString("ADDR1"), rs.getString("FIRST_IMAGE"),
-//						rs.getString("PLACE_TYPE")));
+				tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
 			}
 			stmt.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return tmp;
+	}
 }
 		
 		public boolean deletePostSchedule(String userId, String scheduleId) {
