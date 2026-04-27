@@ -16,6 +16,7 @@ local.properties
 .classpath
 .factorypath
 ERD_diagram.png
+.checkstyle
 
 # 빌드 결과물
 bin/
