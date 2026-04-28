@@ -9,6 +9,8 @@ public class ActionFactory {
 		case "deleteSchedule":
 			tmp = new DeleteScheduleAction();
 			break;
+		default:
+			tmp = new IndexUIAction();
 		}
 		
 		

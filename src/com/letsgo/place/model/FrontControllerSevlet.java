@@ -21,12 +21,17 @@ public class FrontControllerSevlet extends HttpServlet {
 		System.out.println(cmd);
 
 		Action a = ActionFactory.getAction(cmd);
-		String url = "controller";
+		String url = "";
 		try {
 			url = a.execute(request);
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 
 		request.getRequestDispatcher("/view/" + url).forward(request, response);
 	}
