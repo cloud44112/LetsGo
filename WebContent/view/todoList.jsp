@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -144,14 +145,14 @@
         }
         
         .totalPrice {
-        	margin-top: 15px; 
-        	font-weight: bold;  
-        	padding-left: 10px;
+            margin-top: 15px; 
+            font-weight: bold;  
+            padding-left: 10px;
         }
         
         .memo {
-        	display: flex;
-        	flex-direction: column;
+            display: flex;
+            flex-direction: column;
         }
         
     </style>
@@ -162,7 +163,7 @@
      <ul>
        <button><a href="mylist.html">동선관리</a></button>
        <button><a href="priceManage.html">예산관리</a></button>
-       <button><a href="todoList.html">To-Do 리스트</a></button>
+       <button><a href="todoList.jsp">To-Do 리스트</a></button>
     </ul>
     <div>
         <button type="button">공유하기</button>
@@ -175,10 +176,10 @@
     <header>
         <div class="logo">레스고!</div>
         <ul class="menu" style="list-style:none; display:flex; padding:0; margin:0;">
-			<li style="margin-right: 20px;"><a href="index.html">홈</a></li>
-			<li style="margin-right: 20px;"><a href="leisere.html">플레이스 조회</a></li>
-			<li style="margin-right: 20px;"><a href="schedulepostAll.html">일정게시판</a></li>
-			<li style="margin-right: 20px;"><a href="#">내일정</a></li>
+            <li style="margin-right: 20px;"><a href="index.html">홈</a></li>
+            <li style="margin-right: 20px;"><a href="leisere.html">플레이스 조회</a></li>
+            <li style="margin-right: 20px;"><a href="schedulepostAll.html">일정게시판</a></li>
+            <li style="margin-right: 20px;"><a href="#">내일정</a></li>
             <li><a href ="login.html">로그인</a></li>
         </ul>
     </header>
@@ -198,27 +199,26 @@
             </ul>
         </div>
         <div class="divider"></div>
-		<div class="content-right">
-			<div class="memo">
-				<div>
-					<h3>To-Do</h3>
-				</div>
-			    <textarea
-			        rows="40"
-			        cols="20"
-			        placeholder="1. 금원 수원 수영장 - 수영복 챙기기"></textarea>
-			</div>
-		</div>
+        <div class="content-right">
+            <div class="memo">
+                <div>
+                    <h3>To-Do</h3>
+                </div>
+                <textarea
+                    rows="40"
+                    cols="20"
+                    placeholder="1. 금원 수원 수영장 - 수영복 챙기기"></textarea>
+            </div>
+        </div>
     </div>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-
 <script>
     document.getElementById('deleteBtn').addEventListener('click', function () {
         if (confirm('정말 삭제하시겠습니까?')) {
             alert('삭제되었습니다.');
-            location.href = 'mylist.html';
+            location.href = 'todoList.jsp';
         }
     });
 
@@ -228,4 +228,5 @@
     });
 </script>
 
-</body></html>
+</body>
+</html>
