@@ -219,14 +219,14 @@
 
     if (deleteResult === 'true') {
         alert('삭제되었습니다.');
-        location.href = 'mylist.jsp';
+        location.href = 'mylist.html';
     } else if (deleteResult === 'false') {
         alert('삭제에 실패했습니다.');
     }
 
     document.getElementById('deleteBtn').addEventListener('click', function () {
         if (confirm('정말 삭제하시겠습니까?')) {
-            location.href = 'deleteTodo.do';
+            location.href = 'controller?cmd=deleteSchedule';
         }
     });
 
