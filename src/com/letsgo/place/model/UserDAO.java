@@ -17,7 +17,7 @@ public class UserDAO {
         this.conn = conn;
     }
 
-    // ·Î±×ÀÎ
+    // ë¡œê·¸ì¸
     public UserVO login(String userID, String password) {
 
         UserVO user = null;
@@ -40,7 +40,7 @@ public class UserDAO {
         return user;
     }
 
-    // È¸¿ø°¡ÀÔ
+    // íšŒì›ê°€ì…
     public boolean signup(String userID, String email, String name, String password) {
 
         String sql = "INSERT INTO USERS (USER_ID, EMAIL, NAME, PASSWORD) VALUES (?,?,?,?)";
@@ -60,7 +60,7 @@ public class UserDAO {
         return false;
     }
 
-    // ¾ÆÀÌµğ Ã¼Å©
+    // ì•„ì´ë”” ì²´í¬
     public boolean idcheck(String userID) {
 
         String sql = "SELECT 1 FROM USERS WHERE USER_ID = ?";

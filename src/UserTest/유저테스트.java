@@ -6,40 +6,38 @@ import org.junit.Test;
 import com.letsgo.place.model.UserDAO;
 import com.letsgo.place.model.UserVO;
 
-public class À¯ÀúÅ×½ºÆ® {
-    
-    
-    public void ·Î±×ÀÎÅ×½ºÆ®() throws Exception {
+public class ìœ ì €í…ŒìŠ¤íŠ¸ {
+
+    public void ë¡œê·¸ì¸í…ŒìŠ¤íŠ¸() throws Exception {
         String userID = "user01";
         String password = "pass123";
-        
+
         UserDAO userDao = new UserDAO();
         UserVO user = userDao.login(userID, password);
-        
+
         assertNotNull(user);
         assertEquals(userID, user.getUserID());
-        
-        System.out.println("·Î±×ÀÎ ¼º°ø: " + user.getName());
+
+        System.out.println("ë¡œê·¸ì¸ ì„±ê³µ: " + user.getName());
     }
-    
-  
-    public void È¸¿ø°¡ÀÔÅ×½ºÆ®() throws Exception {
+
+    public void íšŒì›ê°€ì…í…ŒìŠ¤íŠ¸() throws Exception {
         UserDAO userDao = new UserDAO();
-        boolean result = userDao.signup("user11", "user11@test.com", "È«±æµ¿", "pass456");
-        
-        assertTrue("È¸¿ø°¡ÀÔÀÌ ¼º°øÁ».", result);
-        System.out.println("È¸¿ø°¡ÀÔ ¼º°ø");
-        
-    }
-    
-    @Test
-    public void ¾ÆÀÌµğÃ¼Å©() throws Exception {
-    	
-        UserDAO userDao = new UserDAO();
-        boolean exists = userDao.idcheck("user01");
-        assertTrue("Á¸ÀçÇÏ´Â ¾ÆÀÌµğ", exists);
-        System.out.println("¾ÆÀÌµğ Á¸Àç ¿©ºÎ: " + exists);
+        boolean result = userDao.signup("user11", "user11@test.com", "í™ê¸¸ë™", "pass456");
+
+        assertTrue("íšŒì›ê°€ì…ì´ ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.", result);
+        System.out.println("íšŒì›ê°€ì… ì„±ê³µ");
 
     }
-    
+
+    @Test
+    public void ì•„ì´ë””ì²´í¬() throws Exception {
+
+        UserDAO userDao = new UserDAO();
+        boolean exists = userDao.idcheck("user01");
+        assertTrue("ì¡´ì¬í•˜ëŠ” ì•„ì´ë””", exists);
+        System.out.println("ì•„ì´ë”” ì¤‘ë³µ í™•ì¸: " + exists);
+
+    }
+
 }
