@@ -75,6 +75,14 @@ public class TestPlaceDAO {
 	}
 
 	@Test
+	public void setPlaceLikeCountTest() {
+		int beforeLikeCount = dao.getPlaceLikeCount("LEISURE", "9");
+	    assertTrue(dao.setPlaceLikeCount("9"));
+	    assertEquals(beforeLikeCount + 1, dao.getPlaceLikeCount("LEISURE", "9"));
+	    assertFalse(dao.setPlaceLikeCount("100"));
+	}
+	
+	@Test
 	public void getPlaceLikeCountTest() {
 		assertTrue(dao.getPlaceLikeCount("LEISURE", "9") >= 0);
 		assertEquals(0, dao.getPlaceLikeCount("LEISURE", "100"));

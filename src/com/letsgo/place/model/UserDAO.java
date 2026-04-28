@@ -7,61 +7,71 @@ import java.sql.SQLException;
 
 public class UserDAO {
 
-	public UserVO login(String userID, String password) {
+    private Connection conn;
 
-		UserVO user = null;
+    public UserDAO() throws Exception {
+        conn = DBCP.getConnection();
+    }
 
-		String sql = "SELECT NAME, EMAIL FROM USERS WHERE USER_ID = ? AND PASSWORD = ?";
+    public UserDAO(Connection conn) throws Exception {
+        this.conn = conn;
+    }
 
-		try (Connection conn = DBCP.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, userID);
-			pstmt.setString(2, password);
+    // 로그인
+    public UserVO login(String userID, String password) {
 
-			try (ResultSet rs = pstmt.executeQuery()) {
-				if (rs.next()) {
-					String name = rs.getString("NAME");
-					String email = rs.getString("EMAIL");
-					user = new UserVO(userID, email, name, password);
-				}
-			}
-		} catch (ClassNotFoundException e) {
-
-			e.printStackTrace();
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
-		return user; 
-
-	}
+        UserVO user = null;
 
 
-	public boolean signup(String userID, String email, String name, String password) {
+        try (PreparedStatement pstmt = conn.prepareStatement("LOGIN_SQL")) {
+            pstmt.setString(1, userID);
+            pstmt.setString(2, password);
 
-	    String sql = "INSERT INTO USERS (USER_ID, EMAIL, NAME, PASSWORD) VALUES (?,?,?,?)";
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String name = rs.getString("NAME");
+                    String email = rs.getString("EMAIL");
+                    user = new UserVO(userID, email, name, password);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 
-	    try (Connection conn = DBCP.getConnection();
-	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    // 회원가입
+    public boolean signup(String userID, String email, String name, String password) {
 
-	        pstmt.setString(1, userID);
-	        pstmt.setString(2, email);
-	        pstmt.setString(3, name);
-	        pstmt.setString(4, password);
 
-	        int result = pstmt.executeUpdate();  
-	        return result > 0;  
+        try (PreparedStatement pstmt = conn.prepareStatement("SIGNUP_SQL")) {
+            pstmt.setString(1, userID);
+            pstmt.setString(2, email);
+            pstmt.setString(3, name);
+            pstmt.setString(4, password);
 
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return false;
-	}
-	
-	
-	
-	
+            int result = pstmt.executeUpdate();
+            return result > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // 아이디 체크
+    public boolean idcheck(String userID) {
+
+
+        try (PreparedStatement pstmt = conn.prepareStatement("IDCHECK_SQL")) {
+            pstmt.setString(1, userID);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
-

@@ -15,5 +15,21 @@ public interface PlaceQuery {
 	
 	String GET_PLACE_COUNT_SQL="SELECT COUNT(place_Id) FROM place WHERE place_type=?";
 	
+	String SET_PLACE_LIKE_COUNT_SQL="UPDATE place SET like_count = like_count + 1 WHERE place_Id=?";
+	
 	String GET_PLACE_LIKE_COUNT_SQL="SELECT like_count FROM place WHERE place_type=? AND place_Id=?";
+	
+	String GET_LEISURE_PLACE_DESC_SQL = "SELECT * FROM place WHERE place_type = 'LEISURE' ORDER BY like_count DESC";
+	
+	String GET_PLACE_BYID_SQL = "SELECT TITLE, ADDR1, MAPX, MAPY FROM PLACE WHERE PLACE_ID = ?";
+	
+	String GET_VISIT_ITEM_SCHEDULE_ID_SQL = "SELECT VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_ID FROM VISIT_ITEM WHERE SCHEDULE_ID = ? ORDER BY VISIT_ORDER ASC";
+	
+	String GET_PLACE_BYPLACEID_SQL = "SELECT PLACE_ID, TITLE, ADDR1, MAPX, MAPY FROM PLACE WHERE PLACE_ID = ?";
+	
+	String GET_PLACES_SQL = "SELECT place_id, title, addr1, mapx, mapy FROM place";
+	
+	String SET_COUNTING_SQL = "UPDATE schedule_post SET like_count = like_count + 1 WHERE post_id = ?";
+
+	String INSERT_VISIT_ITEM_SQL ="INSERT INTO VISIT_ITEM (VISIT_ITEM_ID, VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_ID, SCHEDULE_ID, SCHEDULE_TYPE) VALUES (VISIT_ITEM_SEQ.NEXTVAL, ?, ?, ?, ?, ?)";
 }
