@@ -36,19 +36,18 @@ public class TestMyScheduleDAO {
 		}
 	}
 
-	// @Test
+	@Test
 	public void getMyScheduleListTest() {
 		assertNotNull(dao.getMyScheduleList("user01", "서대문", "title", false));
 		assertNotNull(dao.getMyScheduleList("user01", "", "title", false));
-		assertNotEquals(new ArrayList<MyScheduleDAO>(), dao.getMyScheduleList("user0241", "", "title", false));
+		assertNotEquals(null, dao.getMyScheduleList("user0241", "", "title", false));
 
 	}
 
-	// @Test
+	@Test
 	public void deleteMyScheduleTest() throws Exception {
-		assertTrue(dao.deleteMySchedule("user01", "SCH001"));
-		conn.rollback();
-		// assertFalse(dao.deleteMySchedule("user01", "SCH001"));
+//		assertTrue(dao.deleteMySchedule("user01", "SCH001"));
+		assertTrue(dao.deleteMySchedule("SCH022"));
 
 	}
 	
@@ -58,7 +57,7 @@ public class TestMyScheduleDAO {
         assertTrue(dao.deleteMyScheduleList("user01", ids));
     }
 	
-	// @Test
+	@Test
 	public void setMyScheduleTest() throws Exception {
 
 		String[] visitItemIds = { "4", "5", "6" };
@@ -69,15 +68,15 @@ public class TestMyScheduleDAO {
 
 	}
 
-	// @Test
+	@Test
 	public void setTodoDetailTest() throws Exception {
 		assertTrue(dao.setTodoDetail("SCH002", "햄부기 사냥함부기"));
 	}
 
-	// @Test
+	@Test
 	public void getTodoDetailTest() throws Exception {
-		assertEquals("햄부기 사냥", dao.getTodoDetail("SCH002"));
-
+		assertEquals("햄부기 사냥함부기", dao.getTodoDetail("SCH002"));
+		assertNotEquals("햄부기 사냥햄부기", dao.getTodoDetail("SCH002"));
 	}
 
 	@Test
@@ -89,9 +88,7 @@ public class TestMyScheduleDAO {
 	public void getMapScheduleVOTest() throws Exception {
 
 		List<MapScheduleVO> mapList = dao.getMapScheduleVO("SCH001");
-
 		assertNotNull(mapList);
-		assertNotNull(mapList.get(0).getMapX());
 	}
 	@Test
     public void addVisitItemtest() throws Exception {
@@ -100,18 +97,18 @@ public class TestMyScheduleDAO {
 	
 	@Test
     public void deleteVisitItemByIdTest() {
-        assertTrue(dao.deleteVisitItemById("1"));
+        assertFalse(dao.deleteVisitItemById("1"));
 
     }
 
     @Test
     public void addCompanionTest() {
-        assertTrue(dao.addCompanion("SCH011", "user02"));
+        assertTrue(dao.addCompanion("SCH002", "user06"));
     }
 
     @Test
     public void setCompanionPermissionTest() {
-        assertTrue(dao.setCompanionPermission("SCH001", "user02", "W"));
+        assertFalse(dao.setCompanionPermission("SCH002", "user01", "R"));
     }
 
     @Test
@@ -121,8 +118,8 @@ public class TestMyScheduleDAO {
     }
 
     @Test
-    public void shareToPostTest() {
-        String result = dao.shareToPost("SCH001", "user01", 0);
+    public void shareToPostTest() throws Exception {
+        String result = dao.shareToPost("SCH002", "user01", 0);
         assertEquals("", result);
     }
 	

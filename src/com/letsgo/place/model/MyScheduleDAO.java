@@ -4,21 +4,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyScheduleDAO {
 	private Connection conn;
-	
-	public MyScheduleDAO() throws Exception{
+
+	public MyScheduleDAO() throws Exception {
 		conn = DBCP.getConnection();
 	}
-	
-	public MyScheduleDAO(Connection conn) throws Exception{
+
+	public MyScheduleDAO(Connection conn) throws Exception {
 		this.conn = conn;
 	}
-	
-	
+
 	public List<MyScheduleVO> getMyScheduleList(String userId, String keyword, String sortType, boolean sharedFilter) {
 		List<MyScheduleVO> tmp = new ArrayList<>();
 
@@ -66,21 +66,22 @@ public class MyScheduleDAO {
 		return tmp;
 	}
 
-	public boolean deleteMySchedule(String userId, String scheduleId) {
+	public boolean deleteMySchedule(String scheduleId) {
 		boolean flag = false;
 		try {
-			String sql = "DELETE FROM VISIT_ITEM WHERE SCHEDULE_ID = ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, scheduleId);
-			stmt.executeUpdate();
+			String sqlVisit = "DELETE FROM VISIT_ITEM WHERE SCHEDULE_ID = ?";
+			PreparedStatement stmtVisit = conn.prepareStatement(sqlVisit);
+			stmtVisit.setString(1, scheduleId);
+			flag = (stmtVisit.executeUpdate() == 1);
+			stmtVisit.close();
 
-			sql = "DELETE FROM MY_SCHEDULE WHERE MY_SCHEDULE_ID = ?";
-			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, scheduleId);
-			stmt.executeUpdate();
+			String sqlSchedule = "DELETE FROM MY_SCHEDULE WHERE MY_SCHEDULE_ID = ?";
+			PreparedStatement stmtSchedule = conn.prepareStatement(sqlSchedule);
+			stmtSchedule.setString(1, scheduleId);
 
-			stmt.close();
-			flag = true;
+			flag = (stmtSchedule.executeUpdate() == 1);
+			stmtSchedule.close();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -90,28 +91,28 @@ public class MyScheduleDAO {
 
 	public boolean deleteMyScheduleList(String userId, String[] scheduleIds) {
 		boolean flag = false;
-	    String sqlVisit = "DELETE FROM VISIT_ITEM WHERE SCHEDULE_ID = ?";
-	    String sqlSchedule = "DELETE FROM MY_SCHEDULE WHERE MY_SCHEDULE_ID = ? AND USER_ID = ?";
+		String sqlVisit = "DELETE FROM VISIT_ITEM WHERE SCHEDULE_ID = ?";
+		String sqlSchedule = "DELETE FROM MY_SCHEDULE WHERE MY_SCHEDULE_ID = ? AND USER_ID = ?";
 
-	    try {
-	    	PreparedStatement stmtVisit = conn.prepareStatement(sqlVisit);
-	        PreparedStatement stmtSch = conn.prepareStatement(sqlSchedule);
+		try {
+			PreparedStatement stmtVisit = conn.prepareStatement(sqlVisit);
+			PreparedStatement stmtSch = conn.prepareStatement(sqlSchedule);
 
-	        for (String schId : scheduleIds) {
+			for (String schId : scheduleIds) {
 
-	            stmtVisit.setString(1, schId);
-	            stmtVisit.executeUpdate();
+				stmtVisit.setString(1, schId);
+				stmtVisit.executeUpdate();
 
-	            stmtSch.setString(1, schId);
-	            stmtSch.setString(2, userId); 
-	            stmtSch.executeUpdate();
-	        }
-	        flag = true;
-	    } catch (SQLException e) {
-	        e.printStackTrace();
+				stmtSch.setString(1, schId);
+				stmtSch.setString(2, userId);
+				stmtSch.executeUpdate();
+			}
+			flag = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
 
-	    }
-	    return flag;
+		}
+		return flag;
 	}
 
 	public boolean setMySchedule(String[] visitItemId, int[] visitOrder, String[] distanceToNext, String scheduleId,
@@ -358,31 +359,34 @@ public class MyScheduleDAO {
 		return list;
 	}
 
-	public String shareToPost(String myScheduleId, String userId, int isAnonymous) {
+	public String shareToPost(String myScheduleId, String userId, int isAnonymous) throws SQLException {
 		String str = "";
 		try {
-	
-			String sql = "INSERT INTO SCHEDULE_POST (POST_ID, TITLE, BUDGET_DETAILS, TODO_DETAILS, IS_ANONYMOUS, VIEW_COUNT, LIKE_COUNT, POSTED_AT, USER_ID) "
+			Statement stmtLock = conn.createStatement();
+			stmtLock.execute("LOCK TABLE SCHEDULE_POST IN EXCLUSIVE MODE");
+
+			String sqlSchedule = "INSERT INTO SCHEDULE_POST (POST_ID, TITLE, BUDGET_DETAILS, TODO_DETAILS, IS_ANONYMOUS, VIEW_COUNT, LIKE_COUNT, POSTED_AT, USER_ID) "
 					+ "SELECT ('P' || LPAD(SEQ_SCHEDULE_POST.NEXTVAL, 3, '0')), TITLE, BUDGET_DETAILS, TODO_DETAILS, ?, 0, 0, SYSDATE, ? "
 					+ "FROM MY_SCHEDULE WHERE MY_SCHEDULE_ID = ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmtSchedule = conn.prepareStatement(sqlSchedule);
 
-			stmt.setInt(1, isAnonymous);
-			stmt.setString(2, userId);
-			stmt.setString(3, myScheduleId);
+			stmtSchedule.setInt(1, isAnonymous);
+			stmtSchedule.setString(2, userId);
+			stmtSchedule.setString(3, myScheduleId);
 
-			stmt.executeUpdate();
+			stmtSchedule.executeUpdate();
+			stmtSchedule.close();
 
-			sql = "INSERT INTO VISIT_ITEM (VISIT_ITEM_ID, VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_TYPE, SCHEDULE_TYPE, PLACE_ID, SCHEDULE_ID) "
-					+ "SELECT SEQ_VISIT_ITEM.NEXTVAL, VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_TYPE, 'POST', PLACE_ID, 'P' || LPAD(SEQ_SCHEDULE_POST.CURRVAL) "
+			String sqlVisit = "INSERT INTO VISIT_ITEM (VISIT_ITEM_ID, VISIT_ORDER, DISTANCE_TO_NEXT, SCHEDULE_TYPE, PLACE_ID, SCHEDULE_ID) "
+					+ "SELECT SEQ_VISIT_ITEM.NEXTVAL, VISIT_ORDER, DISTANCE_TO_NEXT, 'POST', PLACE_ID, ('P' || LPAD(SEQ_SCHEDULE_POST.CURRVAL, 3, '0')) "
 					+ "FROM VISIT_ITEM WHERE SCHEDULE_ID = ?";
+			PreparedStatement stmtVisit = conn.prepareStatement(sqlVisit);
+			stmtVisit.setString(1, myScheduleId);
 
-			stmt.setString(1, myScheduleId);
-			stmt.executeUpdate();
+			stmtVisit.executeUpdate();
+			stmtVisit.close();
 
-			stmt.close();
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
 

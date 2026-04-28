@@ -77,4 +77,13 @@ public class MyScheduleVO {
 	public void setFirstImage(String firstImage) {
 		this.firstImage = firstImage;
 	}
+
+	@Override
+	public String toString() {
+		return "MyScheduleVO [myScheduleId=" + myScheduleId + ", myScheduleTitle=" + myScheduleTitle + ", startAt="
+				+ startAt + ", isShared=" + isShared + ", placeTitle=" + placeTitle + ", addr1=" + addr1
+				+ ", firstImage=" + firstImage + "]";
+	}
+	
+
 }
