@@ -21,9 +21,9 @@ public class UserDAO {
     public UserVO login(String userID, String password) {
 
         UserVO user = null;
-        String sql = "SELECT NAME, EMAIL FROM USERS WHERE USER_ID = ? AND PASSWORD = ?";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        try (PreparedStatement pstmt = conn.prepareStatement("LOGIN_SQL")) {
             pstmt.setString(1, userID);
             pstmt.setString(2, password);
 
@@ -43,9 +43,8 @@ public class UserDAO {
     // 회원가입
     public boolean signup(String userID, String email, String name, String password) {
 
-        String sql = "INSERT INTO USERS (USER_ID, EMAIL, NAME, PASSWORD) VALUES (?,?,?,?)";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement("SIGNUP_SQL")) {
             pstmt.setString(1, userID);
             pstmt.setString(2, email);
             pstmt.setString(3, name);
@@ -63,9 +62,8 @@ public class UserDAO {
     // 아이디 체크
     public boolean idcheck(String userID) {
 
-        String sql = "SELECT 1 FROM USERS WHERE USER_ID = ?";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement("IDCHECK_SQL")) {
             pstmt.setString(1, userID);
 
             try (ResultSet rs = pstmt.executeQuery()) {

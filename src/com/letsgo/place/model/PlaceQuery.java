@@ -25,4 +25,9 @@ public interface PlaceQuery {
 	
 	String GET_PLACE_BYPLACEID_SQL = "SELECT PLACE_ID, TITLE, ADDR1, MAPX, MAPY FROM PLACE WHERE PLACE_ID = ?";
 	
+	String GET_PLACES_SQL = "SELECT place_id, title, addr1, mapx, mapy FROM place";
+	
+	String SET_COUNTING_SQL = "UPDATE schedule_post SET like_count = like_count + 1 WHERE post_id = ?";
+
+	String INSERT_VISIT_ITEM_SQL ="INSERT INTO VISIT_ITEM (VISIT_ITEM_ID, VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_ID, SCHEDULE_ID, SCHEDULE_TYPE) VALUES (VISIT_ITEM_SEQ.NEXTVAL, ?, ?, ?, ?, ?)";
 }

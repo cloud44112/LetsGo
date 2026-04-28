@@ -194,9 +194,8 @@ public class PlaceDAO {
     // 근처에 있는 모든 플레이스 및 거리 / 좌표값 반환
     public List<PlaceVO> getPlaces() {
         List<PlaceVO> places = new ArrayList<>();
-        String sql = "SELECT place_id, title, addr1, mapx, mapy FROM place";
-
-        try (PreparedStatement pstmt = conn.prepareStatement(sql);
+    
+        try (PreparedStatement pstmt = conn.prepareStatement("GET_PLACES_SQL");
                 ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
@@ -219,11 +218,7 @@ public class PlaceDAO {
     public boolean insertVisitItem(int visitOrder, int distanceToNext,
             String placeId, String scheduleId, String scheduleType) {
 
-        String sql = "INSERT INTO VISIT_ITEM " +
-                "(VISIT_ITEM_ID, VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_ID, SCHEDULE_ID, SCHEDULE_TYPE) " +
-                "VALUES (VISIT_ITEM_SEQ.NEXTVAL, ?, ?, ?, ?, ?)";
-
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement("INSERT_VISIT_ITEM_SQL")) {
             pstmt.setInt(1, visitOrder);
             pstmt.setInt(2, distanceToNext);
             pstmt.setString(3, placeId);
@@ -242,9 +237,8 @@ public class PlaceDAO {
     // 좋아요 기준 레저 장소 목록 조회
     public List<PlaceVO> getLeisurePlacesOrderByLikeDesc() {
         List<PlaceVO> list = new ArrayList<>();
-        String sql = "SELEC * ROM place WHERE place_type = 'LEISURE' ORDER BY like_count DESC";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql);
+        try (PreparedStatement pstmt = conn.prepareStatement("GET_LEISURE_PLACE_DESC_SQL");
                 ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
@@ -268,9 +262,8 @@ public class PlaceDAO {
 
     // 좋아요 카운트
     public boolean setCounting(String postId) {
-        String sql = "UPDATE schedule_post SET like_count = like_count + 1 WHERE post_id = ?";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement("SET_COUNTING_SQL")) {
             pstmt.setString(1, postId);
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
@@ -283,9 +276,8 @@ public class PlaceDAO {
     // 플레이스 단건 조회
     public PlaceVO getPlaceById(String placeId) {
         PlaceVO place = null;
-        String sql = "SELECT TITLE, ADDR1, MAPX, MAPY FROM PLACE WHERE PLACE_ID = ?";
-
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        
+        try (PreparedStatement pstmt = conn.prepareStatement("GET_PLACE_BYID_SQL")) {
             pstmt.setString(1, placeId);
 
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -306,12 +298,8 @@ public class PlaceDAO {
     // SCHEDULE_ID로 방문지 항목 리스트 조회
     public List<VisitItemVO> getVisitItemsByScheduleId(String scheduleId) {
         List<VisitItemVO> list = new ArrayList<>();
-        String sql = "SELECT VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_ID " +
-                     "FROM VISIT_ITEM " +
-                     "WHERE SCHEDULE_ID = ? " +
-                     "ORDER BY VISIT_ORDER ASC";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement("GET_VISIT_ITEM_SCHEDULE_ID_SQL")) {
             pstmt.setString(1, scheduleId);
 
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -332,11 +320,8 @@ public class PlaceDAO {
     // PLACE_ID로 장소 단건 조회
     public PlaceVO getPlaceByPlaceId(String placeId) {
         PlaceVO vo = null;
-        String sql = "SELECT PLACE_ID, TITLE, ADDR1, MAPX, MAPY " +
-                     "FROM PLACE " +
-                     "WHERE PLACE_ID = ?";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement("GET_PLACE_BYPLACEID_SQL")) {
             pstmt.setString(1, placeId);
 
             try (ResultSet rs = pstmt.executeQuery()) {
