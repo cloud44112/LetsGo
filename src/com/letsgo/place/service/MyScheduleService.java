@@ -16,7 +16,7 @@ public class MyScheduleService {
 
 	private Connection conn;
 
-	public MyScheduleService() throws Exception {
+	public MyScheduleService() throws ClassNotFoundException, SQLException{
 		conn = DBCP.getConnection();
 		dao = new MyScheduleDAO(conn);
 	}

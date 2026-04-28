@@ -11,7 +11,7 @@ import java.util.List;
 public class MyScheduleDAO {
 	private Connection conn;
 
-	public MyScheduleDAO(Connection conn) throws Exception {
+	public MyScheduleDAO(Connection conn){
 		this.conn = conn;
 	}
 
