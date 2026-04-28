@@ -18,6 +18,7 @@ public class PlaceDAO {
 		this.conn = conn;
 	}
 	
+	
 	public List<PlaceVO> getPlaceByTitle(String placeType, String title){
 		List<PlaceVO> list = new ArrayList<>();
 		
