@@ -4,10 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaceDAO {
+public class PlaceDAO implements PlaceQuery {
     private Connection conn;
 
     public PlaceDAO() throws Exception {
@@ -208,7 +209,7 @@ public class PlaceDAO {
     public List<PlaceVO> getPlaces() {
         List<PlaceVO> places = new ArrayList<>();
     
-        try (PreparedStatement pstmt = conn.prepareStatement("GET_PLACES_SQL");
+        try (PreparedStatement pstmt = conn.prepareStatement(GET_PLACES_SQL);
                 ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
@@ -228,12 +229,16 @@ public class PlaceDAO {
     }
 
     // 방문 항목 넣기
-    public boolean insertVisitItem(int visitOrder, int distanceToNext,
+    public boolean insertVisitItem(int visitOrder, Integer distanceToNext,
             String placeId, String scheduleId, String scheduleType) {
 
-        try (PreparedStatement pstmt = conn.prepareStatement("INSERT_VISIT_ITEM_SQL")) {
+        try (PreparedStatement pstmt = conn.prepareStatement(INSERT_VISIT_ITEM_SQL)) {
             pstmt.setInt(1, visitOrder);
-            pstmt.setInt(2, distanceToNext);
+            if (distanceToNext == null) {
+                pstmt.setNull(2, Types.NUMERIC);
+            } else {
+                pstmt.setInt(2, distanceToNext);
+            }
             pstmt.setString(3, placeId);
             pstmt.setString(4, scheduleId);
             pstmt.setString(5, scheduleType);
@@ -251,7 +256,7 @@ public class PlaceDAO {
     public List<PlaceVO> getLeisurePlacesOrderByLikeDesc() {
         List<PlaceVO> list = new ArrayList<>();
 
-        try (PreparedStatement pstmt = conn.prepareStatement("GET_LEISURE_PLACE_DESC_SQL");
+        try (PreparedStatement pstmt = conn.prepareStatement(GET_LEISURE_PLACE_DESC_SQL);
                 ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
@@ -276,7 +281,7 @@ public class PlaceDAO {
     // 좋아요 카운트
     public boolean setCounting(String postId) {
 
-        try (PreparedStatement pstmt = conn.prepareStatement("SET_COUNTING_SQL")) {
+        try (PreparedStatement pstmt = conn.prepareStatement(SET_COUNTING_SQL)) {
             pstmt.setString(1, postId);
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
@@ -290,7 +295,7 @@ public class PlaceDAO {
     public PlaceVO getPlaceById(String placeId) {
         PlaceVO place = null;
         
-        try (PreparedStatement pstmt = conn.prepareStatement("GET_PLACE_BYID_SQL")) {
+        try (PreparedStatement pstmt = conn.prepareStatement(GET_PLACE_BYID_SQL)) {
             pstmt.setString(1, placeId);
 
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -312,14 +317,15 @@ public class PlaceDAO {
     public List<VisitItemVO> getVisitItemsByScheduleId(String scheduleId) {
         List<VisitItemVO> list = new ArrayList<>();
 
-        try (PreparedStatement pstmt = conn.prepareStatement("GET_VISIT_ITEM_SCHEDULE_ID_SQL")) {
+        try (PreparedStatement pstmt = conn.prepareStatement(GET_VISIT_ITEM_SCHEDULE_ID_SQL)) {
             pstmt.setString(1, scheduleId);
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     VisitItemVO vo = new VisitItemVO();
                     vo.setVisitOrder(rs.getInt("VISIT_ORDER"));
-                    vo.setDistanceToNext(rs.getDouble("DISTANCE_TO_NEXT"));
+                    double distanceToNext = rs.getDouble("DISTANCE_TO_NEXT");
+                    vo.setDistanceToNext(rs.wasNull() ? 0.0 : distanceToNext);
                     vo.setPlaceId(rs.getString("PLACE_ID"));
                     list.add(vo);
                 }
@@ -334,7 +340,7 @@ public class PlaceDAO {
     public PlaceVO getPlaceByPlaceId(String placeId) {
         PlaceVO vo = null;
 
-        try (PreparedStatement pstmt = conn.prepareStatement("GET_PLACE_BYPLACEID_SQL")) {
+        try (PreparedStatement pstmt = conn.prepareStatement(GET_PLACE_BYPLACEID_SQL)) {
             pstmt.setString(1, placeId);
 
             try (ResultSet rs = pstmt.executeQuery()) {
