@@ -18,6 +18,40 @@ public class PlaceDAO {
 		this.conn = conn;
 	}
 	
+	public List<MyScheduleVO> getMyPlaceList(String placeType, String title) {
+		List<MyScheduleVO> tmp;
+		tmp = new ArrayList<MyScheduleVO>();
+
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM place WHERE place_type = ? ");
+
+		if ("title".equals(sortType)) {
+			sql.append(AND title= ? );
+		} else {
+			sql.append();
+		}
+
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sql.toString());
+			int idx = 1;
+			stmt.setString(idx++, userId);
+
+			if (keyword != null && !keyword.trim().isEmpty()) {
+				String searchKey = "%" + keyword + "%";
+				stmt.setString(idx++, searchKey);
+				stmt.setString(idx++, searchKey);
+			}
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				tmp.add(new MyScheduleVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7)));
+			}
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tmp;
+	}
 	
 	public List<PlaceVO> getPlaceByTitle(String placeType, String title){
 		List<PlaceVO> list = new ArrayList<>();

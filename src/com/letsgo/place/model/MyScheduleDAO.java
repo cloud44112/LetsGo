@@ -11,10 +11,6 @@ import java.util.List;
 public class MyScheduleDAO {
 	private Connection conn;
 
-	public MyScheduleDAO() throws Exception {
-		conn = DBCP.getConnection();
-	}
-
 	public MyScheduleDAO(Connection conn) throws Exception {
 		this.conn = conn;
 	}
@@ -25,7 +21,7 @@ public class MyScheduleDAO {
 
 		StringBuilder sql = new StringBuilder();
 		sql.append(MyScheduleQuery.GET_MY_SCHEDULE_LIST_SQL);
-		
+
 		if (sharedFilter) {
 			sql.append(MyScheduleQuery.SHARED_FILTER);
 		}
@@ -96,9 +92,8 @@ public class MyScheduleDAO {
 
 				stmtSch.setString(1, schId);
 				stmtSch.setString(2, userId);
-				stmtSch.executeUpdate();
+				flag = (stmtSch.executeUpdate() == 1);
 			}
-			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 
@@ -348,8 +343,8 @@ public class MyScheduleDAO {
 			stmtSchedule.executeUpdate();
 			stmtSchedule.close();
 
-
-			PreparedStatement stmtVisit = conn.prepareStatement(MyScheduleQuery.SHARE_TO_VISIT_ITEM_LIST_BY_SCHEDULE_ID);
+			PreparedStatement stmtVisit = conn
+					.prepareStatement(MyScheduleQuery.SHARE_TO_VISIT_ITEM_LIST_BY_SCHEDULE_ID);
 			stmtVisit.setString(1, myScheduleId);
 
 			stmtVisit.executeUpdate();

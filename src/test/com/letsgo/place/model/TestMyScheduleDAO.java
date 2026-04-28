@@ -46,7 +46,6 @@ public class TestMyScheduleDAO {
 
 	@Test
 	public void deleteMyScheduleTest() throws Exception {
-//		assertTrue(dao.deleteMySchedule("user01", "SCH001"));
 		assertTrue(dao.deleteMySchedule("SCH022"));
 
 	}
@@ -87,7 +86,7 @@ public class TestMyScheduleDAO {
 	@Test
 	public void getMapScheduleVOTest() throws Exception {
 
-		List<MapScheduleVO> mapList = dao.getMapScheduleVO("SCH001");
+		List<MapScheduleVO> mapList = dao.getMapSchedule("SCH001");
 		assertNotNull(mapList);
 	}
 	@Test
