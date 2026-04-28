@@ -109,7 +109,88 @@ public class PostScheduleDAO {
 			return tmp;
 			}
 		
-		
+		public String getBudgetDetail(String postId) {
+			String str = "";
+			try {
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_BUDGET_DETAIL);
+
+				stmt.setString(1, postId);
+				ResultSet rs = stmt.executeQuery();
+				if (rs.next())
+					str = rs.getString(1);
+
+				stmt.close();
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+
+			return str;
+
+		}
+		public String getTodoDetail(String postId) {
+			String str = "";
+			try {
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_TODO_DETAIL);
+
+				stmt.setString(1, postId);
+				ResultSet rs = stmt.executeQuery();
+				if (rs.next())
+					str = rs.getString(1);
+
+				stmt.close();
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+
+			return str;
+
+		}
+
+		public List<RouteScheduleVO> getScheduleRoute(String postId) {
+			List<RouteScheduleVO> list;
+			list = new ArrayList<RouteScheduleVO>();
+			try {
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_SCHEDULE_ROUTE);
+
+				stmt.setString(1, postId);
+				ResultSet rs = stmt.executeQuery();
+				while (rs.next()) {
+					list.add(new RouteScheduleVO(rs.getString("VISIT_ITEM_ID"), rs.getString("VISIT_ORDER"),
+							rs.getString("PLACE_ID"), rs.getString("TITLE")));
+				}
+				rs.close();
+				stmt.close();
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+
+			return list;
+
+		}
+
+		public List<MapScheduleVO> getMapSchedule(String postId) {
+			List<MapScheduleVO> list;
+			list = new ArrayList<MapScheduleVO>();
+			try {
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_MAP_SCHEDULE);
+
+				stmt.setString(1, postId);
+				ResultSet rs = stmt.executeQuery();
+				while (rs.next()) {
+					list.add(new MapScheduleVO(rs.getString("TITLE"), rs.getString("VISIT_ORDER"), rs.getString("MAPX"),
+							rs.getString("MAPY"), rs.getString("DISTANCE_TO_NEXT")));
+				}
+				rs.close();
+				stmt.close();
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+			return list;
+		}
 		
 		public boolean deletePostSchedule(String scheduleId) {
 			boolean flag = false;
