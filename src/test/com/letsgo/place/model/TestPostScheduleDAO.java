@@ -99,11 +99,11 @@ public class TestPostScheduleDAO {
 	}
 	
 	
-//	
-////	@Test
-////	public void deletePostSchedule() {
-////		assertTrue(dao.deletePostSchedule("P002"));
-////	}
+	
+	@Test
+	public void deletePostSchedule() {
+	assertTrue(dao.deletePostSchedule("P002"));
+	}
 	
 	@Test
 	public void plusLike() {
