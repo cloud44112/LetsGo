@@ -8,203 +8,190 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceDAO {
-	private Connection conn;
+    private Connection conn;
 
+    public PlaceDAO() throws Exception {
+        conn = DBCP.getConnection();
+    }
 
-	public PlaceDAO() throws Exception{
-		conn = DBCP.getConnection();
-	}
+    public PlaceDAO(Connection conn) throws Exception {
+        this.conn = conn;
+    }
 
-	public PlaceDAO(Connection conn) throws Exception{
-		this.conn = conn;
-	}
-<<<<<<< HEAD
+    public List<PlaceVO> getPlaceByTitle(String placeType, String title) {
+        List<PlaceVO> list = new ArrayList<>();
 
-=======
-	
-	
->>>>>>> a63038b1c5897900bd7ae2899c121037d8a2c8d9
-	public List<PlaceVO> getPlaceByTitle(String placeType, String title){
-		List<PlaceVO> list = new ArrayList<>();
+        try {
+            String sql = "SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM place WHERE place_type=? AND title=?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
 
-		try {
-			String sql = "SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM place WHERE place_type=? AND title=?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, placeType);
+            stmt.setString(2, title);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"),
+                        rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"), rs.getInt("like_count"), placeType));
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-			stmt.setString(1, placeType);
-			stmt.setString(2, title);
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"), 
-						rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"), rs.getInt("like_count"), placeType));
-			}
-			rs.close();
-			stmt.close();
-		} catch (Exception e) {
+        return list;
+    }
 
-			e.printStackTrace();
-		}
+    public List<PlaceVO> getPlaceByCategory(String placeType, String lclssystm3) {
+        List<PlaceVO> list = new ArrayList<>();
 
-		return list;
-	}
+        try {
+            String sql = "SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM place WHERE place_type=? AND lclssystm3=?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
 
-	public List<PlaceVO> getPlaceByCategory(String placeType, String lclssystm3){
-		List<PlaceVO> list = new ArrayList<>();
+            stmt.setString(1, placeType);
+            stmt.setString(2, lclssystm3);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"),
+                        rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"), rs.getInt("like_count"), placeType));
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		try {
-			String sql = "SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM place WHERE place_type=? AND lclssystm3=?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
+        return list;
+    }
 
-			stmt.setString(1, placeType);
-			stmt.setString(2, lclssystm3);
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"), 
-						rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"), rs.getInt("like_count"), placeType));
-			}
-			rs.close();
-			stmt.close();
-		} catch (Exception e) {
+    public List<PlaceVO> getPlaceOrderByLike(String placeType) {
+        List<PlaceVO> list = new ArrayList<>();
 
-			e.printStackTrace();
-		}
+        try {
+            String sql = "SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM place WHERE place_type=? ORDER BY like_count DESC";
+            PreparedStatement stmt = conn.prepareStatement(sql);
 
-		return list;
-	}
+            stmt.setString(1, placeType);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"),
+                        rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"), rs.getInt("like_count"), placeType));
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
-	public List<PlaceVO> getPlaceOrderByLike(String placeType){
-		List<PlaceVO> list = new ArrayList<>();
+    public List<PlaceVO> getPlaceOrderByTitle(String placeType) {
+        List<PlaceVO> list = new ArrayList<>();
 
-		try {
-			String sql = "SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM place WHERE place_type=? ORDER BY like_count DESC";
-			PreparedStatement stmt = conn.prepareStatement(sql);
+        try {
+            String sql = "SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM place WHERE place_type=? ORDER BY title ASC";
+            PreparedStatement stmt = conn.prepareStatement(sql);
 
-			stmt.setString(1, placeType);
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"), 
-						rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"), rs.getInt("like_count"), placeType));
-			}
-			rs.close();
-			stmt.close();
-		} catch (Exception e) {
+            stmt.setString(1, placeType);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"),
+                        rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"), rs.getInt("like_count"), placeType));
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
-			e.printStackTrace();
-		}
-		return list;
-	}
+    public List<PlaceVO> getPlaceByAddr(String placeType, String addr) {
+        List<PlaceVO> list = new ArrayList<>();
 
-	public List<PlaceVO> getPlaceOrderByTitle(String placeType){
-		List<PlaceVO> list = new ArrayList<>();
+        try {
+            String sql = "SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM place WHERE place_type =? AND addr1 Like ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            String searchKeyword = "%" + addr + "%";
+            stmt.setString(1, placeType);
+            stmt.setString(2, searchKeyword);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"),
+                        rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"), rs.getInt("like_count"), placeType));
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
-		try {
-			String sql = "SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM place WHERE place_type=? ORDER BY title ASC";
-			PreparedStatement stmt = conn.prepareStatement(sql);
+    public List<PlaceVO> getPlace(String placeType, String placeId) {
+        List<PlaceVO> list = new ArrayList<>();
 
-			stmt.setString(1, placeType);
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"), 
-						rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"), rs.getInt("like_count"), placeType));
-			}
-			rs.close();
-			stmt.close();
-		} catch (Exception e) {
+        try {
+            String sql = "SELECT title, addr1, mapx, mapy FROM place WHERE place_type=? AND place_Id=?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
 
-			e.printStackTrace();
-		}
-		return list;
-	}
+            stmt.setString(1, placeType);
+            stmt.setString(2, placeId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(new PlaceVO(placeId, rs.getString("title"), rs.getString("addr1"),
+                        rs.getString("mapx"), rs.getString("mapy")));
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
-	public List<PlaceVO> getPlaceByAddr(String placeType, String addr){
-		List<PlaceVO> list = new ArrayList<>();
+    public int getPlaceCount(String placeType) {
+        int count = 0;
 
-		try {
-			String sql = "SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM place WHERE place_type =? AND addr1 Like ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			String searchKeyword = "%" + addr + "%";
-			stmt.setString(1, placeType);
-			stmt.setString(2, searchKeyword);
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				list.add(new PlaceVO(rs.getString("place_id"), rs.getString("title"), rs.getString("addr1"), 
-						rs.getString("mapx"), rs.getString("mapy"), rs.getString("first_image"), rs.getInt("like_count"), placeType));
-			}
-			rs.close();
-			stmt.close();
-		} catch (Exception e) {
+        try {
+            String sql = "SELECT COUNT(place_Id) FROM place WHERE place_type=?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, placeType);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-			e.printStackTrace();
-		}
-		return list;
-	}
+        return count;
+    }
 
-	public List<PlaceVO> getPlace(String placeType, String placeId){
-		List<PlaceVO> list = new ArrayList<>();
+    public int getPlaceLikeCount(String placeType, String placeId) {
+        int count = 0;
 
-		try {
-			String sql = "SELECT title, addr1, mapx, mapy FROM place WHERE place_type=? AND place_Id=?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
+        try {
+            String sql = "SELECT like_count FROM place WHERE place_type=? AND place_Id=?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, placeType);
+            stmt.setString(2, placeId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("like_count");
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-			stmt.setString(1, placeType);
-			stmt.setString(2, placeId);
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				list.add(new PlaceVO(placeId, rs.getString("title"), rs.getString("addr1"), 
-						rs.getString("mapx"), rs.getString("mapy")));
-			}
-			rs.close();
-			stmt.close();
-		} catch (Exception e) {
+        return count;
+    }
 
-			e.printStackTrace();
-		}
-		return list;
-	}
-
-	public int getPlaceCount(String placeType){
-		int count=0;
-
-		try {
-			String sql = "SELECT COUNT(place_Id) FROM place WHERE place_type=?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, placeType);
-			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				count = rs.getInt(1);
-			}
-			rs.close();
-			stmt.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return count;
-	}
-
-	public int getPlaceLikeCount(String placeType, String placeId){
-		int count=0;
-
-		try {
-			String sql = "SELECT like_count FROM place WHERE place_type=? AND place_Id=?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, placeType);
-			stmt.setString(2, placeId);
-			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				count = rs.getInt("like_count");
-			}
-			rs.close();
-			stmt.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return count;
-	}
-
-
-    // πŸ±∏¥œø° ¥„±‰ «√∑π¿ÃΩ∫ ªÛºº ¡§∫∏ / ∑π∆˜√˜ ¥„±‚
+    // Í∑ºÏ≤òÏóê ÏûàÎäî Î™®Îì† ÌîåÎ†àÏù¥Ïä§ Î∞è Í±∞Î¶¨ / Ï¢åÌëúÍ∞í Î∞òÌôò
     public List<PlaceVO> getPlaces() {
         List<PlaceVO> places = new ArrayList<>();
         String sql = "SELECT place_id, title, addr1, mapx, mapy FROM place";
@@ -228,7 +215,7 @@ public class PlaceDAO {
         return places;
     }
 
-    // ≥ª ¿œ¡§ø° ≥÷±‚
+    // Î∞©Î¨∏ Ìï≠Î™© ÎÑ£Í∏∞
     public boolean insertVisitItem(int visitOrder, int distanceToNext,
             String placeId, String scheduleId, String scheduleType) {
 
@@ -239,7 +226,7 @@ public class PlaceDAO {
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, visitOrder);
             pstmt.setInt(2, distanceToNext);
-            pstmt.setString(3, placeId);  
+            pstmt.setString(3, placeId);
             pstmt.setString(4, scheduleId);
             pstmt.setString(5, scheduleType);
 
@@ -252,11 +239,10 @@ public class PlaceDAO {
         return false;
     }
 
-
-    // ∑π∆˜√˜ ¿Œ±‚º¯ ¡§∑ƒ ¡∂»∏
+    // Ï¢ãÏïÑÏöî Í∏∞Ï§Ä Î†àÏ†Ä Ïû•ÏÜå Î™©Î°ù Ï°∞Ìöå
     public List<PlaceVO> getLeisurePlacesOrderByLikeDesc() {
         List<PlaceVO> list = new ArrayList<>();
-        String sql = "SELECT * FROM place WHERE place_type = 'LEISURE' ORDER BY like_count DESC";
+        String sql = "SELEC * ROM place WHERE place_type = 'LEISURE' ORDER BY like_count DESC";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql);
                 ResultSet rs = pstmt.executeQuery()) {
@@ -280,15 +266,13 @@ public class PlaceDAO {
         return list;
     }
 
-    // ¡¡æ∆ø‰ ƒ´øÓ∆Æ
+    // Ï¢ãÏïÑÏöî Ïπ¥Ïö¥Ìä∏
     public boolean setCounting(String postId) {
         String sql = "UPDATE schedule_post SET like_count = like_count + 1 WHERE post_id = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
             pstmt.setString(1, postId);
             int affectedRows = pstmt.executeUpdate();
-
             return affectedRows > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -296,7 +280,7 @@ public class PlaceDAO {
         return false;
     }
 
-    // «√∑π¿ÃΩ∫ ªÛºº ¡§∫∏ ¡∂»∏
+    // ÌîåÎ†àÏù¥Ïä§ Îã®Í±¥ Ï°∞Ìöå
     public PlaceVO getPlaceById(String placeId) {
         PlaceVO place = null;
         String sql = "SELECT TITLE, ADDR1, MAPX, MAPY FROM PLACE WHERE PLACE_ID = ?";
@@ -318,11 +302,9 @@ public class PlaceDAO {
         }
         return place;
     }
-    
-    
- // SCHEDULE_ID∑Œ πÊπÆ¡ˆ «◊∏Ò ∏ÆΩ∫∆Æ ¡∂»∏
 
-    public List<VisitItemVO> getVisitItemsByScheduleId(Connection conn, String scheduleId) {
+    // SCHEDULE_IDÎ°ú Î∞©Î¨∏ÏßÄ Ìï≠Î™© Î¶¨Ïä§Ìä∏ Ï°∞Ìöå
+    public List<VisitItemVO> getVisitItemsByScheduleId(String scheduleId) {
         List<VisitItemVO> list = new ArrayList<>();
         String sql = "SELECT VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_ID " +
                      "FROM VISIT_ITEM " +
@@ -331,7 +313,7 @@ public class PlaceDAO {
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, scheduleId);
-            
+
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     VisitItemVO vo = new VisitItemVO();
@@ -345,13 +327,10 @@ public class PlaceDAO {
             e.printStackTrace();
         }
         return list;
-
     }
 
-    // PLACE_ID∑Œ ¿Âº“ ¡§∫∏ ¡∂»∏
-
-    public PlaceVO getPlaceByPlaceId(Connection conn, String placeId) {
-
+    // PLACE_IDÎ°ú Ïû•ÏÜå Îã®Í±¥ Ï°∞Ìöå
+    public PlaceVO getPlaceByPlaceId(String placeId) {
         PlaceVO vo = null;
         String sql = "SELECT PLACE_ID, TITLE, ADDR1, MAPX, MAPY " +
                      "FROM PLACE " +
@@ -374,9 +353,6 @@ public class PlaceDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return vo;
-
     }
-
 }
