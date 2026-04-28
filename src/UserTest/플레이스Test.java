@@ -12,6 +12,7 @@ import org.junit.Test;
 import com.letsgo.place.model.DBCP;
 import com.letsgo.place.model.PlaceDAO;
 import com.letsgo.place.model.PlaceVO;
+import com.letsgo.place.model.VisitItemVO;
 
 public class 플레이스Test {
 
@@ -49,8 +50,26 @@ public class 플레이스Test {
 
 	}
 
-   
+	
+	public void 방문지_조회() throws Exception {
+	    PlaceDAO dao = new PlaceDAO();
+	    List<VisitItemVO> list = dao.getVisitItemsByScheduleId("P023"); 
+	    assertNotNull(list);
+	    assertFalse(list.isEmpty());
+	    for (VisitItemVO vo : list) {
+	        System.out.println("순서: " + vo.getVisitOrder());
+	        System.out.println("장소ID: " + vo.getPlaceId());
+	        System.out.println("다음까지 거리: " + vo.getDistanceToNext());
+	    }
+	}
 
+	@Test
+	public void 좋아요_카운트() throws Exception {
+	    PlaceDAO dao = new PlaceDAO();
+	    boolean result = dao.setCounting("P001"); 
+	    assertTrue(result);
+	    System.out.println("좋아요 카운트 결과: " + result);
+	}
    
 
 }
