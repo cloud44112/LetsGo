@@ -1,35 +1,45 @@
-//package UserTest;
-//
-//import static org.junit.Assert.*;
-//import org.junit.Test;
-//
-//import com.letsgo.place.model.UserDAO;
-//import com.letsgo.place.model.UserVO;
-//
-//public class ï¿½ï¿½ï¿½ï¿½ï¿½×½ï¿½Æ® {
-//	@Test
-//	public void ï¿½Î±ï¿½ï¿½ï¿½() {
-//		
-//		String userID = "user01";
-//		String password = "pass123";
-//		
-//		UserDAO userDao = new UserDAO(); 
-//		UserVO user = userDao.login(userID, password);
-//		
-//		assertNotNull(user);
-//		assertEquals(userID, user.getUserID());
-//		
-//		System.out.println("ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ :" + user.getName() );
-//	}
-//	
-//	
-//	public void È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½() {
-//
-//	    UserDAO userDao = new UserDAO();
-//	    boolean result = userDao.signup("user11", "user11@test.com", "ï¿½ï¿½Ã¶ï¿½ï¿½", "pass456");
-//	    
-//	    assertTrue("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", result);
-//	    System.out.println("ï¿½ï¿½ï¿½ï¿½");
-//
-//	}
-//}
+package UserTest;
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+import com.letsgo.place.model.UserDAO;
+import com.letsgo.place.model.UserVO;
+
+public class À¯ÀúÅ×½ºÆ® {
+    
+    
+    public void ·Î±×ÀÎÅ×½ºÆ®() throws Exception {
+        String userID = "user01";
+        String password = "pass123";
+        
+        UserDAO userDao = new UserDAO();
+        UserVO user = userDao.login(userID, password);
+        
+        assertNotNull(user);
+        assertEquals(userID, user.getUserID());
+        
+        System.out.println("·Î±×ÀÎ ¼º°ø: " + user.getName());
+    }
+    
+  
+    public void È¸¿ø°¡ÀÔÅ×½ºÆ®() throws Exception {
+        UserDAO userDao = new UserDAO();
+        boolean result = userDao.signup("user11", "user11@test.com", "È«±æµ¿", "pass456");
+        
+        assertTrue("È¸¿ø°¡ÀÔÀÌ ¼º°øÁ».", result);
+        System.out.println("È¸¿ø°¡ÀÔ ¼º°ø");
+        
+    }
+    
+    @Test
+    public void ¾ÆÀÌµðÃ¼Å©() throws Exception {
+    	
+        UserDAO userDao = new UserDAO();
+        boolean exists = userDao.idcheck("user01");
+        assertTrue("Á¸ÀçÇÏ´Â ¾ÆÀÌµð", exists);
+        System.out.println("¾ÆÀÌµð Á¸Àç ¿©ºÎ: " + exists);
+
+    }
+    
+}
