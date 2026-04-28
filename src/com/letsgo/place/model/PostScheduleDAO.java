@@ -57,6 +57,8 @@ public class PostScheduleDAO {
 			standard = "p.view_count ASC";
 		}else if("latest".equals(sortType)){
 			standard = "p.posted_at ASC";
+		}else if("title".equals(sortType)) {
+			standard = "p.title ASC";
 		}
 //			sql.append("ORDER BY p.view_count ASC, v.VISIT_ORDER ASC");
 //		}else if(("latest".equals(sortType))) {
@@ -121,7 +123,11 @@ public class PostScheduleDAO {
 //				sql.append("ORDER BY p.like_count ASC, v.VISIT_ORDER ASC");
 			}else if("view".equals(sortType)){ //조회
 				standard = "p.view_count ASC";
-			}	
+			}else if("latest".equals(sortType)){
+				standard = "p.posted_at ASC";
+			}else if("title".equals(sortType)) {
+				standard = "p.title ASC";
+			}
 //				sql.append("ORDER BY p.view_count ASC, v.VISIT_ORDER ASC");
 //			}else if(("latest".equals(sortType))) {
 //				sql.append("ORDER BY p.posted_at ASC, v.VISIT_ORDER ASC");
@@ -153,6 +159,19 @@ public class PostScheduleDAO {
 			}
 		
 		
+//		public List<postScheduleDetailVO> getPostScheduleList(String userId, String keyword, String searchType, String sortType) {
+//			List<PostScheduleVO> tmp = new ArrayList<>();
+//
+//			StringBuilder sql = new StringBuilder();
+//			sql.append("SELECT p.POST_ID, p.TITLE AS POST_TITLE, p.LIKE_COUNT, p.VIEW_COUNT, p.IS_ANONYMOUS, ");
+//			sql.append("v.VISIT_ITEM_ID, v.VISIT_ORDER, v.SCHEDULE_TYPE, ");
+//			sql.append("pl.TITLE AS PLACE_TITLE, pl.addr1, pl.FIRST_IMAGE, pl.PLACE_TYPE ");
+//			sql.append("FROM SCHEDULE_POST p ");
+//			sql.append("JOIN VISIT_ITEM v ON p.POST_ID = v.SCHEDULE_ID ");
+//			sql.append("JOIN PLACE pl ON v.PLACE_ID = pl.PLACE_ID ");
+//			sql.append("WHERE p.USER_ID = ? ");
+		
+		
 	
 		
 
@@ -160,7 +179,6 @@ public class PostScheduleDAO {
 		public boolean deletePostSchedule(String scheduleId) {
 			boolean flag = false;
 			try {
-				Connection conn = DBCP.getConnection();
 
 				String sql = "DELETE FROM visit_item WHERE schedule_id = ?";
 				PreparedStatement stmt = conn.prepareStatement(sql);
@@ -173,7 +191,6 @@ public class PostScheduleDAO {
 				stmt.executeUpdate();
 		
 				stmt.close();
-				conn.close();
 				flag = true;
 			} catch (Exception e) {
 				e.printStackTrace();
