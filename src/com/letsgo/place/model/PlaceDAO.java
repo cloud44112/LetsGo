@@ -18,7 +18,12 @@ public class PlaceDAO {
 	public PlaceDAO(Connection conn) throws Exception{
 		this.conn = conn;
 	}
+<<<<<<< HEAD
 
+=======
+	
+	
+>>>>>>> a63038b1c5897900bd7ae2899c121037d8a2c8d9
 	public List<PlaceVO> getPlaceByTitle(String placeType, String title){
 		List<PlaceVO> list = new ArrayList<>();
 
