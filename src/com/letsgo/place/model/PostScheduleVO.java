@@ -138,8 +138,6 @@ public class PostScheduleVO {
 	public void setPlaceType(String placeType) {
 		this.placeType = placeType;
 	}
-	
-	
-	
+
 	
 }
