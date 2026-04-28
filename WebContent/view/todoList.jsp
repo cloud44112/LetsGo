@@ -172,7 +172,7 @@
     </div>
 </aside>
 
-<main>
+<main data-delete-result="${requestScope.deleteResult}">
     <header>
         <div class="logo">레스고!</div>
         <ul class="menu" style="list-style:none; display:flex; padding:0; margin:0;">
@@ -215,10 +215,18 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script>
+    const deleteResult = document.querySelector('main').dataset.deleteResult;
+
+    if (deleteResult === 'true') {
+        alert('삭제되었습니다.');
+        location.href = 'mylist.jsp';
+    } else if (deleteResult === 'false') {
+        alert('삭제에 실패했습니다.');
+    }
+
     document.getElementById('deleteBtn').addEventListener('click', function () {
         if (confirm('정말 삭제하시겠습니까?')) {
-            alert('삭제되었습니다.');
-            location.href = 'todoList.jsp';
+            location.href = 'deleteTodo.do';
         }
     });
 
