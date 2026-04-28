@@ -14,6 +14,7 @@ public class RouteScheduleVO {
 		this.placeId = placeId;
 		this.title = title;
 	}
+	
 
 	public String getVisitId() {
 		return visitId;
