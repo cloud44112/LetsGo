@@ -87,7 +87,7 @@ public class TestMyScheduleDAO {
 	@Test
 	public void getMapScheduleVOTest() throws Exception {
 
-		List<MapScheduleVO> mapList = dao.getMapScheduleVO("SCH001");
+		List<MapScheduleVO> mapList = dao.getMapSchedule("SCH001");
 		assertNotNull(mapList);
 	}
 	@Test

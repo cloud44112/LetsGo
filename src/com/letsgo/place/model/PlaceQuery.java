@@ -15,6 +15,8 @@ public interface PlaceQuery {
 	
 	String GET_PLACE_COUNT_SQL="SELECT COUNT(place_Id) FROM place WHERE place_type=?";
 	
+	String SET_PLACE_LIKE_COUNT_SQL="UPDATE place SET like_count = like_count + 1 WHERE place_Id=?";
+	
 	String GET_PLACE_LIKE_COUNT_SQL="SELECT like_count FROM place WHERE place_type=? AND place_Id=?";
 	
 	String GET_LEISURE_PLACE_DESC_SQL = "SELECT * FROM place WHERE place_type = 'LEISURE' ORDER BY like_count DESC";

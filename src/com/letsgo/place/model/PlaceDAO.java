@@ -170,6 +170,19 @@ public class PlaceDAO {
         return count;
     }
 
+    public boolean setPlaceLikeCount(String placeId) {
+        String sql = "UPDATE place SET like_count = like_count + 1 WHERE place_Id=?";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, placeId);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
     public int getPlaceLikeCount(String placeType, String placeId) {
         int count = 0;
 
@@ -190,7 +203,7 @@ public class PlaceDAO {
 
         return count;
     }
-
+    
     // 근처에 있는 모든 플레이스 및 거리 / 좌표값 반환
     public List<PlaceVO> getPlaces() {
         List<PlaceVO> places = new ArrayList<>();
