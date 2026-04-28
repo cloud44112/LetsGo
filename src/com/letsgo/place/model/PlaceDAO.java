@@ -17,13 +17,13 @@ public class PlaceDAO {
     public PlaceDAO(Connection conn) throws Exception {
         this.conn = conn;
     }
-
+    
+    
     // 제목으로 장소 조회
     public List<PlaceVO> getPlaceByTitle(String placeType, String title) {
         List<PlaceVO> list = new ArrayList<>();
         try {
-            String sql = "SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM place WHERE place_type=? AND title=?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(PlaceQuery.GET_PLACE_BY_TITLE_SQL);
             stmt.setString(1, placeType);
             stmt.setString(2, title);
             ResultSet rs = stmt.executeQuery();
@@ -43,8 +43,7 @@ public class PlaceDAO {
     public List<PlaceVO> getPlaceByCategory(String placeType, String lclssystm3) {
         List<PlaceVO> list = new ArrayList<>();
         try {
-            String sql = "SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM place WHERE place_type=? AND lclssystm3=?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(PlaceQuery.GET_PLACE_BY_CATEGORY_SQL);
             stmt.setString(1, placeType);
             stmt.setString(2, lclssystm3);
             ResultSet rs = stmt.executeQuery();
@@ -64,8 +63,7 @@ public class PlaceDAO {
     public List<PlaceVO> getPlaceOrderByLike(String placeType) {
         List<PlaceVO> list = new ArrayList<>();
         try {
-            String sql = "SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM place WHERE place_type=? ORDER BY like_count DESC";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+           PreparedStatement stmt = conn.prepareStatement(PlaceQuery.GET_PLACE_ORDER_BY_LIKE_SQL);
             stmt.setString(1, placeType);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -84,8 +82,7 @@ public class PlaceDAO {
     public List<PlaceVO> getPlaceOrderByTitle(String placeType) {
         List<PlaceVO> list = new ArrayList<>();
         try {
-            String sql = "SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM place WHERE place_type=? ORDER BY title ASC";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(PlaceQuery.GET_PLACE_ORDER_BY_TITLE_SQL);
             stmt.setString(1, placeType);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -104,8 +101,7 @@ public class PlaceDAO {
     public List<PlaceVO> getPlaceByAddr(String placeType, String addr) {
         List<PlaceVO> list = new ArrayList<>();
         try {
-            String sql = "SELECT place_Id, title, first_image, addr1, mapx, mapy, like_count FROM place WHERE place_type =? AND addr1 Like ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(PlaceQuery.GET_PLACE_BY_ADDR_SQL);
             String searchKeyword = "%" + addr + "%";
             stmt.setString(1, placeType);
             stmt.setString(2, searchKeyword);
@@ -126,8 +122,7 @@ public class PlaceDAO {
     public List<PlaceVO> getPlace(String placeType, String placeId) {
         List<PlaceVO> list = new ArrayList<>();
         try {
-            String sql = "SELECT title, addr1, mapx, mapy FROM place WHERE place_type=? AND place_Id=?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(PlaceQuery.GET_PLACE_BY_PLACE_ID_SQL);
             stmt.setString(1, placeType);
             stmt.setString(2, placeId);
             ResultSet rs = stmt.executeQuery();
@@ -147,8 +142,7 @@ public class PlaceDAO {
     public int getPlaceCount(String placeType) {
         int count = 0;
         try {
-            String sql = "SELECT COUNT(place_Id) FROM place WHERE place_type=?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(PlaceQuery.GET_PLACE_COUNT_SQL);
             stmt.setString(1, placeType);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -164,8 +158,7 @@ public class PlaceDAO {
 
     // 좋아요 수 증가
     public boolean setPlaceLikeCount(String placeId) {
-        String sql = "UPDATE place SET like_count = like_count + 1 WHERE place_Id=?";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+       try (PreparedStatement pstmt = conn.prepareStatement(PlaceQuery.ADD_PLACE_LIKE_COUNT_SQL)) {
             pstmt.setString(1, placeId);
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
@@ -179,8 +172,7 @@ public class PlaceDAO {
     public int getPlaceLikeCount(String placeType, String placeId) {
         int count = 0;
         try {
-            String sql = "SELECT like_count FROM place WHERE place_type=? AND place_Id=?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(PlaceQuery.GET_PLACE_LIKE_COUNT_SQL);
             stmt.setString(1, placeType);
             stmt.setString(2, placeId);
             ResultSet rs = stmt.executeQuery();
@@ -311,7 +303,7 @@ public class PlaceDAO {
     // PLACE_ID로 장소 단건 조회
     public PlaceVO getPlaceByPlaceId(String placeId) {
         PlaceVO vo = null;
-        try (PreparedStatement pstmt = conn.prepareStatement(PlaceQuery.GET_PLACE_BYPLACEID_SQL)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(PlaceQuery.GET_PLACE_BY_PLACE_ID_SQL)) {
             pstmt.setString(1, placeId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
@@ -328,4 +320,59 @@ public class PlaceDAO {
         }
         return vo;
     }
+    
+  // 장소명,지역 검색 거리, 좋아요순 정렬 모두 적용
+    public List<PlaceVO> searchPlaces(String placeType, String category, String keyword, String sortType) {
+        List<PlaceVO> list = new ArrayList<>();
+        
+        StringBuilder sql = new StringBuilder(PlaceQuery.GET_PLACE); 
+        
+        if (category != null && !category.trim().isEmpty()) {
+            sql.append(PlaceQuery.BY_CATEGORY);
+        }
+        
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            sql.append("AND (title LIKE ? OR addr1 LIKE ?) ");
+        }
+        
+        if ("popular".equals(sortType)) {
+            sql.append(PlaceQuery.ORDER_BY_LIKE);
+        } else {
+            sql.append(PlaceQuery.ORDER_BY_TITLE);
+        }
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+            int idx = 1;
+            stmt.setString(idx++, placeType); 
+
+            if (category != null && !category.trim().isEmpty()) {
+                stmt.setString(idx++, category);
+            }
+            
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                String searchPattern = "%" + keyword + "%";
+                stmt.setString(idx++, searchPattern);
+                stmt.setString(idx++, searchPattern);
+            }
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new PlaceVO(
+                        rs.getString("place_id"),
+                        rs.getString("title"),
+                        rs.getString("addr1"),
+                        rs.getString("mapx"),
+                        rs.getString("mapy"),
+                        rs.getString("first_image"),
+                        rs.getInt("like_count"),
+                        placeType
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
 }
