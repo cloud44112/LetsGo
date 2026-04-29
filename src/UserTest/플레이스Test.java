@@ -34,7 +34,8 @@ public class 플레이스Test {
 			conn.close();
 		}
 	}
-
+	
+	@Test
 	public void 바구니에_담긴_플레이스_상세_정보() throws Exception {
 		List<PlaceVO> places = dao.getPlaces();
 		assertNotNull(places);
@@ -48,7 +49,7 @@ public class 플레이스Test {
 		System.out.println("첫 번째: " + first.getTitle() + " / " + first.getAddr1());
 	}
 
-
+	@Test
 	public void 플레이스_상세조회() throws Exception {
 		PlaceVO place = dao.getPlaceById("1");
 		assertNotNull(place);
@@ -59,7 +60,7 @@ public class 플레이스Test {
 
 	}
 
-	
+	@Test
 	public void 방문지_조회() throws Exception {
 	    List<VisitItemVO> list = dao.getVisitItemsByScheduleId("P023"); 
 	    assertNotNull(list);
@@ -73,7 +74,7 @@ public class 플레이스Test {
 
 	@Test
 	public void 좋아요_카운트() throws Exception {
-	    boolean result = dao.setCounting("P001"); 
+	    boolean result = dao.setCounting("9"); 
 	    assertTrue(result);
 	    System.out.println("좋아요 카운트 결과: " + result);
 	}
