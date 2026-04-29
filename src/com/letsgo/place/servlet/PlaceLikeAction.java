@@ -1,3 +1,4 @@
+
 package com.letsgo.place.servlet;
 
 import java.io.IOException;
@@ -5,21 +6,22 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import com.letsgo.place.service.PlaceService;
 
-public class LogoutAction implements Action {
+public class PlaceLikeAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
-		HttpSession session = request.getSession();
-		if(session != null){
-			session.invalidate();
+		String placeId = request.getParameter("placeId");
+		PlaceService placeService = new PlaceService();
+
+		if (placeId != null && !placeId.trim().isEmpty()) {
+			placeService.setPlaceLikeCount(placeId);
 		}
-		request.setAttribute("sortOrder", "like");
-		request.setAttribute("leisurePlaceList", new PlaceService().getLeisurePlacesOrderByLikeDesc());
+
+		request.setAttribute("leisurePlaceList", placeService.getLeisurePlacesOrderByLikeDesc());
 		return "index.jsp";
 	}
 }

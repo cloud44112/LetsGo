@@ -50,6 +50,14 @@ input {
 	padding: 8px;
 	margin: auto;
 }
+
+.back-button {
+	position: fixed;
+	top: 16px;
+	left: 16px;
+	z-index: 1000;
+	padding: 8px 12px;
+}
 </style>
 <meta charset="UTF-8">
 </head>
@@ -83,6 +91,7 @@ input {
 		<div>
 			<a href="<%=request.getContextPath()%>/controller?cmd=loginUI">로그인</a>
 		</div>
+		<button type="button" class="back-button" onclick="history.back()">뒤로가기</button>
 	</div>
 </body>
 </html>

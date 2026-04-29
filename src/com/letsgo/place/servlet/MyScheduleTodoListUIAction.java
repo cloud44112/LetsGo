@@ -27,9 +27,12 @@ public class MyScheduleTodoListUIAction implements Action {
 		MyScheduleService service = new MyScheduleService();
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(userId, myScheduleId);
 		String todoDetail = service.getTodoDetail(myScheduleId);
+		String scheduleTitle = service.getScheduleTitle(myScheduleId);
 
 		request.setAttribute("ScheduleRoute", list);
 		request.setAttribute("todoDetail", todoDetail);
+		request.setAttribute("scheduleTitle", scheduleTitle);
+
 		return "myScheduleTodoList.jsp";
 	}
 

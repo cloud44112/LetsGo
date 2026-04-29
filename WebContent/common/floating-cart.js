@@ -1,7 +1,9 @@
-		document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
+
+    const contextPath = '/' + window.location.pathname.split('/')[1];
 
     // ✅ floating-cart.html을 불러와서 body 끝에 삽입
-    fetch('common/floating-cart.html')
+    fetch(contextPath + '/common/floating-cart.html')
         .then(res => res.text())
         .then(html => {
             document.body.insertAdjacentHTML('beforeend', html);
@@ -17,6 +19,11 @@
         const btnDelete = document.getElementById('btn-delete-selected');
         const shoppingbox = document.getElementById('shoppingbox');
         const placeCount = document.getElementById('place-count');
+
+        if (!modal || !btnOpen || !btnClose || !btnSelectAll || !btnDelete || !shoppingbox || !placeCount) {
+            console.error('플로팅 카트 초기화 실패: 필수 요소를 찾지 못했습니다.');
+            return;
+        }
 
         // 모달 열기
         btnOpen.addEventListener('click', () => {
@@ -37,6 +44,48 @@
         function updateCount() {
             const items = shoppingbox.querySelectorAll('.place-item');
             placeCount.textContent = items.length;
+        }
+
+        // 홈 카드의 "담기" 버튼을 카트와 연결
+        function bindAddToCartButtons() {
+            const addButtons = document.querySelectorAll('.add-to-cart-btn');
+            addButtons.forEach((btn) => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const placeId = btn.dataset.placeId;
+                    const placeTitle = btn.dataset.placeTitle;
+                    const placeType = btn.dataset.placeType || 'LEISURE';
+
+                    if (!placeId || !placeTitle) {
+                        alert('담기 대상 정보가 올바르지 않습니다.');
+                        return;
+                    }
+
+                    // 같은 장소 중복 담기 방지
+                    const existsSame = shoppingbox.querySelector(`.place-item[data-place-id="${placeId}"]`);
+                    if (existsSame) {
+                        alert('이미 담긴 플레이스입니다.');
+                        return;
+                    }
+
+                    // 레포츠는 최대 1개만 허용
+                    if (placeType === 'LEISURE') {
+                        const leisureCount = shoppingbox.querySelectorAll('.place-item[data-place-type="LEISURE"]').length;
+                        if (leisureCount >= 1) {
+                            alert('레포츠는 1개만 담을 수 있습니다.');
+                            return;
+                        }
+                    }
+
+                    const item = document.createElement('div');
+                    item.className = 'place-item';
+                    item.dataset.placeId = placeId;
+                    item.dataset.placeType = placeType;
+                    item.innerHTML = `<input type="checkbox" class="place-checkbox" /> ${placeTitle}`;
+                    shoppingbox.appendChild(item);
+                    updateCount();
+                });
+            });
         }
 
         // 전체 선택 / 해제
@@ -60,5 +109,8 @@
                 btnSelectAll.textContent = '전체 선택';
             }
         });
+
+        bindAddToCartButtons();
+        updateCount();
     }
 });

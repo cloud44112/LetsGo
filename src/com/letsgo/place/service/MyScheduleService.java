@@ -266,5 +266,9 @@ public class MyScheduleService {
 		boolean flag = dao.setBudgetDetail(scheduleId, budgetDetail);
 		return flag;
 	}
+
+	public String getScheduleTitle(String scheduleId) {
+		return dao.getScheduleTitle(scheduleId);
+	}
 	
 }

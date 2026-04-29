@@ -2,16 +2,14 @@ package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.letsgo.place.model.RouteScheduleVO;
 import com.letsgo.place.service.MyScheduleService;
 
-public class MyScheduleBudgetDetailAction implements Action {
+public class AddVisitItemAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request)
@@ -24,16 +22,16 @@ public class MyScheduleBudgetDetailAction implements Action {
 		}
 
 		String myScheduleId = (String) session.getAttribute("currentScheduleId");
-		String budgetDetail = request.getParameter("budgetDetail");
+		String placeId = request.getParameter("placeId");
+		String visitOrderStr = request.getParameter("visitOrder");
+		int visitOrder = (visitOrderStr != null) ? Integer.parseInt(visitOrderStr) : 1;
+		
 		MyScheduleService service = new MyScheduleService();
-		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(userId, myScheduleId);
-		boolean flag = service.setBudgetDetail(myScheduleId, budgetDetail);
+		boolean result = service.addVisitItem(visitOrder, placeId, myScheduleId);
 		
-		request.setAttribute("ScheduleRoute", list);
-		request.setAttribute("budgetDetail", budgetDetail);
-		request.setAttribute("BudgetDetailResult", flag);
+		request.setAttribute("addVisitItemResult", result);
 		
-		return "myScheduleBudgetDetail.jsp";
+		return new myScheduleRouteManageUIAction().execute(request);
 	}
 
 }

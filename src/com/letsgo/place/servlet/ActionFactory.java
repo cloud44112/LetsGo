@@ -10,6 +10,18 @@ public class ActionFactory {
         case "deleteSchedule":
             tmp = new DeleteScheduleAction();
             break;
+        case "updateScheduleTitle":
+            tmp = new UpdateScheduleTitleAction();
+            break;
+        case "deleteVisitItem":
+            tmp = new DeleteVisitItemAction();
+            break;
+        case "addVisitItem":
+            tmp = new AddVisitItemAction();
+            break;
+        case "updateRouteOrder":
+            tmp = new UpdateRouteOrderAction();
+            break;
         case "loginUI":
             tmp = new LoginUIAction();
             break;
@@ -58,7 +70,9 @@ public class ActionFactory {
         case "getIdAction":
             tmp = new GetIdAction();
             break;
-            
+//        case "postScheduleMyListUI":
+//            tmp = new postScheduleMyListUIAction();
+//            break;
         case "postScheduleRouteManageUI":
             tmp = new postScheduleRouteManageUIAction();
             break;

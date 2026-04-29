@@ -33,7 +33,6 @@
     document.getElementById('deleteBtn').addEventListener('click', function () {
         if (confirm('정말 삭제하시겠습니까?')) {
             location.href = '/LetsGo/controller?cmd=deleteSchedule';
-            console.log(location.getParmeter);
         }
     });
 

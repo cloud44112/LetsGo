@@ -29,9 +29,10 @@ public class myScheduleRouteManageUIAction implements Action {
 		}
 		MyScheduleService service = new MyScheduleService();
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(userId, myScheduleId);
+		String scheduleTitle = service.getScheduleTitle(myScheduleId);
 
 		request.setAttribute("ScheduleRoute", list);
-		System.out.println(list.toString());
+		request.setAttribute("scheduleTitle", scheduleTitle);
 		
 		return "myScheduleRouteManage.jsp";
 	}

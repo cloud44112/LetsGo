@@ -26,12 +26,12 @@ public class MyScheduleBudgetDetailUIAction implements Action {
 		String myScheduleId = (String) session.getAttribute("currentScheduleId");
 		MyScheduleService service = new MyScheduleService();
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(userId, myScheduleId);
-		
 		String budgetDetail = service.getBudgetDetail(myScheduleId);
-		
-		
+		String scheduleTitle = service.getScheduleTitle(myScheduleId);
+
 		request.setAttribute("ScheduleRoute", list);
 		request.setAttribute("budgetDetail", budgetDetail);
+		request.setAttribute("scheduleTitle", scheduleTitle);
 		return "myScheduleBudgetDetail.jsp";
 	}
 
