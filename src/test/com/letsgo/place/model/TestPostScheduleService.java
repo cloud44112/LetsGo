@@ -53,8 +53,7 @@ public class TestPostScheduleService {
 	@Test
 	public void getScheduleRoute() {
 		//assertEquals(new ArrayList<RouteScheduleVO>(), service.getScheduleRoute("P023"));
-		List<RouteScheduleVO> list = service.getScheduleRoute("P023");
-		System.out.println(list);
+		System.out.println(service.getScheduleRoute("P023"));
 			
 	}
 	
