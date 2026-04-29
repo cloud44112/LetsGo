@@ -1,4 +1,4 @@
-package com.letsgo.place.model;
+package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
