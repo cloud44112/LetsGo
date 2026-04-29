@@ -19,8 +19,15 @@ public class ActionFactory {
 		case "loginAction":
 			tmp = new LoginAction();
 			break;
+		case "deletePostSchedule":
+			tmp = new DeletePostScheduleAction();
+			break;
+		case "myScheduleRouteManageUI":
+			tmp = new myScheduleRouteManageUIAction();
+			break;
 		default:
 			tmp = new IndexUIAction();
+			break;
 		}
 
 		return tmp;

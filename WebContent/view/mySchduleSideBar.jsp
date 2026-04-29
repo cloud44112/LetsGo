@@ -8,7 +8,7 @@
     
 <aside class="sidebar">
      <ul>
-       <button><a href="controller?cmd=">동선관리</a></button>
+       <button><a href="controller?cmd=myScheduleRouteManageUI">동선관리</a></button>
        <button><a href="#">예산관리</a></button>
        <button><a href="#">To-Do 리스트</a></button>
     </ul>
