@@ -39,8 +39,8 @@ public class PlaceService {
 		return dao.getPlaceByAddr(placeType, addr);
 	}
 	
-	public List<PlaceVO> getPlace(String placeType, String placeId) {
-		return dao.getPlace(placeType, placeId);
+	public List<PlaceVO> getPlace(String placeId) {
+		return dao.getPlace(placeId);
 	}
 	
 	public int getPlaceCount(String placeType) {

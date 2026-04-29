@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<head><link rel="stylesheet" type="text/css" href="css/mySchedule.css">
+<head>
+<link rel="stylesheet" type="text/css" href="/LetsGo/view/css/mySchedule.css">
 </head>
-
-
 <body>
-
 	<jsp:include page="mySchduleSideBar.jsp" />
-
 <main>
     <header>
         <div class="logo">레스고!</div>

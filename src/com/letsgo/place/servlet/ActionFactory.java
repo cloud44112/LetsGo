@@ -25,6 +25,13 @@ public class ActionFactory {
 		case "myScheduleRouteManageUI":
 			tmp = new myScheduleRouteManageUIAction();
 			break;
+		case "myScheduleBudgetDetailUI":
+			tmp = new myScheduleBudgetDetailUIAction();
+			break;
+			
+		case "MyScheduleTodoListUI":
+			tmp = new MyScheduleTodoListUIAction();
+			break;
 		default:
 			tmp = new IndexUIAction();
 			break;

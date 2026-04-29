@@ -1,4 +1,4 @@
-package com.letsgo.place.model;
+package com.letsgo.place.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import com.letsgo.place.model.UserDAO;
+import com.letsgo.place.model.UserVO;
 
 public class LoginAction implements Action {
 

@@ -1,4 +1,4 @@
-package com.letsgo.place.model;
+package com.letsgo.place.servlet;
 
 import javax.servlet.http.HttpServletRequest;
 
