@@ -19,6 +19,9 @@ public class ActionFactory {
 		case "loginAction":
 			tmp = new LoginAction();
 			break;
+		case "logoutAction":
+			tmp = new LogoutAction();
+			break;
 		case "deletePostSchedule":
 			tmp = new DeletePostScheduleAction();
 			break;
