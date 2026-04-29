@@ -63,6 +63,7 @@ public class MyScheduleDAO {
 		try {
 			PreparedStatement stmtVisit = conn.prepareStatement(MyScheduleQuery.DELETE_VISIT_ITEM_BY_SCHEDULE_ID);
 			stmtVisit.setString(1, scheduleId);
+			// 방문(visit) 데이터는 0개일 수도 있고 여러 개일 수도 있으므로 건수로 성공/실패를 판단하지 않는다.
 			stmtVisit.executeUpdate();
 			stmtVisit.close();
 
@@ -332,6 +333,7 @@ public class MyScheduleDAO {
 		return list;
 	}
 
+
 	public String shareToPost(String myScheduleId, String userId, int isAnonymous) throws SQLException {
 		String str = null;
 		try {
@@ -345,12 +347,12 @@ public class MyScheduleDAO {
 			stmtSchedule.executeUpdate();
 			stmtSchedule.close();
 
-			PreparedStatement stmtVisit = conn
-					.prepareStatement(MyScheduleQuery.SHARE_TO_VISIT_ITEM_LIST_BY_SCHEDULE_ID);
+			PreparedStatement stmtVisit = conn.prepareStatement(MyScheduleQuery.SHARE_TO_VISIT_ITEM_LIST_BY_SCHEDULE_ID);
 			stmtVisit.setString(1, myScheduleId);
-
+			
 			stmtVisit.executeUpdate();
 			stmtVisit.close();
+			str = myScheduleId;
 
 		} catch (Exception e) {
 			e.printStackTrace();
