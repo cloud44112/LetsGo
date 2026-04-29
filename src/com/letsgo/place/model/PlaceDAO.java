@@ -10,16 +10,11 @@ import java.util.List;
 public class PlaceDAO {
     private Connection conn;
 
-    public PlaceDAO() throws Exception {
-        conn = DBCP.getConnection();
-    }
-
-    public PlaceDAO(Connection conn) throws Exception {
+    public PlaceDAO(Connection conn){
         this.conn = conn;
     }
     
-    
-    // 제목으로 장소 조회
+    // 이름으로 플레이스 조회
     public List<PlaceVO> getPlaceByTitle(String placeType, String title) {
         List<PlaceVO> list = new ArrayList<>();
         try {
@@ -39,7 +34,7 @@ public class PlaceDAO {
         return list;
     }
 
-    // 카테고리로 장소 조회
+    // 카테고리로 플레이스 조회
     public List<PlaceVO> getPlaceByCategory(String placeType, String lclssystm3) {
         List<PlaceVO> list = new ArrayList<>();
         try {
@@ -59,7 +54,7 @@ public class PlaceDAO {
         return list;
     }
 
-    // 좋아요 순으로 장소 조회
+    // 좋아요 순으로 플레이스 조회
     public List<PlaceVO> getPlaceOrderByLike(String placeType) {
         List<PlaceVO> list = new ArrayList<>();
         try {
@@ -78,7 +73,7 @@ public class PlaceDAO {
         return list;
     }
 
-    // 이름 순으로 장소 조회
+    // 이름 순으로 플레이스 조회
     public List<PlaceVO> getPlaceOrderByTitle(String placeType) {
         List<PlaceVO> list = new ArrayList<>();
         try {
@@ -97,7 +92,7 @@ public class PlaceDAO {
         return list;
     }
 
-    // 주소로 장소 조회
+    // 지역으로 플레이스 조회
     public List<PlaceVO> getPlaceByAddr(String placeType, String addr) {
         List<PlaceVO> list = new ArrayList<>();
         try {
@@ -118,7 +113,7 @@ public class PlaceDAO {
         return list;
     }
 
-    // 장소 타입과 ID로 장소 조회
+    // 플레이스 담기
     public List<PlaceVO> getPlace(String placeType, String placeId) {
         List<PlaceVO> list = new ArrayList<>();
         try {
@@ -138,7 +133,7 @@ public class PlaceDAO {
         return list;
     }
 
-    // 장소 타입별 전체 개수 조회
+    // 플레이스 타입별 전체 개수 조회
     public int getPlaceCount(String placeType) {
         int count = 0;
         try {
@@ -168,7 +163,7 @@ public class PlaceDAO {
         return false;
     }
 
-    // 장소 좋아요 수 조회
+    // 플레이스 좋아요 수 조회
     public int getPlaceLikeCount(String placeType, String placeId) {
         int count = 0;
         try {

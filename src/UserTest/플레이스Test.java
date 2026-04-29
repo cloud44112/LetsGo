@@ -16,15 +16,26 @@ import com.letsgo.place.model.VisitItemVO;
 
 public class 플레이스Test {
 
-
 	private Connection conn;
 
-	private PlaceDAO placeDAO;
+	private PlaceDAO dao;
+	
+	@Before
+	public void setup() throws Exception {
+		conn = DBCP.getConnection();
+		conn.setAutoCommit(false);
+		dao = new PlaceDAO(conn);
+	}
 
+	@After
+	public void tearDown() throws Exception {
+		if (conn != null) {
+			conn.rollback();
+			conn.close();
+		}
+	}
 
 	public void 바구니에_담긴_플레이스_상세_정보() throws Exception {
-
-		PlaceDAO dao = new PlaceDAO();
 		List<PlaceVO> places = dao.getPlaces();
 		assertNotNull(places);
 		assertFalse("플레이스 목록이 없으면 안됨.", places.isEmpty());
@@ -39,8 +50,6 @@ public class 플레이스Test {
 
 
 	public void 플레이스_상세조회() throws Exception {
-
-		PlaceDAO dao = new PlaceDAO();
 		PlaceVO place = dao.getPlaceById("1");
 		assertNotNull(place);
 		assertNotNull(place.getTitle());
@@ -52,7 +61,6 @@ public class 플레이스Test {
 
 	
 	public void 방문지_조회() throws Exception {
-	    PlaceDAO dao = new PlaceDAO();
 	    List<VisitItemVO> list = dao.getVisitItemsByScheduleId("P023"); 
 	    assertNotNull(list);
 	    assertFalse(list.isEmpty());
@@ -65,7 +73,6 @@ public class 플레이스Test {
 
 	@Test
 	public void 좋아요_카운트() throws Exception {
-	    PlaceDAO dao = new PlaceDAO();
 	    boolean result = dao.setCounting("P001"); 
 	    assertTrue(result);
 	    System.out.println("좋아요 카운트 결과: " + result);

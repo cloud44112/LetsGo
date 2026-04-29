@@ -17,8 +17,7 @@ public class PostScheduleDAO {
 	
 	
 	public List<PostScheduleVO> getPostScheduleList(String keyword, String searchType, String sortType) {
-		List<PostScheduleVO> tmp;
-		tmp = new ArrayList<>();
+		List<PostScheduleVO> tmp = null;
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append(PostScheduleQuery.GET_POST_SCHEDULE_LIST);
@@ -51,6 +50,7 @@ public class PostScheduleDAO {
 				stmt.setString(idx++, searchKey);
 			}
 			ResultSet rs = stmt.executeQuery();
+			tmp = new ArrayList<>();
 			while (rs.next()) {
 				tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
 			}
@@ -63,7 +63,7 @@ public class PostScheduleDAO {
 		}
 	
 		public List<PostScheduleVO> getUserPostScheduleList(String userId, String keyword, String searchType, String sortType) {
-			List<PostScheduleVO> tmp = new ArrayList<>();
+			List<PostScheduleVO> tmp = null;
 
 			StringBuilder sql = new StringBuilder();
 			sql.append(PostScheduleQuery.GET_USER_POST_SCHEDULE_LIST);
@@ -97,6 +97,7 @@ public class PostScheduleDAO {
 					stmt.setString(idx++, searchKey);
 				}
 				ResultSet rs = stmt.executeQuery();
+				tmp = new ArrayList<>();
 				while (rs.next()) {
 					tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), "나", rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12)));
 				}
@@ -109,7 +110,7 @@ public class PostScheduleDAO {
 			}
 		
 		public String getBudgetDetail(String postId) {
-			String str = "";
+			String str = null;
 			try {
 				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_BUDGET_DETAIL);
 
@@ -128,7 +129,7 @@ public class PostScheduleDAO {
 
 		}
 		public String getTodoDetail(String postId) {
-			String str = "";
+			String str = null;
 			try {
 				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_TODO_DETAIL);
 
@@ -148,13 +149,14 @@ public class PostScheduleDAO {
 		}
 
 		public List<RouteScheduleVO> getScheduleRoute(String postId) {
-			List<RouteScheduleVO> list;
-			list = new ArrayList<RouteScheduleVO>();
+			List<RouteScheduleVO> list = null;
+			
 			try {
 				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_SCHEDULE_ROUTE);
 
 				stmt.setString(1, postId);
 				ResultSet rs = stmt.executeQuery();
+				list = new ArrayList<RouteScheduleVO>();
 				while (rs.next()) {
 					list.add(new RouteScheduleVO(rs.getString("VISIT_ITEM_ID"), rs.getString("VISIT_ORDER"),
 							rs.getString("PLACE_ID"), rs.getString("TITLE")));
@@ -171,13 +173,14 @@ public class PostScheduleDAO {
 		}
 
 		public List<MapScheduleVO> getMapSchedule(String postId) {
-			List<MapScheduleVO> list;
-			list = new ArrayList<MapScheduleVO>();
+			List<MapScheduleVO> list = null;
+			
 			try {
 				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_MAP_SCHEDULE);
 
 				stmt.setString(1, postId);
 				ResultSet rs = stmt.executeQuery();
+				list = new ArrayList<MapScheduleVO>();
 				while (rs.next()) {
 					list.add(new MapScheduleVO(rs.getString("TITLE"), rs.getString("VISIT_ORDER"), rs.getString("MAPX"),
 							rs.getString("MAPY"), rs.getString("DISTANCE_TO_NEXT")));
