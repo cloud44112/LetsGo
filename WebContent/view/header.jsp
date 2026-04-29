@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%>
 
 
 	<main> <header>
-		<div class="logo">레스고!</div>
+		<div class="logo"><a href="controller">레스고!</a></div>
 		<ul class="menu"
 			style="list-style: none; display: flex; padding: 0; margin: 0;">
 			<li style="margin-right: 20px;"><a href="controller">홈</a></li>
