@@ -38,7 +38,8 @@ body {
     align-items: center;
 }
 
-.loginbox > div {
+.loginbox > div,
+.loginbox > form > div {
     border: 1px solid;
     margin-bottom: 10px; 
     text-align: center; 
@@ -70,7 +71,7 @@ input {
             </div>
         </form>
         <div>
-            <a href="getId.html">아이디 찾기</a> <a href="updatepw.html">비밀번호 찾기</a> <a href="signup.html">회원가입</a>
+            <a href="<%=request.getContextPath()%>/controller?cmd=getIdUI">아이디 찾기</a> <a href="<%=request.getContextPath()%>/controller?cmd=updatepwUI">비밀번호 찾기</a> <a href="<%=request.getContextPath()%>/controller?cmd=signupUI">회원가입</a>
         </div>
     </div>
 </body>

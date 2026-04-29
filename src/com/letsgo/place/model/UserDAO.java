@@ -74,4 +74,33 @@ public class UserDAO implements UserQury {
         }
         return false;
     }
+
+    // 비밀번호 변경
+    public boolean updatePassword(String userID, String email, String newPassword) {
+        try (PreparedStatement pstmt = conn.prepareStatement(UPDATE_PASSWORD_BY_ID_EMAIL_SQL)) {
+            pstmt.setString(1, newPassword);
+            pstmt.setString(2, userID);
+            pstmt.setString(3, email);
+            return pstmt.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /** 이름·이메일로 아이디 조회 */
+    public String findUserIdByNameAndEmail(String name, String email) {
+        try (PreparedStatement pstmt = conn.prepareStatement(FIND_USER_ID_BY_NAME_EMAIL_SQL)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, email);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("USER_ID");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
