@@ -63,7 +63,7 @@ public class MyScheduleDAO {
 		try {
 			PreparedStatement stmtVisit = conn.prepareStatement(MyScheduleQuery.DELETE_VISIT_ITEM_BY_SCHEDULE_ID);
 			stmtVisit.setString(1, scheduleId);
-			flag = (stmtVisit.executeUpdate() == 1);
+			stmtVisit.executeUpdate();
 			stmtVisit.close();
 
 			PreparedStatement stmtSchedule = conn.prepareStatement(MyScheduleQuery.DELETE_MY_SCHEDULE_BY_SCHEDULE_ID);
