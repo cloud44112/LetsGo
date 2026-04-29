@@ -1,12 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="stylesheet" type="text/css"
-	href="/LetsGo/view/css/myScheduleList.css">
+<meta charset="UTF-8"> <link rel="stylesheet" type="text/css" href="/LetsGo/view/css/myScheduleList.css">
 </head>
 <body>
 	<jsp:include page="myScheduleListSideBar.jsp" />
@@ -34,10 +32,10 @@
 					${item.myScheduleTitle}
 					<c:if test="${item.isShared == 1}">👥</c:if>
 				</div>
-				<a href="controller?cmd=myScheduleRouteManageUI&myScheduleId=${item.myScheduleId}" class="box-placeholder"> <img src="${item.firstImage}"
-					alt="일정 이미지" class="box-placeholder">
+				<a href="controller?cmd=myScheduleRouteManageUI&myScheduleId=${item.myScheduleId}" class="box-placeholder">
+				<img src="${item.firstImage}" alt="일정 이미지" class="box-placeholder">
 				</a> <figcaption class="figure-caption">${item.placeTitle}</figcaption>
-				${fn:substring(item.startAt, 0, 10)} 📍${fn:substring(item.addr1, 0, 10)}
+				${fn:substring(item.startAt, 0, 10)} ${fn:substring(item.addr1, 0, 10)}
 				</figure>
 			</c:forEach>
 			</div>
