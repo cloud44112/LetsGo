@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDAO {
+public class UserDAO implements UserQury {
 
     private Connection conn;
 
@@ -23,7 +23,7 @@ public class UserDAO {
         UserVO user = null;
 
 
-        try (PreparedStatement pstmt = conn.prepareStatement("LOGIN_SQL")) {
+        try (PreparedStatement pstmt = conn.prepareStatement(LOGIN_SQL)) {
             pstmt.setString(1, userID);
             pstmt.setString(2, password);
 
@@ -44,7 +44,7 @@ public class UserDAO {
     public boolean signup(String userID, String email, String name, String password) {
 
 
-        try (PreparedStatement pstmt = conn.prepareStatement("SIGNUP_SQL")) {
+        try (PreparedStatement pstmt = conn.prepareStatement(SIGNUP_SQL)) {
             pstmt.setString(1, userID);
             pstmt.setString(2, email);
             pstmt.setString(3, name);
@@ -63,7 +63,7 @@ public class UserDAO {
     public boolean idcheck(String userID) {
 
 
-        try (PreparedStatement pstmt = conn.prepareStatement("IDCHECK_SQL")) {
+        try (PreparedStatement pstmt = conn.prepareStatement(IDCHECK_SQL)) {
             pstmt.setString(1, userID);
 
             try (ResultSet rs = pstmt.executeQuery()) {

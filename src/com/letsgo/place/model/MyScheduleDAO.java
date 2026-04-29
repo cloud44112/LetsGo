@@ -63,8 +63,7 @@ public class MyScheduleDAO {
 		try {
 			PreparedStatement stmtVisit = conn.prepareStatement(MyScheduleQuery.DELETE_VISIT_ITEM_BY_SCHEDULE_ID);
 			stmtVisit.setString(1, scheduleId);
-			// 방문(visit) 데이터는 0개일 수도 있고 여러 개일 수도 있으므로 건수로 성공/실패를 판단하지 않는다.
-			stmtVisit.executeUpdate();
+			flag = (stmtVisit.executeUpdate() == 1);
 			stmtVisit.close();
 
 			PreparedStatement stmtSchedule = conn.prepareStatement(MyScheduleQuery.DELETE_MY_SCHEDULE_BY_SCHEDULE_ID);
