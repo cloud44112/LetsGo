@@ -27,7 +27,6 @@ public class MyScheduleBudgetDetailAction implements Action {
 		String budgetDetail = request.getParameter("budgetDetail");
 		MyScheduleService service = new MyScheduleService();
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(userId, myScheduleId);
-		System.out.println(budgetDetail);
 		boolean flag = service.setBudgetDetail(myScheduleId, budgetDetail);
 		
 		request.setAttribute("ScheduleRoute", list);
