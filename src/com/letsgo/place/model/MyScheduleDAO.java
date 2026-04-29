@@ -11,13 +11,12 @@ import java.util.List;
 public class MyScheduleDAO {
 	private Connection conn;
 
-	public MyScheduleDAO(Connection conn){
+	public MyScheduleDAO(Connection conn) {
 		this.conn = conn;
 	}
 
 	public List<MyScheduleVO> getMyScheduleList(String userId, String keyword, String sortType, boolean sharedFilter) {
-		List<MyScheduleVO> tmp;
-		tmp = new ArrayList<MyScheduleVO>();
+		List<MyScheduleVO> tmp = null;
 
 		StringBuilder sql = new StringBuilder();
 		sql.append(MyScheduleQuery.GET_MY_SCHEDULE_LIST_SQL);
@@ -47,6 +46,7 @@ public class MyScheduleDAO {
 				stmt.setString(idx++, searchKey);
 			}
 			ResultSet rs = stmt.executeQuery();
+			tmp = new ArrayList<MyScheduleVO>();
 			while (rs.next()) {
 				tmp.add(new MyScheduleVO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getString(6), rs.getString(7)));
@@ -168,7 +168,7 @@ public class MyScheduleDAO {
 	}
 
 	public String getTodoDetail(String scheduleId) {
-		String str = "";
+		String str = null;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.GET_TODO_DETAIL);
 
@@ -188,14 +188,14 @@ public class MyScheduleDAO {
 	}
 
 	public List<RouteScheduleVO> getScheduleRoute(String userId, String scheduleId) {
-		List<RouteScheduleVO> list;
-		list = new ArrayList<RouteScheduleVO>();
+		List<RouteScheduleVO> list = null;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.GET_SCHEDULE_ROUTE);
 
 			stmt.setString(1, userId);
 			stmt.setString(2, scheduleId);
 			ResultSet rs = stmt.executeQuery();
+			list = new ArrayList<RouteScheduleVO>();
 			while (rs.next()) {
 				list.add(new RouteScheduleVO(rs.getString("VISIT_ITEM_ID"), rs.getString("VISIT_ORDER"),
 						rs.getString("PLACE_ID"), rs.getString("TITLE")));
@@ -212,13 +212,14 @@ public class MyScheduleDAO {
 	}
 
 	public List<MapScheduleVO> getMapSchedule(String scheduleId) {
-		List<MapScheduleVO> list;
-		list = new ArrayList<MapScheduleVO>();
+		List<MapScheduleVO> list = null;
+
 		try {
 			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.GET_MAP_SCHEDULE);
 
 			stmt.setString(1, scheduleId);
 			ResultSet rs = stmt.executeQuery();
+			list = new ArrayList<MapScheduleVO>();
 			while (rs.next()) {
 				list.add(new MapScheduleVO(rs.getString("TITLE"), rs.getString("VISIT_ORDER"), rs.getString("MAPX"),
 						rs.getString("MAPY"), rs.getString("DISTANCE_TO_NEXT")));
@@ -310,13 +311,14 @@ public class MyScheduleDAO {
 	}
 
 	public List<ColleagueVO> getCompanionList(String myScheduleId) {
-		List<ColleagueVO> list;
-		list = new ArrayList<ColleagueVO>();
+		List<ColleagueVO> list = null;
+
 		try {
 			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.GET_COMPANION_LIST);
 
 			stmt.setString(1, myScheduleId);
 			ResultSet rs = stmt.executeQuery();
+			list = new ArrayList<ColleagueVO>();
 			while (rs.next()) {
 				list.add(new ColleagueVO(rs.getString("USER_ID"), rs.getString("NAME"), rs.getString("EMAIL"),
 						rs.getString("PERMISSION")));
@@ -331,7 +333,7 @@ public class MyScheduleDAO {
 	}
 
 	public String shareToPost(String myScheduleId, String userId, int isAnonymous) throws SQLException {
-		String str = "";
+		String str = null;
 		try {
 
 			PreparedStatement stmtSchedule = conn.prepareStatement(MyScheduleQuery.SHARE_TO_POST_BY_SCHEDULE_ID);
