@@ -57,8 +57,8 @@ input {
 
     <div class="loginbox">
         <h1>로그인</h1>
-        <jsp:include page="errorMessage.jsp"/>
-        <form method="post" action="/LetGo/controller?cmd=loginAction">
+        <jsp:include page="/view/errorMessage.jsp"/>
+        <form method="post" action="<%=request.getContextPath()%>/controller?cmd=loginAction">
             <div class="id">
                 <input name="USER_ID" placeholder="아이디">
             </div>
