@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,10 +36,10 @@
 			${item.myScheduleTitle}
 			<c:if test="${item.isShared == 1}">👥</c:if>
 		</div>
-		<a href="#" class="box-placeholder"> <img src="${item.firstImage}"
+		<a href="controller?cmd=myScheduleRouteManageUI&${item.myScheduleId}" class="box-placeholder"> <img src="${item.firstImage}"
 			alt="일정 이미지" class="box-placeholder">
 		</a> <figcaption class="figure-caption">${item.placeTitle}</figcaption>
-		<div>${item.startAt} 📍${item.addr1}</div>
+		${fn:substring(item.startAt, 0, 10)} 📍${fn:substring(item.addr1, 0, 10)}
 		</figure>
 	</c:forEach>
 	</div>

@@ -5,12 +5,17 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpSession;
 public class myScheduleRouteManageUIAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
+		String userId = (String) session.getAttribute("loginOK");
+
+		if (userId == null) {
+			return "login.jsp";
+		}
 		return "myScheduleRouteManage.jsp";
 	}
 
