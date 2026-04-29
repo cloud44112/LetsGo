@@ -11,6 +11,8 @@ public interface PostScheduleQuery {
 	String ORDER_BY_VIEW = "ORDER BY p.view_count ASC, p.post_id ASC, v.VISIT_ORDER ASC";
 	String ORDER_BY_TITLE = "ORDER BY p.title ASC, p.post_id ASC, v.VISIT_ORDER ASC";
 	String ORDER_BY_LATEST = "ORDER BY p.posted_at ASC, p.post_id ASC, v.VISIT_ORDER ASC";
+	String ORDER_BY_DEFAULT = "ORDER BY p.posted_at ASC, p.post_id ASC, v.VISIT_ORDER ASC";
+	
 	
 	String SEARCH_TYPE_SCHEDULE = "WHERE p.TITLE LIKE ? ";
 	String SEARCH_TYPE_PLACE = "WHERE p.POST_ID IN (SELECT v2.SCHEDULE_ID FROM VISIT_ITEM v2 JOIN PLACE pl2 ON v2.PLACE_ID = pl2.PLACE_ID WHERE pl2.TITLE LIKE ?) ";

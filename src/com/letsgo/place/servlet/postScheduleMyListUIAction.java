@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.letsgo.place.model.PostScheduleVO;
 import com.letsgo.place.service.PostScheduleService;
 
-public class postScheduleListUIAction implements Action {
+public class postScheduleMyListUIAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request)
@@ -27,7 +27,7 @@ public class postScheduleListUIAction implements Action {
 		}
 	
 		PostScheduleService service = new PostScheduleService();
-		List<PostScheduleVO> list = service.getPostScheduleList("", "", "");
+		List<PostScheduleVO> list = service.getUserPostScheduleList("user02", "", "", "");
 		
 		Map<String, PostScheduleVO> uniqueMap = new LinkedHashMap<>();
 		for (PostScheduleVO vo : list) {
@@ -45,5 +45,7 @@ public class postScheduleListUIAction implements Action {
 			
 					
 		return "postScheduleList.jsp";
-	}	
+	}
+	
+	
 }

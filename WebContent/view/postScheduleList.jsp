@@ -30,9 +30,9 @@
                     ${item.title}
                 </div>
 
-                <a href="controller?cmd=postScheduleRouteManageUI&myScheduleId=${item.postId}" class="box-placeholder">
-                    <img src="${item.firstImage}" alt="일정 이미지" class="box-placeholder">
-                </a>
+                <a href="controller?cmd=${isPost ? 'postScheduleListUI' : 'postScheduleMyListUI'}&myScheduleId=${item.postId}" class="box-placeholder">
+  					  <img src="${item.firstImage}" alt="일정 이미지" class="box-placeholder">
+				</a>
                 
                 <figcaption class="figure-caption">${item.placeTitle}</figcaption>
 

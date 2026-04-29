@@ -4,8 +4,8 @@
 <html>
 <aside class="sidebar">
      <ul>
-       <button><a href="controller?cmd=myScheduleRouteManageUI">전체 게시물</a></button>
-       <button><a href="controller?cmd=myScheduleBudgetDetailUI">내가 올린 게시물</a></button>
+       <button><a href="controller?cmd=postScheduleListUI">전체 게시물</a></button>
+       <button><a href="controller?cmd=postScheduleMyListUI">내가 올린 게시물</a></button>
     </ul>
 </aside> 
 </html>

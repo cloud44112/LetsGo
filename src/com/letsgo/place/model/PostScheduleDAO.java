@@ -34,10 +34,12 @@ public class PostScheduleDAO {
 			sql.append(PostScheduleQuery.ORDER_BY_LIKE);
 		}else if("view".equals(sortType)){
 			sql.append(PostScheduleQuery.ORDER_BY_VIEW);
-		}else if("latest".equals(sortType)){
-			sql.append(PostScheduleQuery.ORDER_BY_LATEST);
 		}else if("title".equals(sortType)) {
 			sql.append(PostScheduleQuery.ORDER_BY_TITLE);
+		}else if("latest".equals(sortType)) {
+			sql.append(PostScheduleQuery.ORDER_BY_TITLE);
+		}else {
+			sql.append(PostScheduleQuery.ORDER_BY_LATEST);
 		}
 
 
