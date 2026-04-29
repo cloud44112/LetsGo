@@ -18,3 +18,4 @@
         <button type="button" id="deleteBtn">삭제하기</button>
     </div>
 </aside>
+

@@ -241,7 +241,7 @@ public class PlaceDAO {
         return list;
     }
 
-    // 게시글 좋아요 카운트 증가
+    // 홈 레저 플레이스 좋아요 카운트 증가
     public boolean setCounting(String postId) {
         try (PreparedStatement pstmt = conn.prepareStatement(PlaceQuery.SET_COUNTING_SQL)) {
             pstmt.setString(1, postId);
@@ -253,7 +253,7 @@ public class PlaceDAO {
         return false;
     }
 
-    // 플레이스 단건 조회
+    //홈 레포츠 플레이스 담기
     public PlaceVO getPlaceById(String placeId) {
         PlaceVO place = null;
         try (PreparedStatement pstmt = conn.prepareStatement(PlaceQuery.GET_PLACE_BYID_SQL)) {

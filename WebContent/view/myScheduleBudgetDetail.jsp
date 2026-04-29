@@ -7,20 +7,8 @@
 </head>
 <body>
 <jsp:include page="mySchduleSideBar.jsp" />
-
-
+<jsp:include page="header.jsp" />
 <main>
-    <header>
-        <div class="logo">레스고!</div>
-        <ul class="menu" style="list-style:none; display:flex; padding:0; margin:0;">
-			<li style="margin-right: 20px;"><a href="index.html">홈</a></li>
-			<li style="margin-right: 20px;"><a href="leisere.html">플레이스 조회</a></li>
-			<li style="margin-right: 20px;"><a href="schedulepostAll.html">일정게시판</a></li>
-			<li style="margin-right: 20px;"><a href="#">내일정</a></li>
-            <li>로그인</li>
-        </ul>
-    </header>
-
     <div class="content-container">
         <div class="content-left">
             <ul id="sortableList">
