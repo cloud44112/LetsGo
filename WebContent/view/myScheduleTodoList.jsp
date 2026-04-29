@@ -5,18 +5,8 @@
 </head>
 <body>
 
-<aside class="sidebar">
-     <ul>
-       <button><a href="mylist.html">동선관리</a></button>
-       <button><a href="priceManage.html">예산관리</a></button>
-       <button><a href="todoList.jsp">To-Do 리스트</a></button>
-    </ul>
-    <div>
-        <button type="button">공유하기</button>
-        <button type="button">저장하기</button>
-        <button type="button" id="deleteBtn">삭제하기</button>
-    </div>
-</aside>
+<jsp:include page="mySchduleSideBar.jsp" />
+<jsp:include page="header.jsp" />
 
 <main data-delete-result="${requestScope.deleteResult}">
     <header>
