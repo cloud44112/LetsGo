@@ -114,12 +114,11 @@ public class PlaceDAO {
     }
 
     // 플레이스 담기
-    public List<PlaceVO> getPlace(String placeType, String placeId) {
+    public List<PlaceVO> getPlace(String placeId) {
         List<PlaceVO> list = new ArrayList<>();
         try {
             PreparedStatement stmt = conn.prepareStatement(PlaceQuery.GET_PLACE_BY_PLACE_ID_SQL);
-            stmt.setString(1, placeType);
-            stmt.setString(2, placeId);
+            stmt.setString(1, placeId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 list.add(new PlaceVO(placeId, rs.getString("title"), rs.getString("addr1"),
