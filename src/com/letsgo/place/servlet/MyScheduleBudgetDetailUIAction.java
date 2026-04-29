@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-public class myScheduleBudgetDetailUIAction implements Action {
+public class MyScheduleBudgetDetailUIAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request)

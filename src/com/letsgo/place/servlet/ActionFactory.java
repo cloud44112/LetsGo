@@ -32,13 +32,13 @@ public class ActionFactory {
             tmp = new myScheduleRouteManageUIAction();
             break;
         case "myScheduleBudgetDetailUI":
-            tmp = new myScheduleBudgetDetailUIAction();
+            tmp = new MyScheduleBudgetDetailUIAction();
             break;
         case "MyScheduleTodoListUI":
             tmp = new MyScheduleTodoListUIAction();
             break;
         case "myScheduleListUI":
-            tmp = new myScheduleListUIAction();
+            tmp = new MyScheduleListUIAction();
             break;
         case "updatepwUI":
             tmp = new UpdatepwUIAction();

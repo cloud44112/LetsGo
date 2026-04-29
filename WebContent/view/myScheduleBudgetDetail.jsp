@@ -6,8 +6,9 @@
 <link rel="stylesheet" type="text/css" href="/LetsGo/view/css/mySchedule.css">
 </head>
 <body>
-<jsp:include page="mySchduleSideBar.jsp" />
+
 <jsp:include page="header.jsp" />
+<jsp:include page="mySchduleSideBar.jsp" />
 <main>
     <div class="content-container">
         <div class="content-left">

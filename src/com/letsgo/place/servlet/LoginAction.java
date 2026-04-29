@@ -33,7 +33,7 @@ public class LoginAction implements Action {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginOK", userId);
 			session.setAttribute("info", user);
-			return "myScheduleBudgetDetail.jsp";
+			return "index.jsp";
 		} catch (Exception e) {
 			request.setAttribute("errorMessage", "로그인 중 오류가 발생했습니다.");
 			return "login.jsp";
