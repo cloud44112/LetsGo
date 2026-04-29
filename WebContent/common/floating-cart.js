@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+		document.addEventListener('DOMContentLoaded', () => {
 
     // ✅ floating-cart.html을 불러와서 body 끝에 삽입
     fetch('common/floating-cart.html')

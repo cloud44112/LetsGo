@@ -21,7 +21,7 @@ public class FrontControllerSevlet extends HttpServlet {
 		System.out.println(cmd);
 
 		Action a = ActionFactory.getAction(cmd);
-		String url = "";
+		String url = null;
 		try {
 			url = a.execute(request);
 		} catch (ClassNotFoundException e) {

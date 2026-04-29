@@ -27,21 +27,21 @@
 			<div class="edit-area">
 				<button>수정하기</button>
 			</div>
+			<div class="container">
+			<c:forEach var="item" items="${myScheduleList}">
+				<figure class="figure">
+				<div>
+					${item.myScheduleTitle}
+					<c:if test="${item.isShared == 1}">👥</c:if>
+				</div>
+				<a href="controller?cmd=myScheduleRouteManageUI&myScheduleId=${item.myScheduleId}" class="box-placeholder"> <img src="${item.firstImage}"
+					alt="일정 이미지" class="box-placeholder">
+				</a> <figcaption class="figure-caption">${item.placeTitle}</figcaption>
+				${fn:substring(item.startAt, 0, 10)} 📍${fn:substring(item.addr1, 0, 10)}
+				</figure>
+			</c:forEach>
+			</div>
 		</div>
-	</div>
-	<div class="container">
-	<c:forEach var="item" items="${myScheduleList}">
-		<figure class="figure">
-		<div>
-			${item.myScheduleTitle}
-			<c:if test="${item.isShared == 1}">👥</c:if>
-		</div>
-		<a href="controller?cmd=myScheduleRouteManageUI&myScheduleId=${item.myScheduleId}" class="box-placeholder"> <img src="${item.firstImage}"
-			alt="일정 이미지" class="box-placeholder">
-		</a> <figcaption class="figure-caption">${item.placeTitle}</figcaption>
-		${fn:substring(item.startAt, 0, 10)} 📍${fn:substring(item.addr1, 0, 10)}
-		</figure>
-	</c:forEach>
 	</div>
 	
 	<div></div>

@@ -26,6 +26,7 @@ public class myScheduleRouteManageUIAction implements Action {
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(userId, myScheduleId);
 		
 		request.setAttribute("ScheduleRoute", list);
+		request.setAttribute("myScheduleId", myScheduleId);
 		System.out.println(list.toString());
 		
 		return "myScheduleRouteManage.jsp";

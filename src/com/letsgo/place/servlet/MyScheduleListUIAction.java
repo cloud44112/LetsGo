@@ -27,7 +27,7 @@ public class MyScheduleListUIAction implements Action {
 		}
 
 		MyScheduleService service = new MyScheduleService();
-		List<MyScheduleVO> list = service.getMyScheduleList(userId, null, null, false);
+		List<MyScheduleVO> list = service.getMyScheduleList(userId, "", "", false);
 
 		Map<String, MyScheduleVO> uniqueMap = new LinkedHashMap<>();
 		for (MyScheduleVO vo : list) {

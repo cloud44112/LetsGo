@@ -1,37 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <main>
     <div class="content-container">
         <div class="content-left">
             <ul id="sortableList">
-                <li class="sortable-item">1¹ø ¿ä¼Ò</li>
-                <li class="sortable-item">2¹ø ¿ä¼Ò</li>
-                <li class="sortable-item">3¹ø ¿ä¼Ò</li>
-                <li class="sortable-item">4¹ø ¿ä¼Ò</li>
-            </ul>
-            
-			<div class="content-left-bottom">
-			  <button type="button">¢¾ ÁÁ¾Æ¿ä!</button>
-			  <span class="like-count">¢¾ + 222</span>
-			</div>
+                <c:forEach var="route" items="${ScheduleRoute}">
+                    <li class="sortable-item" data-visit-id="${route.visitId}">
+                        ${route.visitOrder}. ${route.title}
+                    </li>
+                </c:forEach>
+            </ul>		
+
+            <div class="content-left-bottom">
+                <button type="button">ì €ìž¥í•˜ê¸°!</button>
+            </div>
         </div>
         <div class="divider"></div>
         <div class="content-right">
             <div class="content-right-top">
-            	<div class="map-area">
-			        <div id="map"></div>
-			    </div>
+                <div class="map-area">
+                    <div id="map"></div>
+                </div>
             </div>
             <div class="content-right-bottom">
-                1. ±Ý¿ø ¼ö¿ø ¼ö¿µÀå</br>
-
-                2. »ªµ· ¸ÁÆ÷Á¡</br>
-
-                3. Æ÷Å©³Ê ±¤±³¾Æºì´º ÇÁ¶óÁ¡</br>
-
-                4. ¾Ú¹è¼­´õ ¼ö¿ø</br>
+                <c:forEach var="route" items="${ScheduleRoute}">
+                    ${route.visitOrder}. ${route.title}<br/>
+                </c:forEach>
             </div>
         </div>
     </div>
