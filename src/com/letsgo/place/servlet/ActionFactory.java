@@ -34,8 +34,14 @@ public class ActionFactory {
         case "myScheduleBudgetDetailUI":
             tmp = new MyScheduleBudgetDetailUIAction();
             break;
+        case "myScheduleBudgetDetailAction":
+            tmp = new MyScheduleBudgetDetailAction();
+            break;
         case "MyScheduleTodoListUI":
             tmp = new MyScheduleTodoListUIAction();
+            break;
+        case "myScheduleTodoListAction":
+            tmp = new MyScheduleTodoListAction();
             break;
         case "myScheduleListUI":
             tmp = new MyScheduleListUIAction();

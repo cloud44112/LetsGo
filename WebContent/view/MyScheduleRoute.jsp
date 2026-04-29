@@ -9,6 +9,6 @@
         </c:forEach>
     </ul>
     <div class="content-left-bottom">
-        <button type="button">저장하기!</button>
+        <button type="button">저장하기</button>
     </div>
 </div>

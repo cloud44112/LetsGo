@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import com.letsgo.place.model.RouteScheduleVO;
 import com.letsgo.place.service.MyScheduleService;
 
-public class MyScheduleTodoListUIAction implements Action {
+public class MyScheduleTodoListAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request)
@@ -24,12 +24,16 @@ public class MyScheduleTodoListUIAction implements Action {
 		}
 
 		String myScheduleId = (String) session.getAttribute("currentScheduleId");
+		String todoDetail = request.getParameter("todoDetail");
 		MyScheduleService service = new MyScheduleService();
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(userId, myScheduleId);
-		String todoDetail = service.getTodoDetail(myScheduleId);
+
+		boolean flag = service.setTodoDetail(myScheduleId, todoDetail);
 
 		request.setAttribute("ScheduleRoute", list);
 		request.setAttribute("todoDetail", todoDetail);
+		request.setAttribute("TodoDetailResult", flag);
+
 		return "myScheduleTodoList.jsp";
 	}
 
