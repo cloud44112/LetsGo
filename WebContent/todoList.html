@@ -167,7 +167,7 @@
     <div>
         <button type="button">공유하기</button>
         <button type="button">저장하기</button>
-        <button type="button" id="deleteBtn">삭제하기</button>
+        <button type="button">삭제하기</button>
     </div>
 </aside>
 
@@ -213,15 +213,7 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-
 <script>
-    document.getElementById('deleteBtn').addEventListener('click', function () {
-        if (confirm('정말 삭제하시겠습니까?')) {
-            alert('삭제되었습니다.');
-            location.href = 'mylist.html';
-        }
-    });
-
     new Sortable(document.getElementById('sortableList'), {
         animation: 150,
         ghostClass: 'sortable-ghost'
