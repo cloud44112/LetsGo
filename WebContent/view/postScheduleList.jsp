@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%-- 1. JSTL 선언 추가 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -24,23 +24,17 @@
                 </div>
             </div>
         </div> </div> <div class="container">
-        <%-- Action에서 넘겨준 postScheduleList를 반복문으로 돌립니다 --%>
         <c:forEach var="item" items="${postScheduleList}">
             <figure class="figure">
                 <div>
-                    <%-- VO의 getTitle() 호출 --%>
                     ${item.title}
                 </div>
 
                 <a href="controller?cmd=postScheduleRouteManageUI&myScheduleId=${item.postId}" class="box-placeholder">
-                    <%-- VO의 getFirstImage() 호출 --%>
                     <img src="${item.firstImage}" alt="일정 이미지" class="box-placeholder">
                 </a>
                 
-                <figcaption class="figure-caption">
-                    <%-- VO의 getPlaceTitle() 호출 --%>
-                    ${item.placeTitle}
-                </figcaption>
+                <figcaption class="figure-caption">${item.placeTitle}</figcaption>
 
                 <div>
                     <span>❤️ ${item.likeCount}</span>
