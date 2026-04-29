@@ -102,7 +102,7 @@ public class PlaceDAO {
         List<PlaceVO> list = new ArrayList<>();
         try {
             PreparedStatement stmt = conn.prepareStatement(PlaceQuery.GET_PLACE_BY_ADDR_SQL);
-            String searchKeyword = "%" + addr + "%";
+            String searchKeyword = "%" + addr + "%"; 
             stmt.setString(1, placeType);
             stmt.setString(2, searchKeyword);
             ResultSet rs = stmt.executeQuery();

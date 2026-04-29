@@ -226,12 +226,8 @@
 
     document.getElementById('deleteBtn').addEventListener('click', function () {
         if (confirm('정말 삭제하시겠습니까?')) {
-<<<<<<< HEAD
             location.href = '/LetsGo/controller?cmd=deleteSchedule';
             console.log(location.getParmeter);
-=======
-            location.href = 'controller?cmd=deleteSchedule';
->>>>>>> 83ed2254bb8d5b2a699ff92c6f919226bd2faed4
         }
         
     });
