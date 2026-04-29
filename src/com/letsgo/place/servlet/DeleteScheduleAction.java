@@ -16,5 +16,4 @@ public class DeleteScheduleAction implements Action {
 		request.setAttribute("result", new MyScheduleService().deleteMySchedule(scheduleId));
 		return "index.jsp";
 	}
-
 }

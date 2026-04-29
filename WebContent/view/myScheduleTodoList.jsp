@@ -15,6 +15,7 @@
         <button type="button">공유하기</button>
         <button type="button">저장하기</button>
         <button type="button" id="deleteBtn">삭제하기</button>
+        <button type="button" id="deleteBtnTest">삭제하기테스트</button>
     </div>
 </aside>
 
@@ -73,8 +74,12 @@
     document.getElementById('deleteBtn').addEventListener('click', function () {
         if (confirm('정말 삭제하시겠습니까?')) {
             location.href = '/LetsGo/controller?cmd=deleteSchedule';
-            console.log(location.getParmeter);
         }
+    });
+    document.getElementById('deleteBtnTest').addEventListener('click', function () {
+        if (confirm('정말 삭제하시겠습니까??')) {
+            location.href = '/LetsGo/controller?cmd=deletePostSchedule';
+        }    
         
     });
 
