@@ -1,35 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
 <!-- 플로팅 버튼 -->
 <button class="btn-open-modal"><h1>🛒</h1></button>
 
 <!-- 모달 -->
 <div class="modal">
     <div class="modal_body">
-
-        <div style="padding: 20px">
-            <h2>🛒 총 <span id="place-count">4</span>개 플레이스</h2>
-            <div style="margin-top: 10px;">
+        <div class="cart-header">
+            <h2>🛒 총 <span id="place-count">0</span>개</h2>
+            <div>
                 <button id="btn-select-all">전체 선택</button>
                 <button id="btn-delete-selected">선택 삭제</button>
             </div>
         </div>
 
-        <div class="shoppingbox" id="shoppingbox">
-            <div class="place-item"><input type="checkbox" class="place-checkbox" /> 금원 수원 수영장</div>
-            <div class="place-item"><input type="checkbox" class="place-checkbox" /> 앰배서더 수원</div>
-            <div class="place-item"><input type="checkbox" class="place-checkbox" /> 빽돈 망포점</div>
-            <div class="place-item"><input type="checkbox" class="place-checkbox" /> 포크너 광교 아브뉴 프랑점</div>
-        </div>
-
-        <div class="box">
-            레저스포츠 1곳<br>
-            먹거리 2곳<br>
-            숙박 1곳<br>
-            <button>저장하기</button>
-        </div>
-
-        <button id="btn-close-modal">✖</button>
+        <div class="shoppingbox" id="shoppingbox"></div>
+        <button id="btn-close-modal">닫기</button>
     </div>
 </div>

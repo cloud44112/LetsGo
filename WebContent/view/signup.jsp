@@ -47,6 +47,16 @@ button {
 	margin-bottom: 15px;
 }
 
+.back-button {
+	position: fixed;
+	top: 16px;
+	left: 16px;
+	z-index: 1000;
+	width: auto;
+	margin-bottom: 0;
+	padding: 8px 12px;
+}
+
 a {
 	color: #007bff;
 	text-decoration: none;
@@ -91,6 +101,7 @@ a:hover {
 		<div>
 			<a href="<%=request.getContextPath()%>/controller?cmd=loginUI">로그인</a>
 		</div>
+		<button type="button" class="back-button" onclick="history.back()">뒤로가기</button>
 	</div>
 </body>
 </html>
