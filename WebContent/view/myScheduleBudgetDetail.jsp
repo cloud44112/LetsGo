@@ -1,58 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/LetsGo/view/css/mySchedule.css">
 </head>
 <body>
-
-<jsp:include page="header.jsp" />
 <jsp:include page="mySchduleSideBar.jsp" />
+<jsp:include page="header.jsp" />
+
+
 <main>
     <div class="content-container">
-        <div class="content-left">
-            <ul id="sortableList">
-                <li class="sortable-item">1번 요소</li>
-                <li class="sortable-item">2번 요소</li>
-                <li class="sortable-item">3번 요소</li>
-                <li class="sortable-item">4번 요소</li>
-            </ul>
-			<div class="content-left-bottom">
-			  <button type="button">♥ 좋아요!</button>
-			  <span class="like-count">♥ + 222</span>
-			</div>
-        </div>
+        <jsp:include page="MyScheduleRoute.jsp" />
         <div class="divider"></div>
-		<div class="content-right">
-		    <table border="1" align="center">
-		        <tbody>
-		            <tr>
-		                <th colspan="2">놀거리 비용</th>
-		                <td>20,000</td>
-		            </tr>
-		
-		            <tr>
-		                <th rowspan="2">식비</th>
-		                <td>빽돈 망포점</td>
-		                <td>10,000</td>
-		            </tr>
-		
-		            <tr>
-		                <td>포크너 광교아븐뉴 프라점</td>
-		                <td>10,000</td>
-		            </tr>
-		
-		            <tr>
-		                <th colspan="2">숙박비</th>
-		                <td>70,000</td>
-		            </tr>
-		        </tbody>
-		    </table>
-		    <div class="totalPrice">
-		    	총계 : 110,000 원
-            </div>
-		</div>
+        <div class="content-right">
+            <pre>${budgetDetail}</pre>
+        </div>
     </div>
 </main>
 
@@ -64,4 +27,5 @@
     });
 </script>
 
-</body></html>
+</body>
+</html>

@@ -8,21 +8,10 @@
 <jsp:include page="mySchduleSideBar.jsp" />
 <jsp:include page="header.jsp" />
 
+
 <main data-delete-result="${requestScope.deleteResult}">
     <div class="content-container">
-        <div class="content-left">
-            <div class="search-area">
-                <input type="text" placeholder="내일정1">
-                <button type="button">수정하기</button>
-                <button type="button">+</button>
-            </div>
-            <ul id="sortableList">
-                <li class="sortable-item">1번 요소</li>
-                <li class="sortable-item">2번 요소</li>
-                <li class="sortable-item">3번 요소</li>
-                <li class="sortable-item">4번 요소</li>
-            </ul>
-        </div>
+        <jsp:include page="MyScheduleRoute.jsp" />
         <div class="divider"></div>
         <div class="content-right">
             <div class="memo">
@@ -54,7 +43,6 @@
             location.href = '/LetsGo/controller?cmd=deleteSchedule';
             console.log(location.getParmeter);
         }
-        
     });
 
     new Sortable(document.getElementById('sortableList'), {

@@ -256,4 +256,15 @@ public class MyScheduleService {
 		}
 		return result;
 	}
+
+	public String getBudgetDetail(String scheduleId) {
+		String result = dao.getBudgetDetail(scheduleId);
+		return result;
+	}
+	
+	public boolean setBudgetDetail(String scheduleId, String budgetDetail) {
+		boolean flag = dao.setBudgetDetail(scheduleId, budgetDetail);
+		return flag;
+	}
+	
 }

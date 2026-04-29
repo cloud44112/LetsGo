@@ -22,11 +22,15 @@ public class myScheduleRouteManageUIAction implements Action {
 			return "login.jsp";
 		}
 		String myScheduleId = request.getParameter("myScheduleId");
+		if (myScheduleId != null) {
+			session.setAttribute("currentScheduleId", myScheduleId);
+		} else {
+			myScheduleId = (String) session.getAttribute("currentScheduleId");
+		}
 		MyScheduleService service = new MyScheduleService();
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(userId, myScheduleId);
-		
+
 		request.setAttribute("ScheduleRoute", list);
-		request.setAttribute("myScheduleId", myScheduleId);
 		System.out.println(list.toString());
 		
 		return "myScheduleRouteManage.jsp";
