@@ -1,27 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html lang="ko">
+
 <head>
 <!-- <link rel = "stylesheet" href ="letsgo.css"> -->
 <meta charset="UTF-8" />
 <link rel="stylesheet" href="common/floating-cart.css" />
-<link rel="stylesheet" type="text/css" href="css/mySchedule.css">
+<link rel="stylesheet" type="text/css" href="/LetsGo/view/css/index.css">
 
 </head>
+<jsp:include page="header.jsp" />
+
 <body>
 
-	<main> <header>
-		<div class="logo">레스고!</div>
-		<ul class="menu"
-			style="list-style: none; display: flex; padding: 0; margin: 0;">
-			<li style="margin-right: 20px;"><a href="index.html">홈</a></li>
-			<li style="margin-right: 20px;"><a href="leisere.html">플레이스 조회</a></li>
-			<li style="margin-right: 20px;"><a href="schedulepostAll.html">일정게시판</a></li>
-			<li style="margin-right: 20px;"><a href="#">내일정</a></li>
-			<li><a href ="login.html">로그인</a></li>
-		</ul>
-	</header>
 	<h1>추천 레저스포츠 리스트</h1>
 
 
@@ -78,4 +68,3 @@
  <script src="common/floating-cart.js"></script>
 
 </body>
-</html>

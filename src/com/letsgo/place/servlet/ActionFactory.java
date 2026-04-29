@@ -13,15 +13,15 @@ public class ActionFactory {
 		case "deleteSchedule":
 			tmp = new DeleteScheduleAction();
 			break;
-		case "loginUI":
-			tmp = new LoginUIAction();
-			break;
-		case "loginAction":
-			tmp = new LoginAction();
-			break;
-		case "deletePostSchedule":
-			tmp = new DeletePostScheduleAction();
-			break;
+//		case "loginUI":
+//			tmp = new LoginUIAction();
+//			break;
+//		case "loginAction":
+//			tmp = new LoginAction();
+//			break;
+//		case "deletePostSchedule":
+//			tmp = new DeletePostScheduleAction();
+//			break;
 		case "myScheduleRouteManageUI":
 			tmp = new myScheduleRouteManageUIAction();
 			break;
