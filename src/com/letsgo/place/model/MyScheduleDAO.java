@@ -226,6 +226,25 @@ public class MyScheduleDAO {
 
 	}
 
+	public String getScheduleTitle(String scheduleId) {
+		String str = null;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.GET_SCHEDULE_TITLE);
+
+			stmt.setString(1, scheduleId);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next())
+				str = rs.getString(1);
+
+			stmt.close();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return str;
+	}
+
 	public List<RouteScheduleVO> getScheduleRoute(String userId, String scheduleId) {
 		List<RouteScheduleVO> list = null;
 		try {
