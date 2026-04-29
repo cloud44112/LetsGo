@@ -114,6 +114,30 @@
         .sortable-item:active {
             cursor: grabbing;
         }
+
+        .sortable-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .delete-visit-btn {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            line-height: 18px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 0;
+        }
+
+        .delete-visit-btn:hover {
+            background: #cc0000;
+        }
         
         .content-right {
             display: flex;

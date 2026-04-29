@@ -9,17 +9,27 @@
         <c:forEach var="route" items="${ScheduleRoute}">
             <li class="sortable-item" data-visit-id="${route.visitId}">
                 ${route.visitOrder}. ${route.title}
+                <button type="button" class="delete-visit-btn" onclick="deleteVisit('${route.visitId}')">×</button>
             </li>
         </c:forEach>
     </ul>
     <div class="content-left-bottom">
-        <button type="button">저장하기</button>
+        <button type="button" id="updateRouteBtn">수정하기</button>
+        <button type="button" id="addVisitBtn">추가하기</button>
     </div>
 </div>
 
 <script>
     if ("${updateTitleResult}" === "true") {
         alert("일정 제목이 수정되었습니다.");
+    }
+    
+    if ("${deleteVisitItemResult}" === "true") {
+        alert("항목이 삭제되었습니다.");
+    }
+    
+    if ("${updateRouteResult}" === "true") {
+        alert("동선이 수정되었습니다.");
     }
 
     document.getElementById('saveTitleBtn').addEventListener('click', function() {
@@ -41,5 +51,41 @@
         
         document.body.appendChild(form);
         form.submit();
+    });
+
+    function deleteVisit(visitId) {
+        if (confirm('이 항목을 삭제하시겠습니까?')) {
+            location.href = '/LetsGo/controller?cmd=deleteVisitItem&visitItemId=' + visitId;
+        }
+    }
+
+    document.getElementById('updateRouteBtn').addEventListener('click', function() {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/LetsGo/controller?cmd=updateRouteOrder';
+
+        const items = document.querySelectorAll('#sortableList li');
+        items.forEach((item, index) => {
+            const idInput = document.createElement('input');
+            idInput.type = 'hidden';
+            idInput.name = 'visitItemId';
+            idInput.value = item.dataset.visitId;
+            form.appendChild(idInput);
+
+            const orderInput = document.createElement('input');
+            orderInput.type = 'hidden';
+            orderInput.name = 'visitOrder';
+            orderInput.value = index + 1;
+            form.appendChild(orderInput);
+        });
+
+        document.body.appendChild(form);
+        form.submit();
+    });
+
+    document.getElementById('addVisitBtn').addEventListener('click', function() {
+        // Redirect to index page to pick a place. 
+        // In a real app, we might pass the scheduleId to show "Add" buttons on place cards.
+        location.href = '/LetsGo/controller?cmd=indexUI';
     });
 </script>
