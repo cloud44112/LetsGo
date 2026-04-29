@@ -26,7 +26,7 @@ public class LoginAction implements Action {
 		try {
 			UserVO user = new UserDAO().login(userId, password);
 			if (user == null) {
-				request.setAttribute("errorMessage", "로그인 실패");
+				request.setAttribute("errorMessage", "아이디/비밀번호를 다시입력하세요.");
 				return "login.jsp";
 			}
 

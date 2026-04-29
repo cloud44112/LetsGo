@@ -13,18 +13,37 @@ public class ActionFactory {
 		case "deleteSchedule":
 			tmp = new DeleteScheduleAction();
 			break;
-//		case "loginUI":
-//			tmp = new LoginUIAction();
-//			break;
-//		case "loginAction":
-//			tmp = new LoginAction();
-//			break;
-//		case "deletePostSchedule":
-//			tmp = new DeletePostScheduleAction();
-//			break;
+		case "loginUI":	
+			tmp = new LoginUIAction();
+			break;
+		case "loginAction":
+			tmp = new LoginAction();
+			break;
+		case "signupUI":
+			tmp = new SignupUIAction();
+			break;
+		case "signupAction":
+			tmp = new SignupAction();
+			break;
+		case "deletePostSchedule":
+			tmp = new DeletePostScheduleAction();
+			break;
 		case "myScheduleRouteManageUI":
 			tmp = new myScheduleRouteManageUIAction();
 			break;
+		case "updatepwUI":
+			tmp = new UpdatepwUIAction();
+			break;
+		case "updatepwAction":
+			tmp = new UpdatepwAction();
+			break;
+		case "getIdUI":
+			tmp = new GetIdUIAction();
+			break;
+		case "getIdAction":
+			tmp = new GetIdAction();
+			break;
+
 		default:
 			tmp = new IndexUIAction();
 			break;
