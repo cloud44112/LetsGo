@@ -330,7 +330,7 @@ public class MyScheduleDAO {
 		return list;
 	}
 
-	public String shareToPost(String myScheduleId, String userId, int isAnonymous) throws SQLException {
+	public String shareToPost(String myScheduleId, String userId, int isAnonymous){
 		String str = "";
 		try {
 
