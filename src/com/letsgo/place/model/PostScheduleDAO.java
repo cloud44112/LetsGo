@@ -3,7 +3,6 @@ package com.letsgo.place.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,7 @@ public class PostScheduleDAO {
 	private Connection conn;
 
 	
-	public PostScheduleDAO(Connection conn) throws Exception{
+	public PostScheduleDAO(Connection conn){
 		this.conn = conn;
 	}
 	

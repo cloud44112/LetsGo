@@ -21,6 +21,8 @@ public class UserDAO {
     public UserVO login(String userID, String password) {
 
         UserVO user = null;
+
+
         try (PreparedStatement pstmt = conn.prepareStatement("LOGIN_SQL")) {
             pstmt.setString(1, userID);
             pstmt.setString(2, password);

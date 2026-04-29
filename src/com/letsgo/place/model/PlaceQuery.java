@@ -12,7 +12,7 @@ public interface PlaceQuery {
 	
 	String ORDER_BY_LIKE = "ORDER BY like_count DESC ";
 	String ORDER_BY_TITLE = "ORDER BY title ASC ";
-	
+	String GET_BY_TITLE_OR_ADDR = "AND (title LIKE ? OR addr1 LIKE ?) ";
 	
 	
 	
@@ -34,7 +34,7 @@ public interface PlaceQuery {
 	
 	String GET_PLACES_SQL = 			"SELECT place_id, title, addr1, mapx, mapy FROM place";
 	
-	String GET_PLACE_BYPLACEID_SQL = 	"SELECT place_id, title, addr1, mapx, mapy FROM place WHERE place_Id = ?";
+	String GET_PLACE_BY_PLACE_ID_SQL = 	"SELECT place_id, title, addr1, mapx, mapy FROM place WHERE place_Id = ?";
 	
 	String GET_PLACE_SQL=				"SELECT title, addr1, mapx, mapy FROM place WHERE place_type=? AND place_Id=?";
 	
@@ -42,7 +42,7 @@ public interface PlaceQuery {
 	
 	String GET_PLACE_COUNT_SQL=			"SELECT COUNT(place_Id) FROM place WHERE place_type=?";
 	
-	String SET_PLACE_LIKE_COUNT_SQL=	"UPDATE place SET like_count = like_count + 1 WHERE place_Id=?";
+	String ADD_PLACE_LIKE_COUNT_SQL=	"UPDATE place SET like_count = like_count + 1 WHERE place_Id=?";
 	
 	String GET_PLACE_LIKE_COUNT_SQL=	"SELECT like_count FROM place WHERE place_type=? AND place_Id=?";
 	
