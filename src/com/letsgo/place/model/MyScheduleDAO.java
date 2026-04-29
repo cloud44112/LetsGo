@@ -187,6 +187,45 @@ public class MyScheduleDAO {
 
 	}
 
+	public boolean setBudgetDetail(String scheduleId, String budgetDetail) {
+		boolean flag = false;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.SET_BUDGET_DETAIL);
+
+			stmt.setString(1, budgetDetail);
+			stmt.setString(2, scheduleId);
+
+			flag = (stmt.executeUpdate() == 1);
+			stmt.close();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return flag;
+
+	}
+
+	public String getBudgetDetail(String scheduleId) {
+		String str = null;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.GET_BUDGET_DETAIL);
+
+			stmt.setString(1, scheduleId);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next())
+				str = rs.getString(1);
+
+			stmt.close();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return str;
+
+	}
+
 	public List<RouteScheduleVO> getScheduleRoute(String userId, String scheduleId) {
 		List<RouteScheduleVO> list = null;
 		try {
@@ -332,7 +371,6 @@ public class MyScheduleDAO {
 		return list;
 	}
 
-
 	public String shareToPost(String myScheduleId, String userId, int isAnonymous) throws SQLException {
 		String str = null;
 		try {
@@ -346,9 +384,10 @@ public class MyScheduleDAO {
 			stmtSchedule.executeUpdate();
 			stmtSchedule.close();
 
-			PreparedStatement stmtVisit = conn.prepareStatement(MyScheduleQuery.SHARE_TO_VISIT_ITEM_LIST_BY_SCHEDULE_ID);
+			PreparedStatement stmtVisit = conn
+					.prepareStatement(MyScheduleQuery.SHARE_TO_VISIT_ITEM_LIST_BY_SCHEDULE_ID);
 			stmtVisit.setString(1, myScheduleId);
-			
+
 			stmtVisit.executeUpdate();
 			stmtVisit.close();
 			str = myScheduleId;

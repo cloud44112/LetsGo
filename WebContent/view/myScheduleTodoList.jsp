@@ -1,67 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<html lang="ko">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
 <head>
 <link rel="stylesheet" type="text/css" href="/LetsGo/view/css/mySchedule.css">
 </head>
 <body>
-
 <jsp:include page="mySchduleSideBar.jsp" />
 <jsp:include page="header.jsp" />
 
-<main data-delete-result="${requestScope.deleteResult}">
+
+<main>
     <div class="content-container">
-        <div class="content-left">
-            <div class="search-area">
-                <input type="text" placeholder="내일정1">
-                <button type="button">수정하기</button>
-                <button type="button">+</button>
-            </div>
-            <ul id="sortableList">
-                <li class="sortable-item">1번 요소</li>
-                <li class="sortable-item">2번 요소</li>
-                <li class="sortable-item">3번 요소</li>
-                <li class="sortable-item">4번 요소</li>
-            </ul>
-        </div>
+        <jsp:include page="MyScheduleRoute.jsp" />
         <div class="divider"></div>
         <div class="content-right">
             <div class="memo">
                 <div>
                     <h3>To-Do</h3>
                 </div>
-                <textarea
-                    rows="40"
-                    cols="20"
-                    placeholder="1. 금원 수원 수영장 - 수영복 챙기기"></textarea>
+                <form method="post" action="controller">
+                    <input type="hidden" name="cmd" value="myScheduleTodoListAction">
+                    <textarea name="todoDetail" class="detail-textarea"
+                        placeholder="1. 금원 수원 수영장 - 수영복 챙기기">${todoDetail}</textarea>
+                    <button type="submit" class="save-btn">저장하기</button>
+                </form>
+                <c:if test="${TodoDetailResult == true}">
+                    <p>저장되었습니다.</p>
+                </c:if>
+                <c:if test="${TodoDetailResult == false}">
+                    <p>저장에 실패했습니다.</p>
+                </c:if>
             </div>
         </div>
     </div>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-<script>
-    const deleteResult = document.querySelector('main').dataset.deleteResult;
 
-    if (deleteResult === 'true') {
-        alert('삭제되었습니다.');
-        location.href = 'mylist.html';
-    } else if (deleteResult === 'false') {
-        alert('삭제에 실패했습니다.');
-    }
-
-    document.getElementById('deleteBtn').addEventListener('click', function () {
-        if (confirm('정말 삭제하시겠습니까?')) {
-            location.href = '/LetsGo/controller?cmd=deleteSchedule';
-            console.log(location.getParmeter);
-        }
-        
-    });
-
-    new Sortable(document.getElementById('sortableList'), {
-        animation: 150,
-        ghostClass: 'sortable-ghost'
-    });
-</script>
 
 </body>
 </html>

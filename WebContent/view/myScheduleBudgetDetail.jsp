@@ -1,58 +1,38 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/LetsGo/view/css/mySchedule.css">
 </head>
 <body>
-
-<jsp:include page="header.jsp" />
 <jsp:include page="mySchduleSideBar.jsp" />
+<jsp:include page="header.jsp" />
+
+
 <main>
     <div class="content-container">
-        <div class="content-left">
-            <ul id="sortableList">
-                <li class="sortable-item">1¹ø ¿ä¼Ò</li>
-                <li class="sortable-item">2¹ø ¿ä¼Ò</li>
-                <li class="sortable-item">3¹ø ¿ä¼Ò</li>
-                <li class="sortable-item">4¹ø ¿ä¼Ò</li>
-            </ul>
-			<div class="content-left-bottom">
-			  <button type="button">¢¾ ÁÁ¾Æ¿ä!</button>
-			  <span class="like-count">¢¾ + 222</span>
-			</div>
-        </div>
+        <jsp:include page="MyScheduleRoute.jsp" />
         <div class="divider"></div>
-		<div class="content-right">
-		    <table border="1" align="center">
-		        <tbody>
-		            <tr>
-		                <th colspan="2">³î°Å¸® ºñ¿ë</th>
-		                <td>20,000</td>
-		            </tr>
-		
-		            <tr>
-		                <th rowspan="2">½Äºñ</th>
-		                <td>»ªµ· ¸ÁÆ÷Á¡</td>
-		                <td>10,000</td>
-		            </tr>
-		
-		            <tr>
-		                <td>Æ÷Å©³Ê ±¤±³¾Æºì´º ÇÁ¶óÁ¡</td>
-		                <td>10,000</td>
-		            </tr>
-		
-		            <tr>
-		                <th colspan="2">¼÷¹Úºñ</th>
-		                <td>70,000</td>
-		            </tr>
-		        </tbody>
-		    </table>
-		    <div class="totalPrice">
-		    	ÃÑ°è : 110,000 ¿ø
+        <div class="content-right">
+            <div class="memo">
+                <div>
+                    <h3>ì˜ˆì‚°ê´€ë¦¬</h3>
+                </div>
+                <form method="post" action="controller">
+                    <input type="hidden" name="cmd" value="myScheduleBudgetDetailAction">
+                    <textarea name="budgetDetail" class="detail-textarea"
+                        placeholder="1. ê¸ˆì› ìˆ˜ì› ìˆ˜ì˜ìž¥ - ìž…ìž¥ê¶Œ 5000ì›">${budgetDetail}</textarea>
+                    <button type="submit" class="save-btn">ì €ìž¥í•˜ê¸°</button>
+                </form>
+                <c:if test="${BudgetDetailResult == true}">
+                    <p>ì €ìž¥ë˜ì—ˆìŠµë‹ˆë‹¤.</p>
+                </c:if>
+                <c:if test="${BudgetDetailResult == false}">
+                    <p>ì €ìž¥ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.</p>
+                </c:if>
             </div>
-		</div>
+        </div>
     </div>
 </main>
 
@@ -64,4 +44,5 @@
     });
 </script>
 
-</body></html>
+</body>
+</html>
