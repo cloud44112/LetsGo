@@ -7,6 +7,7 @@ import java.util.List;
 import com.letsgo.place.model.DBCP;
 import com.letsgo.place.model.PlaceDAO;
 import com.letsgo.place.model.PlaceVO;
+import com.letsgo.place.model.VisitItemVO;
 
 public class PlaceService {
 	
@@ -39,8 +40,8 @@ public class PlaceService {
 		return dao.getPlaceByAddr(placeType, addr);
 	}
 	
-	public List<PlaceVO> getPlace(String placeType, String placeId) {
-		return dao.getPlace(placeType, placeId);
+	public List<PlaceVO> getPlace(String placeId) {
+		return dao.getPlace(placeId);
 	}
 	
 	public int getPlaceCount(String placeType) {
@@ -71,5 +72,74 @@ public class PlaceService {
 	public int getPlaceLikeCount(String placeType, String placeId) {
 		return dao.getPlaceLikeCount(placeType, placeId);
 	}
+	
+	public List<PlaceVO> getPlaces() {
+		return dao.getPlaces();
+	}
+	
+	public boolean insertVisitItem(int visitOrder, int distanceToNext,
+            String placeId, String scheduleId, String scheduleType) {
+		boolean result = false;
+		try {
+			conn.setAutoCommit(false);
+			result = dao.insertVisitItem(visitOrder, distanceToNext, placeId, scheduleId, scheduleType);
+			if (result)
+				conn.commit();
+			else
+				conn.rollback();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.setAutoCommit(true);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	public List<PlaceVO> getLeisurePlacesOrderByLikeDesc() {
+		return dao.getLeisurePlacesOrderByLikeDesc();
+	}
+	
+	public boolean setCounting(String postId) {
+		boolean result = false;
+		try {
+			conn.setAutoCommit(false);
+			result = dao.setCounting(postId);
+			if (result)
+				conn.commit();
+			else
+				conn.rollback();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.setAutoCommit(true);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	public PlaceVO getPlaceById(String placeId) {
+		return dao.getPlaceById(placeId);
+	}
+	
+	public List<VisitItemVO> getVisitItemsByScheduleId(String scheduleId) {
+		return dao.getVisitItemsByScheduleId(scheduleId);
+	}
+	
+	public PlaceVO getPlaceByPlaceId(String placeId) {
+		return dao.getPlaceByPlaceId(placeId);
+	}
+	
+	public List<PlaceVO> searchPlaces(String placeType, String category, String keyword, String sortType) {
+		return dao.searchPlaces(placeType, category, keyword, sortType);
+	}
+	
+	
 
 }

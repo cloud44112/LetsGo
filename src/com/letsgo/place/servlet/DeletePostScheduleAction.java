@@ -1,6 +1,13 @@
 package com.letsgo.place.servlet;
 
+
+import java.io.IOException;
 import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+
+import java.sql.SQLException;
+
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,4 +21,5 @@ public class DeletePostScheduleAction implements Action {
 		request.setAttribute("result", new PostScheduleService().deletePostSchedule(scheduleId));
 		return "index.jsp";
 	}
+
 }

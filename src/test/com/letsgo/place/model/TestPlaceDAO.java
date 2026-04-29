@@ -35,37 +35,42 @@ public class TestPlaceDAO {
 	@Test
 	public void getPlaceByTitleTest() {
 		assertNotNull(dao.getPlaceByTitle("LEISURE", "롤파크"));
-		assertEquals(new ArrayList<PlaceVO>(), dao.getPlaceByTitle("LEISURE", "롤"));
+		assertFalse(dao.getPlaceByTitle("LEISURE", "롤파크").isEmpty());
+		assertEquals(new ArrayList<PlaceVO>(), dao.getPlaceByTitle("LEISURE", "디즈니"));
 	}
 
 	@Test
 	public void getPlaceByCategoryTest() {
 		assertNotNull(dao.getPlaceByCategory("LEISURE", "VE100100"));
+		assertFalse(dao.getPlaceByCategory("LEISURE", "VE100100").isEmpty());
 		assertEquals(new ArrayList<PlaceVO>(), dao.getPlaceByCategory("12", "N"));
 	}
 
 	@Test
 	public void getPlaceOrderByLikeTest() {
 		assertNotNull(dao.getPlaceOrderByLike("LEISURE"));
+		assertFalse(dao.getPlaceOrderByLike("LEISURE").isEmpty());
 		assertEquals(new ArrayList<PlaceVO>(), dao.getPlaceOrderByLike("trip"));
 	}
 
 	@Test
 	public void getPlaceOrderByTitleTest() {
 		assertNotNull(dao.getPlaceOrderByTitle("LEISURE"));
+		assertFalse(dao.getPlaceOrderByTitle("LEISURE").isEmpty());
 		assertEquals(new ArrayList<PlaceVO>(), dao.getPlaceOrderByTitle("trip"));
 	}
 
 	@Test
 	public void getPlaceByAddrTest() {
 		assertNotNull(dao.getPlaceByAddr("LEISURE", "서울"));
+		assertFalse(dao.getPlaceByAddr("LEISURE", "서울").isEmpty());
 		assertEquals(new ArrayList<PlaceVO>(), dao.getPlaceByAddr("LEISURE", "도쿄"));
 	}
 
 	@Test
 	public void getPlaceTest() {
-		assertNotNull(dao.getPlace("LEISURE", "9"));
-		assertEquals(new ArrayList<PlaceVO>(), dao.getPlace("LEISURE", "100"));
+		assertNotNull(dao.getPlace("9"));
+		assertEquals(new ArrayList<PlaceVO>(), dao.getPlace("100"));
 	}
 
 	@Test
@@ -77,14 +82,15 @@ public class TestPlaceDAO {
 	@Test
 	public void setPlaceLikeCountTest() {
 		int beforeLikeCount = dao.getPlaceLikeCount("LEISURE", "9");
-	    assertTrue(dao.setPlaceLikeCount("9"));
-	    assertEquals(beforeLikeCount + 1, dao.getPlaceLikeCount("LEISURE", "9"));
-	    assertFalse(dao.setPlaceLikeCount("100"));
+		assertTrue(dao.setPlaceLikeCount("9"));
+		assertEquals(beforeLikeCount + 1, dao.getPlaceLikeCount("LEISURE", "9"));
+		assertFalse(dao.setPlaceLikeCount("100"));
 	}
-	
+
 	@Test
 	public void getPlaceLikeCountTest() {
 		assertTrue(dao.getPlaceLikeCount("LEISURE", "9") >= 0);
 		assertEquals(0, dao.getPlaceLikeCount("LEISURE", "100"));
 	}
+
 }

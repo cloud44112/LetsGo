@@ -1,35 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html lang="ko">
 <head>
-<link rel="stylesheet" type="text/css" href="css/mySchedule.css">
+<link rel="stylesheet" type="text/css" href="/LetsGo/view/css/mySchedule.css">
 </head>
 <body>
 
-<aside class="sidebar">
-     <ul>
-       <button><a href="mylist.html">동선관리</a></button>
-       <button><a href="priceManage.html">예산관리</a></button>
-       <button><a href="todoList.jsp">To-Do 리스트</a></button>
-    </ul>
-    <div>
-        <button type="button">공유하기</button>
-        <button type="button">저장하기</button>
-        <button type="button" id="deleteBtn">삭제하기</button>
-    </div>
-</aside>
+<jsp:include page="mySchduleSideBar.jsp" />
+<jsp:include page="header.jsp" />
 
 <main data-delete-result="${requestScope.deleteResult}">
-    <header>
-        <div class="logo">레스고!</div>
-        <ul class="menu" style="list-style:none; display:flex; padding:0; margin:0;">
-            <li style="margin-right: 20px;"><a href="index.html">홈</a></li>
-            <li style="margin-right: 20px;"><a href="leisere.html">플레이스 조회</a></li>
-            <li style="margin-right: 20px;"><a href="schedulepostAll.html">일정게시판</a></li>
-            <li style="margin-right: 20px;"><a href="#">내일정</a></li>
-            <li><a href ="login.html">로그인</a></li>
-        </ul>
-    </header>
-
     <div class="content-container">
         <div class="content-left">
             <div class="search-area">
