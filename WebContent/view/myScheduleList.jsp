@@ -28,6 +28,7 @@
 			</div>
 		</div>
 	</div>
+	<div class="container">
 	<c:forEach var="item" items="${myScheduleList}">
 		<figure class="figure">
 		<div>
@@ -40,45 +41,8 @@
 		<div>${item.startAt} 📍${item.addr1}</div>
 		</figure>
 	</c:forEach>
-	
-	<div class="container">
-		<figure class="figure">
-		<div>수영하려 가자 👥</div>
-		<a href="#" class="box-placeholder">이미지</a> <figcaption
-			class="figure-caption">금원 수원 수영장</figcaption>
-		<div>2026-04-16 📍경기 안양</div>
-		</figure>
-		<figure class="figure">
-		<div>내 일정1</div>
-		<a href="#" class="box-placeholder">이미지</a> <figcaption
-			class="figure-caption">금원 수원 수영장</figcaption>
-		<div>2026-04-16 📍경기 안양</div>
-		</figure>
-		<figure class="figure">
-		<div>내 일정2</div>
-		<a href="#" class="box-placeholder">이미지</a> <figcaption
-			class="figure-caption">금원 수원 수영장</figcaption>
-		<div>2026-04-16 📍경기 안양</div>
-		</figure>
-		<figure class="figure">
-		<div>언더더씨 👥</div>
-		<a href="#" class="box-placeholder">이미지</a> <figcaption
-			class="figure-caption">금원 수원 수영장</figcaption>
-		<div>2026-04-16 📍경기 안양</div>
-		</figure>
-		<figure class="figure">
-		<div>내 일정1(임시)</div>
-		<a href="#" class="box-placeholder">이미지</a> <figcaption
-			class="figure-caption">금원 수원 수영장</figcaption>
-		<div>2026-04-16 📍경기 안양</div>
-		</figure>
-		<figure class="figure">
-		<div>부산 풀코스</div>
-		<a href="#" class="box-placeholder">이미지</a> <figcaption
-			class="figure-caption">금원 수원 수영장</figcaption>
-		<div>2026-04-16 📍경기 안양</div>
-		</figure>
 	</div>
+	
 	<div></div>
 
 	</main>
