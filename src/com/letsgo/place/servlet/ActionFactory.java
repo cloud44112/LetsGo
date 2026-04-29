@@ -35,6 +35,10 @@ public class ActionFactory {
 		case "MyScheduleTodoListUI":
 			tmp = new MyScheduleTodoListUIAction();
 			break;
+			
+		case "myScheduleListUI":
+			tmp = new myScheduleListUIAction();
+			break;
 		default:
 			tmp = new IndexUIAction();
 			break;
