@@ -70,9 +70,9 @@ public class ActionFactory {
         case "getIdAction":
             tmp = new GetIdAction();
             break;
-//        case "postScheduleMyListUI":
-//            tmp = new postScheduleMyListUIAction();
-//            break;
+        case "postScheduleMyListUI":
+            tmp = new postScheduleMyListUIAction();
+            break;
         case "postScheduleRouteManageUI":
             tmp = new postScheduleRouteManageUIAction();
             break;
