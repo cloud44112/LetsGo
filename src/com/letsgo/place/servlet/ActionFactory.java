@@ -62,7 +62,7 @@ public class ActionFactory {
             tmp = new MyScheduleListUIAction();
             break;
             
-        case "searchMyScheduleTitleAction":
+        case "searchMyScheduleTitleAction":  //searchMyScheduleTitleAction
         	tmp = new searchMyScheduleTitleAction();
         	break;
         case "updatepwUI":

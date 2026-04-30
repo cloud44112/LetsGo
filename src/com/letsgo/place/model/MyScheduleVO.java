@@ -80,10 +80,16 @@ public class MyScheduleVO {
 
 	@Override
 	public String toString() {
-		return "MyScheduleVO [myScheduleId=" + myScheduleId + ", myScheduleTitle=" + myScheduleTitle + ", startAt="
-				+ startAt + ", isShared=" + isShared + ", placeTitle=" + placeTitle + ", addr1=" + addr1
-				+ ", firstImage=" + firstImage + "]";
-	}
+		return "{"
+		        + "\"myScheduleId\":\"" + myScheduleId + "\", "
+		        + "\"myScheduleTitle\":\"" + myScheduleTitle + "\", "
+		        + "\"startAt\":\"" + startAt + "\", "
+		        + "\"isShared\":" + isShared + ", "
+		        + "\"placeTitle\":\"" + placeTitle + "\", "
+		        + "\"addr1\":\"" + addr1 + "\", "
+		        + "\"firstImage\":\"" + firstImage + "\""
+		        + "}";
+		}
 	
 
 }

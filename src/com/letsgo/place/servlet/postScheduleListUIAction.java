@@ -42,7 +42,7 @@ public class postScheduleListUIAction implements Action {
 		}
 
 		request.setAttribute("postScheduleList", new ArrayList<>(uniqueMap.values()));
-			
+		
 					
 		return "postScheduleList.jsp";
 	}	

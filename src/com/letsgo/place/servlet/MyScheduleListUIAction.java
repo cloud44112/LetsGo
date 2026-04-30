@@ -39,7 +39,6 @@ public class MyScheduleListUIAction implements Action {
 				uniqueMap.put(vo.getMyScheduleId(), vo);
 			}
 		}
-
 		request.setAttribute("myScheduleList", new ArrayList<>(uniqueMap.values()));
 
 		return "myScheduleList.jsp";
