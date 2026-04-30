@@ -48,6 +48,8 @@ public interface PlaceQuery {
 	
 	String GET_LEISURE_PLACE_DESC_SQL = "SELECT * FROM place WHERE place_type = 'LEISURE' ORDER BY like_count DESC";
 	
+	String GET_LEISERE_PLACE_SQL ="SELECT * FROM place WHERE place_type = 'LEISURE'";
+	
 	String GET_VISIT_ITEM_SCHEDULE_ID_SQL = "SELECT VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_ID FROM VISIT_ITEM WHERE SCHEDULE_ID = ? ORDER BY VISIT_ORDER ASC";
 	
 	String SET_COUNTING_SQL = "UPDATE place SET like_count = like_count + 1 WHERE place_id = ?";

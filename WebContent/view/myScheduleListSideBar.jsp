@@ -7,10 +7,10 @@
 	<aside class="sidebar">
 		<div>
 			<div>
-				<a href="myscheduleAll.html"><button>전체 일정</button></a> 
+				<a href="controller?cmd=myScheduleListUI"><button>전체 일정</button></a> 
 			</div>
 			<div>
-				<a href="myscheduleShared.html"><button>공유된 일정</button></a>
+				<a href="controller?cmd=myScheduleSharedListUI"><button>공유된 일정</button></a>
 			</div>
 		</div>
 	</aside>

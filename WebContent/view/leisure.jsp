@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
 
 <link rel="stylesheet" type="text/css" href="/LetsGo/view/css/leisure.css">
+<link rel="stylesheet" type="text/css" href="/LetsGo/common/floating-cart.css">
 </head>
 <body>
 
@@ -125,48 +127,39 @@
 	</div>
 
 	<div class="container">
-		<figure class="figure">
-			<a href="#" class="box-placeholder">이미지</a>
-			<figcaption class="figure-caption">금원수원 수영장</figcaption>
-			경기 안양
-			<button>담기</button>
-		</figure>
-		<figure class="figure">
-			<a href="#" class="box-placeholder">이미지</a>
-			<figcaption class="figure-caption">덕진 수영장</figcaption>
-			서울 동구
-			<button>담기</button>
-		</figure>
-		<figure class="figure">
-			<a href="#" class="box-placeholder">이미지</a>
-			<figcaption class="figure-caption">덕주 수영장</figcaption>
-			대구 경북
-			<button>담기</button>
-		</figure>
-		<figure class="figure">
-			<a href="#" class="box-placeholder">이미지</a>
-			<figcaption class="figure-caption">박태환 수영장</figcaption>
-			인천 미추홀구
-			<button>담기</button>
-		</figure>
-		<figure class="figure">
-			<a href="#" class="box-placeholder">이미지</a>
-			<figcaption class="figure-caption">한강시민 공원 수영장</figcaption>
-			서울 중구
-			<button>담기</button>
-		</figure>
-		<figure class="figure">
-			<a href="#" class="box-placeholder">이미지</a>
-			<figcaption class="figure-caption">EVO 수영장</figcaption>
-			서울 중구
-			<button>담기</button>
-		</figure>
+    <c:forEach var="place" items="${leisurePlaceList}">
+        <figure class="figure">
+            <c:choose>
+                <c:when test="${not empty place.firstImage}">
+                    <img src="${place.firstImage}" alt="${place.title}"
+                         class="box-placeholder" />
+                </c:when>
+                <c:otherwise>
+                    <a href="#" class="box-placeholder">이미지</a>
+                </c:otherwise>
+            </c:choose>
+
+            <figcaption class="figure-caption">${place.title}</figcaption>
+            ${place.addr1}
+
+            <form method="post" action="/LetsGo/controller?cmd=placeLikeAction">
+                <input type="hidden" name="placeId" value="${place.placeId}" />
+                <input type="hidden" name="redirectCmd" value="leisureUI" />
+                <button type="submit" class="like-btn">❤️</button>
+                <span>좋아요: ${place.likeCount}</span>
+            </form>
+
+            <button type="button" class="add-to-cart-btn"
+                    data-place-id="${place.placeId}"
+                    data-place-title="${place.title}"
+                    data-place-type="${place.placeType}">담기</button>
+        </figure>
+    </c:forEach>
 	</div>
 
 	<div class="button-container">
-		<button id="restaurant">음식점</button>
-		<button id="stay">숙박</button>
-		<button>내가 담은 방문지</button>
+		<button id="restaurant"> 음식점 => </button>
+		<button id="stay"> 숙박 =>> </button>
 	</div>
 	</main>
 </div>
@@ -184,6 +177,8 @@
 		}
 	
 </script>
+
+<script src="/LetsGo/common/floating-cart.js"></script>
 
 </body>
 </html>

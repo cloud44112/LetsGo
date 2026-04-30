@@ -240,6 +240,32 @@ public class PlaceDAO {
         }
         return list;
     }
+    
+ // 레저 장소 목록 조회
+    public List<PlaceVO> getLeisurePlaces() {
+        List<PlaceVO> list = new ArrayList<>();
+        try (PreparedStatement pstmt = conn.prepareStatement(PlaceQuery.GET_LEISERE_PLACE_SQL);
+                ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                PlaceVO vo = new PlaceVO(
+                        rs.getString("place_id"),
+                        rs.getString("title"),
+                        rs.getString("addr1"),
+                        rs.getString("mapx"),
+                        rs.getString("mapy"),
+                        rs.getString("first_image"),
+                        rs.getInt("like_count"),
+                        rs.getString("place_type"));
+                list.add(vo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    
+    
 
     // 홈 레저 플레이스 좋아요 카운트 증가
     public boolean setCounting(String postId) {

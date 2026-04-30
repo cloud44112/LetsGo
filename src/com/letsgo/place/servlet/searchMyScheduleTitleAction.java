@@ -21,9 +21,9 @@ public class searchMyScheduleTitleAction implements Action {
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		HttpSession session = request.getSession();
 		String title = request.getParameter("searchTitle");
-		System.out.println(title);
+
 		String userId = (String) session.getAttribute("loginOK");
-		System.out.println(userId);
+
 		MyScheduleService service = new MyScheduleService();
 		List<MyScheduleVO> list = service.getMyScheduleList(userId, title, "title", false);
 //		System.out.println(list);

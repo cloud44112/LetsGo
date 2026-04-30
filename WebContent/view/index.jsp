@@ -31,19 +31,20 @@
 </head>
 
 <body>
+	<c:set var="so" value="${empty sortOrder ? 'distance' : sortOrder}" />
 	<jsp:include page="header.jsp" />
 
 	<h1>추천 레저스포츠 리스트</h1>
 
-
 	<div class="sort-area">
-		<select name="sortOrder">
-			<option value="distance">거리순</option>
-			<option value="like">인기순</option>
-		</select>
+		<form method="get" action="${pageContext.request.contextPath}/controller">
+			<select name="sortOrder" onchange="this.form.submit()">
+				<option value="distance" <c:if test="${so ne 'like'}">selected</c:if>>거리순</option>
+				<option value="like" <c:if test="${so eq 'like'}">selected</c:if>>좋아요순</option>
+			</select>
+		</form>
 		<li><a href="">위치서비스</a></li>
 	</div>
-
 
 	<div class="container">
 		<c:forEach var="place" items="${leisurePlaceList}">
@@ -59,8 +60,9 @@
 				</c:choose>
 				<figcaption class="figure-caption">${place.title}</figcaption>
 				${place.addr1}
-				<form method="post" action="<%=request.getContextPath()%>/controller?cmd=placeLikeAction">
+				<form method="post" action="${pageContext.request.contextPath}/controller?cmd=placeLikeAction">
 					<input type="hidden" name="placeId" value="${place.placeId}" />
+					<input type="hidden" name="sortOrder" value="${so}" />
 					<button type="submit" class="like-btn">❤️</button>
 					<span>좋아요: ${place.likeCount}</span>
 				</form>

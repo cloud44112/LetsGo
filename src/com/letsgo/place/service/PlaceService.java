@@ -98,9 +98,13 @@ public class PlaceService {
 		}
 		return result;
 	}
-	
+	//좋아요 정렬
 	public List<PlaceVO> getLeisurePlacesOrderByLikeDesc() {
 		return dao.getLeisurePlacesOrderByLikeDesc();
+	}
+	//레저만 보여주기
+	public List<PlaceVO> getLeisurePlaces(){
+		return dao.getLeisurePlaces();
 	}
 	
 	public boolean setCounting(String postId) {
