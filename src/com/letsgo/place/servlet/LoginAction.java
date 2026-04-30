@@ -34,6 +34,7 @@ public class LoginAction implements Action {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginOK", userId);
 			session.setAttribute("info", user);
+			request.setAttribute("sortOrder", "like");
 			request.setAttribute("leisurePlaceList", new PlaceService().getLeisurePlacesOrderByLikeDesc());
 			return "index.jsp";
 		} catch (Exception e) {
