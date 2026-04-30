@@ -22,7 +22,7 @@
         <form method="post" action="controller">
         <input type="hidden" name="cmd" value="addCompanionAction">
             <input type="text" placeholder="id입력" name="sharedUserId" />
-            <button type="submit">공유하기</button>
+            <button type="submit">동반자 추가 하기</button>
             </form>
         </div>
 
@@ -46,7 +46,11 @@
 
         <div class="export-section">
             <p>내보내기 / 공유</p>
+           	<form method="post" action="controller">
+           	<input type="hidden" name="cmd" value="addCompanionAction">
             <button class="export-btn" type="button">📋 게시판에 공유</button>
+            <input type="checkbox" name="isAnonymous" value=1 > 익명으로 게시
+            </form>
             <button class="export-btn" type="button">📄 PDF로 내보내기</button>
             <button class="export-btn" type="button">🖼️ 사진으로 내보내기</button>
         </div>
@@ -80,6 +84,8 @@
 	            xhr.send(null);
 	        };
 	    });
+		
+		
 	</script>
 </body>
 </html>

@@ -18,7 +18,7 @@ public class FrontControllerSevlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		String cmd = request.getParameter("cmd");
-		System.out.println(cmd);
+		System.out.println("cmd=" + cmd);
 
 		Action a = ActionFactory.getAction(cmd);
 		String url = null;
@@ -31,11 +31,13 @@ public class FrontControllerSevlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (!url.contains(".jsp")){
+		if (url.contains("controller")){
 			request.getRequestDispatcher(url).forward(request, response);
+			return;
 		}
 
 		request.getRequestDispatcher("/view/" + url).forward(request, response);
+		
 	}
 
 }

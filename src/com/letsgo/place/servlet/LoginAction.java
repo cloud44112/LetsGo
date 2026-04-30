@@ -35,7 +35,7 @@ public class LoginAction implements Action {
 			session.setAttribute("loginOK", userId);
 			session.setAttribute("info", user);
 			request.setAttribute("sortOrder", "");
-			return "index.jsp";
+			return "controller?cmd=IndexUIAction";
 		} catch (Exception e) {
 			request.setAttribute("errorMessage", "로그인 중 오류가 발생했습니다.");
 			return "login.jsp";

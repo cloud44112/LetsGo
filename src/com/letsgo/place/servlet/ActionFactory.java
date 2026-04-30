@@ -3,7 +3,7 @@ package com.letsgo.place.servlet;
 public class ActionFactory {
 	public static Action getAction(String cmd) {
 		Action tmp = null;
-		if (cmd == null) {
+		if (cmd == null){
 			return new IndexUIAction();
 		}
 		switch (cmd) {
@@ -77,6 +77,9 @@ public class ActionFactory {
 
 		case "myScheduleSharedListUI":
 			tmp = new MyScheduleSharedListUIAction();
+			break;
+		case "shareToPost":
+			tmp = new ShareToPostAction();
 			break;
 		case "updatepwUI":
 			tmp = new UpdatepwUIAction();
