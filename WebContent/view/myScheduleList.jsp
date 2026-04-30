@@ -45,7 +45,33 @@
 	<div></div>
 
 	</main>
-
+	
+	<script type = "text/javascript">
+		let xhr = new XMLHttpRequest();
+		let callbackMethod = function(){
+			if(xhr.readyState == 4){
+				if(xhr.status == 200 || xhr.status == 300){
+					let message = "사용가능";
+					let parsed = JSON.parse(xhr.responseText);
+					if (parsed.result){ //이거 왜 문자열 true 가아니라 boolean임?
+						message = "중복아이디";
+					}
+					
+					//ok 상황
+					document.querySelector("span").innerHTML=message;	
+				}
+			}
+		}
+		//1
+		xhr.onreadystatechange = callbackMethod;
+		//2
+		let inputs=document.querySelectorAll("input");
+		let idEvent = function(){
+			xhr.open("get", "controller?cmd=idCheck&memberId="+this.value, true);
+			xhr.send(null); //get
+		}
+		inputs[0].onchange = idEvent;
+	</script>
 
 </body>
 </html>
