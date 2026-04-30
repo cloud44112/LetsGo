@@ -21,13 +21,18 @@ public class MyScheduleListUIAction implements Action {
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("loginOK");
-
+		String title = (String) session.getAttribute("searchTitle");
 		if (userId == null) {
 			return "login.jsp";
 		}
 
 		MyScheduleService service = new MyScheduleService();
-		List<MyScheduleVO> list = service.getMyScheduleList(userId, "", "", false);
+		List<MyScheduleVO> list = null;
+		if (title != null) {
+			list = service.getMyScheduleList(userId, title, "", false);
+		} else {
+			list = service.getMyScheduleList(userId, "", "", false);
+		}
 
 		Map<String, MyScheduleVO> uniqueMap = new LinkedHashMap<>();
 		for (MyScheduleVO vo : list) {

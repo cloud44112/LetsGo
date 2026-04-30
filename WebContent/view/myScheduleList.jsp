@@ -13,7 +13,7 @@
 	<div class="content-container">
 		<div class="content-left">
 			<div class="search-area">
-				<input type="text" placeholder="장소 이름이나 일정 이름을 검색하세요" />
+				<input type="text" placeholder="장소 이름이나 일정 이름을 검색하세요" id = "searchTitle"/>
 				<button type="button">검색하기</button>
 				<div class="sort-area">
 					<select name="sortOrder">
@@ -53,22 +53,21 @@
 				if(xhr.status == 200 || xhr.status == 300){
 					let message = "사용가능";
 					let parsed = JSON.parse(xhr.responseText);
-					if (parsed.result){ //이거 왜 문자열 true 가아니라 boolean임?
+					if (parsed.result){ 
 						message = "중복아이디";
 					}
 					
-					//ok 상황
 					document.querySelector("span").innerHTML=message;	
 				}
 			}
 		}
-		//1
+
 		xhr.onreadystatechange = callbackMethod;
-		//2
-		let inputs=document.querySelectorAll("input");
+
+		let inputs=document.querySelectorAll("searchTitle");
 		let idEvent = function(){
-			xhr.open("get", "controller?cmd=idCheck&memberId="+this.value, true);
-			xhr.send(null); //get
+			xhr.open("get", "controller?cmd=myScheduleListUI&searchTitle"+this.value, true);
+			xhr.send(null);
 		}
 		inputs[0].onchange = idEvent;
 	</script>
