@@ -13,6 +13,7 @@ public class ActionFactory {
         case "deleteSchedule":
             tmp = new DeleteScheduleAction();
             break;
+            
         case "updateScheduleTitle":
             tmp = new UpdateScheduleTitleAction();
             break;
