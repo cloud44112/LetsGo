@@ -1,0 +1,29 @@
+   <script type = "text/javascript">
+
+         
+      
+   
+      let xhr = new XMLHttpRequest();
+      let callbackMethod = function(){
+         if(xhr.readyState == 4){
+            if(xhr.status == 200 || xhr.status == 300){
+               let parsed = JSON.parse(xhr.responseText);
+               console.log(JSON.parse(xhr.responseText))
+               if (parsed.result == ""){ 
+                  this.myScheduleList=null;
+               }
+               else this.myScheduleList=parsed.result;
+            }
+         }
+      }
+
+      xhr.onreadystatechange = callbackMethod;
+
+      let inputs=document.querySelectorAll("#searchTitle");
+      let idEvent = function(){
+         xhr.open("get", "controller?cmd=searchMyScheduleTitleAction&searchTitle="+this.value, true);
+         xhr.send(null);
+      }
+      inputs[0].onchange = idEvent;
+
+   </script>

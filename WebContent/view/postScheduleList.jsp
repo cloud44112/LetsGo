@@ -37,7 +37,7 @@
                 <figcaption class="figure-caption">${item.placeTitle}</figcaption>
 
                 <div>
-                    <span>❤️ ${item.likeCount}</span>
+                    <span id ="like">❤️ ${item.likeCount}</span>
                     <span>조회수: ${item.viewCount}</span>	
                     <span>👤 ${item.isAnonymous == 1 ? '익명' : item.userName} 님</span>
                 </div>
@@ -49,5 +49,38 @@
         </c:forEach>
     </div>
 </main>
+
+   <script type = "text/javascript">
+
+         
+      
+   
+   let xhr = new XMLHttpRequest();
+   let callbackMethod = function(){
+      if(xhr.readyState == 4){
+         if(xhr.status == 200 || xhr.status == 300){
+            let parsed = JSON.parse(xhr.responseText);
+            console.log(JSON.parse(xhr.responseText))
+            if (parsed.result == ""){ 
+               this.myScheduleList=null;
+            }
+            else this.myScheduleList=parsed.result;
+         }
+      }
+   }
+            
+         
+      
+
+      xhr.onreadystatechange = callbackMethod;
+
+      let inputs=document.querySelectorAll("#like");
+      let idEvent = function(){
+         xhr.open("get", "controller?cmd=postScheduleRouteManageUI&postId="+this.value, true);
+         xhr.send(null);
+      }
+      inputs[0].onclick = idEvent;
+
+   </script>
 </body>
 </html>
