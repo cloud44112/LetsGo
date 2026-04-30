@@ -3,209 +3,15 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<!-- <link rel = "stylesheet" href ="letsgo.css"> -->
 <meta charset="UTF-8" />
-<style>
-body {
-	margin: 0;
-	display: flex;
-	height: 100vh;
-	font-family: system-ui, sans-serif;
-}
 
-aside.sidebar {
-	width: 220px;
-	border-right: 1px solid #000;
-	padding: 10px;
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	height: 100vh;
-}
-
-aside.sidebar ul {
-	list-style: none;
-	padding: 0;
-	margin: 0 0 20px 0;
-}
-
-aside.sidebar li {
-	margin-bottom: 10px;
-}
-
-aside.sidebar button {
-	width: 100%;
-	padding: 6px 0;
-	margin-bottom: 10px;
-	border: 1px solid #000;
-	background: transparent;
-	cursor: pointer;
-	font-size: 1rem;
-}
-
-main {
-	flex-grow: 1;
-	display: flex;
-	flex-direction: column;
-}
-
-header {
-	height: 50px;
-	border-bottom: 1px solid #000;
-	padding: 10px 20px;
-	box-sizing: border-box;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	font-weight: 600;
-}
-
-.content-container {
-	flex-grow: 1;
-	display: flex;
-}
-
-.content-left, .content-right {
-	flex: 1;
-	padding: 20px;
-	box-sizing: border-box;
-}
-
-.divider {
-	width: 1px;
-	background-color: #000;
-}
-
-.search-area {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	margin-bottom: 20px;
-}
-
-.search-area input[type="text"] {
-	flex-grow: 1;
-	padding: 6px 8px;
-	font-size: 1rem;
-	box-sizing: border-box;
-}
-
-.search-area button {
-	padding: 6px 12px;
-	font-size: 1rem;
-	cursor: pointer;
-}
-
-#sortableList {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	border: 1px solid #ccc;
-	max-width: 300px;
-}
-
-.sortable-item {
-	padding: 10px 15px;
-	border-bottom: 1px solid #ccc;
-	background-color: #fafafa;
-	cursor: grab;
-	user-select: none;
-}
-
-.sortable-item:last-child {
-	border-bottom: none;
-}
-
-.sortable-item:active {
-	cursor: grabbing;
-}
-
-.content-right {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	height: 100%;
-	box-sizing: border-box;
-}
-
-.content-right-top, .content-right-bottom {
-	flex: 1;
-	border: 1px solid #ccc;
-	padding: 15px;
-	box-sizing: border-box;
-}
-
-.box-placeholder {
-	width: 100%;
-	height: 200px;
-	border: 2px solid #000;
-	border-radius: 8px;
-	background: #f0f0f0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-weight: bold;
-	color: #666;
-	text-decoration: none;
-	cursor: pointer;
-	transition: background 0.3s;
-}
-
-.figure {
-	border: 1px solid #ddd;
-	padding: 8px;
-	text-align: center;
-}
-
-.box-placeholder {
-	width: 300px;
-	height: 200px;
-	border: 2px solid #000;
-	border-radius: 8px;
-	background-color: #f0f0f0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.container {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 20px;
-	max-width: 960px;
-	margin: 0 auto;
-}
-
-a {
-	text-decoration: none;
-	outline: none;
-}
-
-.button-container {
-	display: flex;
-	justify-content: flex-end;
-	gap: 10px;
-}
-</style>
-
-<script type="text/javascript">
-	
-		window.onload = function(){
-			document.querySelector("#restaurant").onclick = function(){
-				window.location.href = '/LetsGo/controller?cmd=restaurantUI';
-			}
-			
-			document.querySelector("#stay").onclick = function(){
-				window.location.href = '/LetsGo/controller?cmd=stayUI';
-			}
-		}
-	
-	</script>
-
+<link rel="stylesheet" type="text/css" href="/LetsGo/view/css/leisure.css">
 </head>
 <body>
 
+<jsp:include page="header.jsp" />
+
+<div class="layout-wrapper"> 
 	<aside class="sidebar">
 		<div>
 			<ul>
@@ -300,19 +106,7 @@ a {
 		</div>
 	</aside>
 
-	<main> <header>
-		<div class="logo">레스고!</div>
-		<ul class="menu"
-			style="list-style: none; display: flex; padding: 0; margin: 0;">
-			<li style="margin-right: 20px;"><a href="#">홈</a></li>
-			<li style="margin-right: 20px;"><a href="leisere.html">플레이스
-					조회</a></li>
-			<li style="margin-right: 20px;"><a href="schedulepostAll.html">일정게시판</a></li>
-			<li style="margin-right: 20px;"><a href="#">내일정</a></li>
-			<li><a href ="login.html">로그인</a></li>
-		</ul>
-	</header>
-
+	<main> 
 	<div class="content-container">
 		<div class="content-left">
 			<div class="search-area">
@@ -374,9 +168,22 @@ a {
 		<button id="stay">숙박</button>
 		<button>내가 담은 방문지</button>
 	</div>
-
 	</main>
+</div>
 
+<script type="text/javascript">
+	
+		window.onload = function(){
+			document.querySelector("#restaurant").onclick = function(){
+				window.location.href = '/LetsGo/controller?cmd=restaurantUI';
+			}
+			
+			document.querySelector("#stay").onclick = function(){
+				window.location.href = '/LetsGo/controller?cmd=stayUI';
+			}
+		}
+	
+</script>
 
 </body>
 </html>
