@@ -37,7 +37,7 @@ public class UpdateScheduleTitleAction implements Action {
 		
 		// Standard pattern seems to be forwarding to the JSP, but we need to reload data.
 		// For simplicity, let's redirect to the manage UI if possible, or just forward to the main manage page.
-		return new myScheduleRouteManageUIAction().execute(request);
+		return new MyScheduleRouteManageUIAction().execute(request);
 	}
 
 }

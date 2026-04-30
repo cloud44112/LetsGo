@@ -17,6 +17,7 @@ pageEncoding="UTF-8"%>
 			<li><a href="controller?cmd=loginUI">로그인</a></li>
 			</c:if>	
 			<c:if test="${loginOK != null}">
+			<li>${info.name}</li>
 			<li><a href="controller?cmd=logoutAction">로그아웃</a></li>
 			</c:if>	
 			

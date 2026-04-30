@@ -31,7 +31,7 @@ public class AddVisitItemAction implements Action {
 		
 		request.setAttribute("addVisitItemResult", result);
 		
-		return new myScheduleRouteManageUIAction().execute(request);
+		return new MyScheduleRouteManageUIAction().execute(request);
 	}
 
 }

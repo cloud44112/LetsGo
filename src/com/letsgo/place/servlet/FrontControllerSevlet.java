@@ -31,7 +31,9 @@ public class FrontControllerSevlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		if (!url.contains(".jsp")){
+			request.getRequestDispatcher(url).forward(request, response);
+		}
 
 		request.getRequestDispatcher("/view/" + url).forward(request, response);
 	}

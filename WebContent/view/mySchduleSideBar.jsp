@@ -10,10 +10,10 @@
      <ul>
        <button><a href="controller?cmd=myScheduleRouteManageUI">동선관리</a></button>
        <button><a href="controller?cmd=myScheduleBudgetDetailUI">예산관리</a></button>
-       <button><a href="controller?cmd=MyScheduleTodoListUI">To-Do 리스트</a></button>
+       <button><a href="controller?cmd=myScheduleTodoListUI">To-Do 리스트</a></button>
     </ul>
     <div>
-        <button type="button">공유하기</button>
+        <button><a href="controller?cmd=myScheduleShareUI">공유하기</a></button>
         <button type="button">저장하기</button>
         <button type="button" id="deleteBtn">삭제하기</button>
     </div>
@@ -34,10 +34,5 @@
         if (confirm('정말 삭제하시겠습니까?')) {
             location.href = '/LetsGo/controller?cmd=deleteSchedule';
         }
-    });
-
-    new Sortable(document.getElementById('sortableList'), {
-        animation: 150,
-        ghostClass: 'sortable-ghost'
     });
 </script>

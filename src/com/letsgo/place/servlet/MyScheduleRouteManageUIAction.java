@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.letsgo.place.model.RouteScheduleVO;
 import com.letsgo.place.service.MyScheduleService;
-public class myScheduleRouteManageUIAction implements Action {
+public class MyScheduleRouteManageUIAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request)
