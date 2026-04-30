@@ -7,6 +7,9 @@ public class ActionFactory {
             return new IndexUIAction();
         }
         switch (cmd) {
+        case "placeLikeAction":
+            tmp = new PlaceLikeAction();
+            break;
         case "deleteSchedule":
             tmp = new DeleteScheduleAction();
             break;
