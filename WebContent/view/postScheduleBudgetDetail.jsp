@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,52 +8,31 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="mySchduleSideBar.jsp" />
+<jsp:include page="postScheduleDetailSideBar.jsp" />
 <jsp:include page="header.jsp" />
 <main>
     <div class="content-container">
-        <div class="content-left">
-            <ul id="sortableList">
-                <li class="sortable-item">1번 요소</li>
-                <li class="sortable-item">2번 요소</li>
-                <li class="sortable-item">3번 요소</li>
-                <li class="sortable-item">4번 요소</li>
-            </ul>
-			<div class="content-left-bottom">
-			  <button type="button">♥ 좋아요!</button>
-			  <span class="like-count">♥ + 222</span>
-			</div>
-        </div>
+        <jsp:include page="MyScheduleRoute.jsp" />
         <div class="divider"></div>
-		<div class="content-right">
-		    <table border="1" align="center">
-		        <tbody>
-		            <tr>
-		                <th colspan="2">놀거리 비용</th>
-		                <td>20,000</td>
-		            </tr>
-		
-		            <tr>
-		                <th rowspan="2">식비</th>
-		                <td>빽돈 망포점</td>
-		                <td>10,000</td>
-		            </tr>
-		
-		            <tr>
-		                <td>포크너 광교아븐뉴 프라점</td>
-		                <td>10,000</td>
-		            </tr>
-		
-		            <tr>
-		                <th colspan="2">숙박비</th>
-		                <td>70,000</td>
-		            </tr>
-		        </tbody>
-		    </table>
-		    <div class="totalPrice">
-		    	총계 : 110,000 원
+        <div class="content-right">
+            <div class="memo">
+                <div>
+                    <h3>예산관리</h3>
+                </div>
+                <form method="post" action="controller">
+                    <input type="hidden" name="cmd" value="myScheduleBudgetDetailAction">
+                    <textarea name="budgetDetail" class="detail-textarea"
+                        placeholder="1. 금원 수원 수영장 - 입장권 5000원">${budgetDetail}</textarea>
+                    <button type="submit" class="save-btn">저장하기</button>
+                </form>
+                <c:if test="${BudgetDetailResult == true}">
+                    <p>저장되었습니다.</p>
+                </c:if>
+                <c:if test="${BudgetDetailResult == false}">
+                    <p>저장에 실패했습니다.</p>
+                </c:if>
             </div>
-		</div>
+        </div>
     </div>
 </main>
 
