@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.letsgo.place.model.MyScheduleVO;
 import com.letsgo.place.service.MyScheduleService;
 
-public class searchMyScheduleTitleAction implements Action {
+public class SearchMyScheduleTitleAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request)
