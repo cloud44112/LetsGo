@@ -3,13 +3,10 @@
 
 <link rel="stylesheet" type="text/css" href="/LetsGo/view/css/mySchedule.css">
     
-    
-    
-    
 <aside class="sidebar">
      <ul>
-       <button><a href="controller?cmd=myScheduleRouteManageUI">동선관리</a></button>
-       <button><a href="controller?cmd=myScheduleBudgetDetailUI">예산관리</a></button>
-       <button><a href="controller?cmd=MyScheduleTodoListUI">To-Do 리스트</a></button>
+       <button><a href="controller?cmd=postScheduleRouteManageUI">동선관리</a></button>
+       <button><a href="controller?cmd=postScheduleBudgetDetailUI">예산관리</a></button>
+       <button><a href="controller?cmd=postScheduleTodoListUI">To-Do 리스트</a></button>
     </ul>
 </aside> 
