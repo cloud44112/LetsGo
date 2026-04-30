@@ -18,13 +18,18 @@ public class ShareToPostAction implements Action {
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("loginOK");
-		int isAnonymous = (int)request.getAttribute("isAnonymous");
+		if (userId == null) {
+            return "controller?cmd=LoginUIAction"; 
+        }
+		String isAnonParam = request.getParameter("isAnonymous");
+		int isAnonymous = (isAnonParam != null && isAnonParam.equals("1")) ? 1 : 0;
 		String myScheduleId = (String) session.getAttribute("currentScheduleId");
 		
-		String list = new MyScheduleService().shareToPost(myScheduleId, userId, isAnonymous);
-		request.setAttribute("colleagueList", list);
+		MyScheduleService service = new MyScheduleService();
+		request.setAttribute("result", service.shareToPost(myScheduleId, userId, isAnonymous));
 		
-		return null;
+		
+		return "jsonResult.jsp";
 	}
 
 }
