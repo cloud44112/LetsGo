@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.letsgo.place.model.MyScheduleVO;
 import com.letsgo.place.service.MyScheduleService;
 
-public class MyScheduleListUIAction implements Action {
+public class MyScheduleSharedListUIAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request)
@@ -30,7 +30,7 @@ public class MyScheduleListUIAction implements Action {
 		MyScheduleService service = new MyScheduleService();
 		List<MyScheduleVO> list = null;
 
-		list = service.getMyScheduleList(userId, title, sortOrder, false);
+		list = service.getMyScheduleList(userId, title, sortOrder, true);
 
 
 		Map<String, MyScheduleVO> uniqueMap = new LinkedHashMap<>();

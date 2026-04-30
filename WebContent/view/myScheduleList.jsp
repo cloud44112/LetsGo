@@ -13,17 +13,20 @@
 	<div class="content-container">
 		<div class="content-left">
 			<div class="search-area">
-			<form>
-				<input type="text" placeholder="장소 이름이나 일정 이름을 검색하세요" id = "searchTitle"/>
-				</form>
-				<button type="button">검색하기</button>
+			<form method="post" action="controller?cmd=myScheduleListUI">
+				<input type="text" placeholder="장소 이름이나 일정 이름을 검색하세요" name = "searchTitle"/>
+				
+				<button type="submit" >검색하기</button>
+				
 				<div class="sort-area">
 					<select name="sortOrder">
-						<option value="latest">날짜순</option>
-						<option value="name">이름순</option>
+						<option value="	">날짜순</option>
+						<option value="title">이름순</option>
 					</select>
 				</div>
+				</form>
 			</div>
+			
 			<div class="edit-area">
 				<button>수정하기</button>
 			</div>
@@ -31,7 +34,7 @@
 			<c:forEach var="item" items="${myScheduleList}">
 				<figure class="figure">
 				<div>
-					${item.myScheduleTitle}
+					${item.myScheduleTitle} 
 					<c:if test="${item.isShared == 1}">👥</c:if>
 				</div>
 				<a href="controller?cmd=myScheduleRouteManageUI&myScheduleId=${item.myScheduleId}" class="box-placeholder">
@@ -47,36 +50,7 @@
 
 	</main>
 	
-	<script type = "text/javascript">
 
-			
-		
-	
-		let xhr = new XMLHttpRequest();
-		let callbackMethod = function(){
-			if(xhr.readyState == 4){
-				console.log(xhr.status)
-				if(xhr.status == 200 || xhr.status == 300){
-					let parsed = JSON.parse(xhr.responseText);
-					console.log(JSON.parse(xhr.responseText))
-					if (parsed.result == ""){ 
-						this.myScheduleList=null;
-					}
-					else this.myScheduleList=parsed.result;
-				}
-			}
-		}
-
-		xhr.onreadystatechange = callbackMethod;
-
-		let inputs=document.querySelectorAll("#searchTitle");
-		let idEvent = function(){
-			xhr.open("get", "controller?cmd=searchMyScheduleTitleAction&searchTitle="+this.value, true);
-			xhr.send(null);
-		}
-		inputs[0].onchange = idEvent;
-
-	</script>
 
 </body>
 </html>
