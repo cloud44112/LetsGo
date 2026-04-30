@@ -8,20 +8,23 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.letsgo.place.service.PlaceService;
 
-public class PlaceLikeAction implements Action {
+public class PlaceLikeSortingAction implements Action {
     @Override
     public String execute(HttpServletRequest request)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         
-        String placeId = request.getParameter("placeId");
         String sort = request.getParameter("sortOrder");
+        if (sort == null || sort.trim().isEmpty()) {
+            sort = "distance";
+        }
         
         PlaceService placeService = new PlaceService();
-        if (placeId != null && !placeId.trim().isEmpty()) {
-            placeService.setPlaceLikeCount(placeId);
+        if ("like".equals(sort)) {
+            request.setAttribute("leisurePlaceList", placeService.getLeisurePlacesOrderByLikeDesc());
+        } else {
+            request.setAttribute("leisurePlaceList", placeService.getLeisurePlaces());
         }
-
         request.setAttribute("sortOrder", sort);
-        return new PlaceLikeSortingAction().execute(request);
+        return "index.jsp";
     }
 }

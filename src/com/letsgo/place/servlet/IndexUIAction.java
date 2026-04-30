@@ -14,8 +14,19 @@ public class IndexUIAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request) throws ServletException, IOException, ClassNotFoundException, SQLException {
-		List<PlaceVO> leisurePlaceList = new PlaceService().getLeisurePlacesOrderByLikeDesc();
+		String sort = request.getParameter("sortOrder");
+		if (sort == null || sort.trim().isEmpty()) {
+			sort = "distance";
+		}
+		PlaceService placeService = new PlaceService();
+		List<PlaceVO> leisurePlaceList;
+		if ("like".equals(sort)) {
+			leisurePlaceList = placeService.getLeisurePlacesOrderByLikeDesc();
+		} else {
+			leisurePlaceList = placeService.getLeisurePlaces();
+		}
 		request.setAttribute("leisurePlaceList", leisurePlaceList);
+		request.setAttribute("sortOrder", sort);
 
 		return "index.jsp";
 	}
