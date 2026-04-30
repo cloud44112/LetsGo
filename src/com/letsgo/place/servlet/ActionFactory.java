@@ -65,7 +65,7 @@ public class ActionFactory {
             tmp = new UpdatepwAction();
             break;
         case "LeisureUI":
-            tmp = new leisureUIAction();
+            tmp = new LeisureUIAction();
             break;
         case "restaurantUI":
             tmp = new RestaurantUIAction();
