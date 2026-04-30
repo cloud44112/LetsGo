@@ -13,7 +13,9 @@
 	<div class="content-container">
 		<div class="content-left">
 			<div class="search-area">
-				<input type="text" placeholder="장소 이름이나 일정 이름을 검색하세요" id = "searchTitle"/>
+			<form>
+				<input type="text" placeholder="장소 이름이나 일정 이름을 검색하세요" name = "searchTitle"/>
+				</form>
 				<button type="button">검색하기</button>
 				<div class="sort-area">
 					<select name="sortOrder">
@@ -51,13 +53,12 @@
 		let callbackMethod = function(){
 			if(xhr.readyState == 4){
 				if(xhr.status == 200 || xhr.status == 300){
-					let message = "사용가능";
 					let parsed = JSON.parse(xhr.responseText);
 					if (parsed.result){ 
-						message = "중복아이디";
+						this.myScheduleList=parsed;
 					}
 					
-					document.querySelector("span").innerHTML=message;	
+						
 				}
 			}
 		}
@@ -66,7 +67,7 @@
 
 		let inputs=document.querySelectorAll("searchTitle");
 		let idEvent = function(){
-			xhr.open("get", "controller?cmd=myScheduleListUI&searchTitle"+this.value, true);
+			xhr.open("get", "controller?cmd=searchMyScheduleTitleAction&searchTitle="+this.value, true);
 			xhr.send(null);
 		}
 		inputs[0].onchange = idEvent;
