@@ -178,6 +178,14 @@
 	
 </script>
 
+<div id="session-cart-data" style="display: none;">
+	<c:forEach var="cartPlace" items="${sessionScope.placeCartList}">
+		<div class="session-cart-item"
+			data-place-id="<c:out value='${cartPlace.placeId}' />"
+			data-place-title="<c:out value='${cartPlace.title}' />"
+			data-place-type="<c:out value='${cartPlace.placeType}' />"></div>
+	</c:forEach>
+</div>
 <script src="/LetsGo/common/floating-cart.js"></script>
 
 </body>
