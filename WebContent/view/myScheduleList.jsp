@@ -30,7 +30,7 @@
 			<div class="edit-area">
 				<button>수정하기</button>
 			</div>
-			<div class="container">
+			<div class="container" id="scheduleListContainer">
 			<c:forEach var="item" items="${myScheduleList}">
 				<figure class="figure">
 				<div>
@@ -46,11 +46,11 @@
 			</div>
 		</div>
 	</div>
-	
 	<div></div>
 
 	</main>
 	
+
 
 </body>
 </html>
