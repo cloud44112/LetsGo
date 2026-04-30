@@ -32,7 +32,6 @@ public class FrontControllerSevlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-
 		request.getRequestDispatcher("/view/" + url).forward(request, response);
 	}
 
