@@ -10,7 +10,7 @@ pageEncoding="UTF-8"%>
 		<ul class="menu"
 			style="list-style: none; display: flex; padding: 0; margin: 0;">
 			<li style="margin-right: 20px;"><a href="controller">홈</a></li>
-			<li style="margin-right: 20px;"><a href="controller?cmd=">플레이스 조회</a></li>
+			<li style="margin-right: 20px;"><a href="controller?cmd=leisureUI">플레이스 조회</a></li>
 			<li style="margin-right: 20px;"><a href="controller?cmd=postScheduleListUI">일정게시판</a></li>
 			<li style="margin-right: 20px;"><a href="controller?cmd=myScheduleListUI">내일정</a></li>
 			<c:if test="${loginOK == null}">
