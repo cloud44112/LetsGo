@@ -101,7 +101,7 @@ public class PostScheduleDAO {
 				ResultSet rs = stmt.executeQuery();
 				tmp = new ArrayList<>();
 				while (rs.next()) {
-					tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), "나", rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12)));
+					tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), "", rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12)));
 				}
 				rs.close();
 				stmt.close();

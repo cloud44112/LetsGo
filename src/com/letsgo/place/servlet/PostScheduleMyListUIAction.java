@@ -27,7 +27,7 @@ public class PostScheduleMyListUIAction implements Action {
 		}
 	
 		PostScheduleService service = new PostScheduleService();
-		List<PostScheduleVO> list = service.getUserPostScheduleList("user02", "", "", "");
+		List<PostScheduleVO> list = service.getUserPostScheduleList(userId, "", "", "");
 		
 		Map<String, PostScheduleVO> uniqueMap = new LinkedHashMap<>();
 		for (PostScheduleVO vo : list) {

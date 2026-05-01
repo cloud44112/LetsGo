@@ -43,7 +43,7 @@
                 <div>
                 	<span type = "button" class="like-btn" data-postId="${postSchedule.postId}">❤️ ${postSchedule.likeCount}</span>
                     <span>조회수: ${postSchedule.viewCount}</span>	
-                    <span>👤 ${postSchedule.isAnonymous == 1 ? '익명' : postSchedule.userName} 님</span>
+                    <span>👤 ${postSchedule.isAnonymous == 1 ? '익명' : postSchedule.userName}</span>
                 </div>
                 
                 <div>
