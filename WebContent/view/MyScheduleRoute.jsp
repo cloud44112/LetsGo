@@ -84,8 +84,6 @@
     });
 
     document.getElementById('addVisitBtn').addEventListener('click', function() {
-        // Redirect to index page to pick a place. 
-        // In a real app, we might pass the scheduleId to show "Add" buttons on place cards.
         location.href = '/LetsGo/controller?cmd=indexUI';
     });
 </script>

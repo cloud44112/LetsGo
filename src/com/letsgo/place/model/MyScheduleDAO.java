@@ -130,6 +130,24 @@ public class MyScheduleDAO {
 		return flag;
 	}
 
+	public boolean updateVisitOrders(String[] visitItemIds, int[] visitOrders, String[] distances) {
+		boolean flag = false;
+		try {
+			for (int i = 0; i < visitItemIds.length; i++) {
+				PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.SET_MY_SCHEDULE);
+				stmt.setInt(1, visitOrders[i]);
+				stmt.setString(2, distances[i]);
+				stmt.setString(3, visitItemIds[i]);
+				stmt.executeUpdate();
+				stmt.close();
+			}
+			flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+
 	public boolean setMyScheduleTitle(String title, String myScheduleId, String userId) {
 		boolean flag = false;
 

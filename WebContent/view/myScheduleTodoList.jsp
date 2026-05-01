@@ -38,5 +38,13 @@
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script>
+    new Sortable(document.getElementById('sortableList'), {
+        animation: 150,
+        ghostClass: 'sortable-ghost'
+    });
+</script>
+
 </body>
 </html>

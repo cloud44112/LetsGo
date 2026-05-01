@@ -92,6 +92,27 @@ public class MyScheduleService {
 		return result;
 	}
 
+	public boolean updateVisitOrders(String[] visitItemIds, int[] visitOrders, String[] distances) {
+		boolean result = false;
+		try {
+			conn.setAutoCommit(false);
+			result = dao.updateVisitOrders(visitItemIds, visitOrders, distances);
+			if (result)
+				conn.commit();
+			else
+				conn.rollback();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.setAutoCommit(true);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
 	public boolean setMyScheduleTitle(String title, String myScheduleId, String userId) {
 		boolean result = false;
 		try {

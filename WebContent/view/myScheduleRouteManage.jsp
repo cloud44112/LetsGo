@@ -30,6 +30,11 @@
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=nw9515cuj4"></script>
 <script>
+    new Sortable(document.getElementById('sortableList'), {
+        animation: 150,
+        ghostClass: 'sortable-ghost'
+    });
+
     window.onload = function () {
         var map = new naver.maps.Map('map', {
             center: new naver.maps.LatLng(37.5665, 126.9780),
