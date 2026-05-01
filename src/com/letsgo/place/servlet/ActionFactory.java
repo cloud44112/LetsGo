@@ -103,19 +103,19 @@ public class ActionFactory {
 			tmp = new GetIdAction();
 			break;
 		case "postScheduleMyListUI":
-			tmp = new postScheduleMyListUIAction();
+			tmp = new PostScheduleMyListUIAction();
 			break;
 		case "postScheduleRouteManageUI":
-			tmp = new postScheduleRouteManageUIAction();
+			tmp = new PostScheduleRouteManageUIAction();
 			break;
 		case "postScheduleBudgetDetailUI":
-			tmp = new postScheduleBudgetDetailUIAction();
+			tmp = new PostScheduleBudgetDetailUIAction();
 			break;
 		case "postScheduleTodoListUI":
-			tmp = new postScheduleTodoListUIAction();
+			tmp = new PostScheduleTodoListUIAction();
 			break;
 		case "postScheduleListUI":
-			tmp = new postScheduleListUIAction();
+			tmp = new PostScheduleListUIAction();
 			break;
 		default:
 			tmp = new IndexUIAction();
