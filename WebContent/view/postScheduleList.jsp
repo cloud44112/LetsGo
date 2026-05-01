@@ -49,27 +49,19 @@
         </c:forEach>
     </div>
 </main>
-
-<script type="text/javascript">
-
-
-    const likeButtons = document.querySelectorAll(".like-btn");
-    const idEvent = function() {
+	<script type="text/javascript">
+	let likeButtons = document.querySelectorAll(".like-btn");
+	let idEvent = function() {
         let clickedBtn; 
         clickedBtn = this; 
-        const postId = this.getAttribute("data-postId"); 
-
-        const xhr = new XMLHttpRequest();
-        
+        let postId = this.getAttribute("data-postId"); 
+        let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log("서버 응답:", xhr.responseText);
-                
-                const parsed = JSON.parse(xhr.responseText);
-
+            	let parsed = JSON.parse(xhr.responseText);
                 if (parsed.result === true) {
-                    const currentText = clickedBtn.innerText;
-                    const currentCount = parseInt(currentText.replace(/[^0-9]/g, "")) || 0;
+                	let currentText = clickedBtn.innerText;
+                	let currentCount = parseInt(currentText.replace(/[^0-9]/g, "")) || 0;
                     clickedBtn.innerText = "❤️ " + (currentCount + 1);                  
                 } else {
                     alert("좋아요 처리에 실패했습니다.");
@@ -83,10 +75,6 @@
         likeButtons[i].onclick = idEvent;
     }
 
-</script>
-
-
-
-
+	</script>
 </body>
 </html>
