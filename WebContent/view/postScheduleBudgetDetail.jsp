@@ -19,9 +19,7 @@
                     <h3>예산관리</h3>
                 </div>
                 <form method="post" action="controller">
-                    <input type="hidden" name="cmd" value="myScheduleBudgetDetailAction">
-                    <textarea name="budgetDetail" class="detail-textarea"
-                        placeholder="1. 금원 수원 수영장 - 입장권 5000원">${budgetDetail}</textarea>
+                    <span id="budgetDetail" class="detail-textarea">${budgetDetail}</span>
                 </form>
 
             </div>

@@ -18,9 +18,7 @@
                     <h3>To-Do</h3>
                 </div>
                 <form method="post" action="controller">
-                    <input type="hidden" name="cmd" value="myScheduleTodoListAction">
-                    <textarea name="todoDetail" class="detail-textarea"
-                        placeholder="1. 금원 수원 수영장 - 수영복 챙기기">${todoDetail}</textarea>
+                    <span id="todoDetail" class="detail-textarea">${todoDetail}</span>
                 </form>
             </div>
         </div>
