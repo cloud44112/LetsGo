@@ -34,9 +34,8 @@ public class LoginAction implements Action {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginOK", userId);
 			session.setAttribute("info", user);
-			request.setAttribute("sortOrder", "like");
-			request.setAttribute("leisurePlaceList", new PlaceService().getLeisurePlacesOrderByLikeDesc());
-			return "index.jsp";
+			request.setAttribute("sortOrder", "");
+			return "controller?cmd=IndexUIAction";
 		} catch (Exception e) {
 			request.setAttribute("errorMessage", "로그인 중 오류가 발생했습니다.");
 			return "login.jsp";

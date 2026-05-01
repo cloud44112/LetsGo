@@ -52,7 +52,7 @@ public class UpdateRouteOrderAction implements Action {
 			request.setAttribute("updateRouteResult", result);
 		}
 
-		return new myScheduleRouteManageUIAction().execute(request);
+		return new MyScheduleRouteManageUIAction().execute(request);
 	}
 
 }

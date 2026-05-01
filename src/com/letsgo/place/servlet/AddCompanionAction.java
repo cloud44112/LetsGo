@@ -9,27 +9,19 @@ import javax.servlet.http.HttpSession;
 
 import com.letsgo.place.service.MyScheduleService;
 
-public class DeleteVisitItemAction implements Action {
+public class AddCompanionAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		HttpSession session = request.getSession();
-		String userId = (String) session.getAttribute("loginOK");
-
-		if (userId == null) {
-			return "login.jsp";
-		}
-
-		String visitItemId = request.getParameter("visitItemId");
+		String sharedUserId = (String) request.getParameter("sharedUserId");
+		String myScheduleId = (String) session.getAttribute("currentScheduleId");
 		
 		MyScheduleService service = new MyScheduleService();
-		boolean result = service.deleteVisitItemById(visitItemId);
+		boolean flag = service.addCompanion(myScheduleId, sharedUserId);
 		
-		request.setAttribute("deleteVisitItemResult", result);
-		
-		// Refresh data and return to the route manage page
-		return new MyScheduleRouteManageUIAction().execute(request);
+		return "controller?cmd=myScheduleShareUI";
 	}
 
 }
