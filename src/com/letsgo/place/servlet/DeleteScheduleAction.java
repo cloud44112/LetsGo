@@ -14,6 +14,6 @@ public class DeleteScheduleAction implements Action {
 	public String execute(HttpServletRequest request) throws ClassNotFoundException, SQLException{
 		String scheduleId = request.getParameter("myScheduleId");
 		request.setAttribute("result", new MyScheduleService().deleteMySchedule(scheduleId));
-		return "index.jsp";
+		return "controller?cmd=myScheduleListUI";
 	}
 }

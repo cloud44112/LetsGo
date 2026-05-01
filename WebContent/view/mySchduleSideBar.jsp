@@ -21,18 +21,26 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script>
-    const deleteResult = document.querySelector('main').dataset.deleteResult;
+    document.addEventListener('DOMContentLoaded', function() {
+        const mainElement = document.querySelector('main');
+        if (mainElement) {
+            const deleteResult = mainElement.dataset.deleteResult;
+            if (deleteResult === 'true') {
+                alert('삭제되었습니다.');
+                location.href = 'mylist.html';
+            } else if (deleteResult === 'false') {
+                alert('삭제에 실패했습니다.');
+            }
+        }
 
-    if (deleteResult === 'true') {
-        alert('삭제되었습니다.');
-        location.href = 'mylist.html';
-    } else if (deleteResult === 'false') {
-        alert('삭제에 실패했습니다.');
-    }
-
-    document.getElementById('deleteBtn').addEventListener('click', function () {
-        if (confirm('정말 삭제하시겠습니까?')) {
-            location.href = '/LetsGo/controller?cmd=deleteSchedule';
+        const deleteBtn = document.getElementById('deleteBtn');
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', function () {
+                if (confirm('정말 삭제하시겠습니까?')) {
+                    location.href = '/LetsGo/controller?cmd=deleteSchedule';
+                }
+            });
         }
     });
+</script>
 </script>
