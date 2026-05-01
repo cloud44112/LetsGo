@@ -17,6 +17,7 @@ public class LeisureUIAction implements Action {
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		List<PlaceVO> leisurePlaceList = new PlaceService().getPlaceOrderByLike("LEISURE");
         request.setAttribute("leisurePlaceList", leisurePlaceList);
+        request.setAttribute("totalCount", leisurePlaceList.size());
         
 		return "leisure.jsp";
 	}

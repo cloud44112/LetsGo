@@ -96,6 +96,9 @@ public class ActionFactory {
 		case "stayUI":
 			tmp = new StayUIAction();
 			break;
+		case "searchPlace":
+			tmp = new SearchPlaceAction();
+			break;
 		case "getIdUI":
 			tmp = new GetIdUIAction();
 			break;

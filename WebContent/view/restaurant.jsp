@@ -13,71 +13,83 @@
 
 <jsp:include page="header.jsp" />
 
-<div class="layout-wrapper">
-	<aside class="sidebar">
-		<div>
-			<button>한식</button>
-		</div>
-		<div>
-			<button>중식</button>
-		</div>
-		<div>
-			<button>일식</button>
-		</div>
-		<div>
-			<button>양식</button>
-		</div>
-	</aside>
+<form action="/LetsGo/controller" method="GET">
+    <input type="hidden" name="cmd" value="searchPlace" />
+    <input type="hidden" name="placeType" value="RESTAURANT" />
+    <input type="hidden" name="category" id="categoryInput" value="${param.category}" />
 
-	<main> 
-	<div class="content-container">
-		<div class="content-left">
-			<div class="search-area">
-				<input type="text" placeholder="장소 이름이나 지역을 검색하세요" />
-				<button type="button">검색하기</button>
-				<div class="sort-area">
-					<select name="sortOrder">
-						<option value="distance">거리순</option>
-						<option value="like">인기순</option>
-					</select>
+	<div class="layout-wrapper">
+		<aside class="sidebar">
+			<div>
+		        <button type="button" onclick="filterCategory('')">전체</button>
+		    </div>
+			<div>
+		        <button type="button" onclick="filterCategory('FD010100')">한식</button>
+		    </div>
+		    <div>
+		        <button type="button" onclick="filterCategory('FD020100')">중식</button>
+		    </div>
+		    <div>
+		        <button type="button" onclick="filterCategory('FD020200')">일식</button>
+		    </div>
+		    <div>
+		        <button type="button" onclick="filterCategory('FD020300')">양식</button>
+		    </div>
+		</aside>
+	
+		<main> 
+		<div class="content-container">
+			<div class="content-left">
+				<h3>총 ${totalCount}개의 항목</h3>
+				<div class="search-area">
+					<input type="text" name="keyword"
+                           placeholder="장소 이름이나 지역을 검색하세요"
+                           value="${param.keyword}" />
+                    <button type="submit">검색하기</button>
+					<div class="sort-area">
+						<select name="sortOrder" onchange="this.form.submit()">
+							<option value="distance">거리순</option>
+							<option value="popular"  ${param.sortOrder == 'popular' ? 'selected' : ''}>인기순</option>
+						</select>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<div class="container">
-    <c:forEach var="place" items="${restaurantPlaceList}">
-        <figure class="figure">
-            <c:choose>
-                <c:when test="${not empty place.firstImage}">
-                    <img src="${place.firstImage}" alt="${place.title}" class="box-placeholder" />
-                </c:when>
-                <c:otherwise>
-                    <a href="#" class="box-placeholder">이미지</a>
-                </c:otherwise>
-            </c:choose>
-            <figcaption class="figure-caption">${place.title}</figcaption>
-            ${place.addr1}
-			<button type="button" class="like-btn"
-			        data-place-id="${place.placeId}"
-			        data-place-type="RESTAURANT">
-			        <h1>❤️</h1>
-			</button>
-			<div class="like-count" id="likeCount-${place.placeId}">좋아요: ${place.likeCount}</div>
-            <button type="button" class="add-to-cart-btn"
-                    data-place-id="${place.placeId}"
-                    data-place-title="${place.title}"
-                    data-place-type="${place.placeType}">담기</button>
-        </figure>
-    </c:forEach>
-	</div>
 	
-	<div class = "button-container">
-		<button id="leisere"> <= 레저스포츠 </button>
-	    <button id="stay"> 숙박 => </button>
+		<div class="container">
+	    <c:forEach var="place" items="${restaurantPlaceList}">
+	        <figure class="figure">
+	            <c:choose>
+	                <c:when test="${not empty place.firstImage}">
+	                    <img src="${place.firstImage}" alt="${place.title}" class="box-placeholder" />
+	                </c:when>
+	                <c:otherwise>
+	                    <a href="#" class="box-placeholder">이미지</a>
+	                </c:otherwise>
+	            </c:choose>
+	            <figcaption class="figure-caption">${place.title}</figcaption>
+	            ${place.addr1}
+				<button type="button" class="like-btn"
+				        data-place-id="${place.placeId}"
+				        data-place-type="RESTAURANT">
+				        <h1>❤️</h1>
+				</button>
+				<div class="like-count" id="likeCount-${place.placeId}">좋아요: ${place.likeCount}</div>
+	            <button type="button" class="add-to-cart-btn"
+	                    data-place-id="${place.placeId}"
+	                    data-place-title="${place.title}"
+	                    data-place-type="${place.placeType}">담기</button>
+	        </figure>
+	    </c:forEach>
+		</div>
+		
+		<div class = "button-container">
+			<button type="button" id="leisere"> <= 레저스포츠 </button>
+		    <button type="button" id="stay"> 숙박 => </button>
+		</div>
+		</main>
 	</div>
-	</main>
-</div>
+</form>
 
 <script type="text/javascript">
 
@@ -126,6 +138,11 @@
 
 			xhr.send(null);
 		};
+	}
+	
+	function filterCategory(value) {
+	    document.getElementById("categoryInput").value = value;
+	    document.querySelector("form").submit();
 	}
 	
 </script>

@@ -9,15 +9,14 @@ body {
 }
 
 aside.sidebar {
-	width: 220px;
-	border-right: 1px solid #000;
-	padding: 10px;
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	height: 100%;  
-	overflow-y: auto; 
+    width: 220px;
+    border-right: 1px solid #000;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    align-self: stretch;
 }
 
 aside.sidebar ul {
@@ -41,11 +40,11 @@ aside.sidebar button {
 }
 
 main {
-	flex-grow: 1;
-	display: flex;
-	padding: 20px;    
-	flex-direction: column;
-	overflow-y: auto; 
+    flex-grow: 1;
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    overflow-y: auto;
 }
 
 header {
@@ -57,6 +56,13 @@ header {
 	justify-content: space-between;
 	align-items: center;
 	font-weight: 600;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden; 
 }
 
 .content-container {
@@ -187,10 +193,11 @@ a {
 }
 
 .layout-wrapper {
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-  overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    overflow: hidden; 
+    align-items: stretch;
 }
 
 .like-btn {

@@ -14,119 +14,126 @@
 
 <jsp:include page="header.jsp" />
 
-<div class="layout-wrapper">
-	<aside class="sidebar">
-		<div>
-			<ul>
-				<li><details>
-						<summary>호텔</summary>
-						<ul>
-							<li><label><input type="radio" name="land-leisure">
-									호텔</label></li>
-						</ul>
-					</details></li>
-
-				<li><details>
-						<summary>콘도</summary>
-						<ul>
-							<li><label><input type="radio" name="water-leisure">
-									콘도</label></li>
-							<li><label><input type="radio" name="water-leisure">
-									레지던스</label></li>
-						</ul>
-					</details></li>
-
-				<li><details>
-						<summary>펜션/민박</summary>
-						<ul>
-							<li><label><input type="radio" name="air-leisure">
-									펜션</label></li>
-							<li><label><input type="radio" name="air-leisure">
-									한옥스테이</label></li>
-							<li><label><input type="radio" name="air-leisure">
-									농어촌</label></li>
-							<li><label><input type="radio" name="air-leisure">
-									민박</label></li>
-							<li><label><input type="radio" name="air-leisure">
-									홈스테이</label></li>
-						</ul>
-					</details></li>
-
-				<li><details>
-						<summary>모텔</summary>
-						<ul>
-							<li><label><input type="radio"
-									name="complex-leisure"> 모텔</label></li>
-						</ul>
-					</details></li>
-
-				<li><details>
-						<summary>캠핑</summary>
-						<ul>
-							<li><label><input type="radio"
-									name="complex-leisure"> 일반야영장</label></li>
-							<li><label><input type="radio"
-									name="complex-leisure"> 오토캠핑장</label></li>
-							<li><label><input type="radio"
-									name="complex-leisure"> 카라반</label></li>
-							<li><label><input type="radio"
-									name="complex-leisure"> 글램핑장</label></li>
-						</ul>
-					</details></li>
-			</ul>
-		</div>
-	</aside>
-
-	<main>
-
-	<div class="content-container">
-		<div class="content-left">
-			<div class="search-area">
-				<input type="text" placeholder="장소 이름이나 지역을 검색하세요" />
-				<button type="button">검색하기</button>
-				<div class="sort-area">
-					<select name="sortOrder">
-						<option value="distance">거리순</option>
-						<option value="like">인기순</option>
-					</select>
+<form action="/LetsGo/controller" method="GET">
+    <input type="hidden" name="cmd" value="searchPlace" />
+    <input type="hidden" name="placeType" value="STAY" />
+	<div class="layout-wrapper">
+		<aside class="sidebar">
+			<div>
+				<ul>
+					<li><details>
+							<summary>호텔</summary>
+							<li><label><input type="radio" name="category" value="AC010100"
+                                onchange="this.form.submit()"
+                                ${param.category == 'AC010100' ? 'checked' : ''}> 호텔</label></li>
+						</details></li>
+	
+					<li><details>
+							<summary>콘도</summary>
+							<ul>
+								<li><label><input type="radio" name="water-leisure">
+										콘도</label></li>
+								<li><label><input type="radio" name="water-leisure">
+										레지던스</label></li>
+							</ul>
+						</details></li>
+	
+					<li><details>
+							<summary>펜션/민박</summary>
+							<ul>
+								<li><label><input type="radio" name="air-leisure">
+										펜션</label></li>
+								<li><label><input type="radio" name="category" value="AC030200"
+						            onchange="this.form.submit()"
+						            ${param.category == 'AC030200' ? 'checked' : ''}> 한옥스테이</label></li>
+								<li><label><input type="radio" name="air-leisure">
+										농어촌</label></li>
+								<li><label><input type="radio" name="air-leisure">
+										민박</label></li>
+								<li><label><input type="radio" name="air-leisure">
+										홈스테이</label></li>
+							</ul>
+						</details></li>
+	
+					<li><details>
+							<summary>모텔</summary>
+							<ul>
+								<li><label><input type="radio"
+										name="complex-leisure"> 모텔</label></li>
+							</ul>
+						</details></li>
+	
+					<li><details>
+							<summary>캠핑</summary>
+							<ul>
+								<li><label><input type="radio"
+										name="complex-leisure"> 일반야영장</label></li>
+								<li><label><input type="radio"
+										name="complex-leisure"> 오토캠핑장</label></li>
+								<li><label><input type="radio"
+										name="complex-leisure"> 카라반</label></li>
+								<li><label><input type="radio"
+										name="complex-leisure"> 글램핑장</label></li>
+							</ul>
+						</details></li>
+				</ul>
+			</div>
+		</aside>
+	
+		<main>
+	
+		<div class="content-container">
+			<div class="content-left">
+				총 ${totalCount}개의 항목
+				<div class="search-area">
+					<input type="text" name="keyword"
+                           placeholder="장소 이름이나 지역을 검색하세요"
+                           value="${param.keyword}" />
+                    <button type="submit">검색하기</button>
+					<div class="sort-area">
+						<select name="sortOrder" onchange="this.form.submit()">
+							<option value="distance">거리순</option>
+							<option value="popular"  ${param.sortOrder == 'popular' ? 'selected' : ''}>인기순</option>
+						</select>
+					</div>
 				</div>
 			</div>
 		</div>
+	
+		<div class="container">
+	    <c:forEach var="place" items="${stayPlaceList}">
+	        <figure class="figure">
+	            <c:choose>
+	                <c:when test="${not empty place.firstImage}">
+	                    <img src="${place.firstImage}" alt="${place.title}" class="box-placeholder" />
+	                </c:when>
+	                <c:otherwise>
+	                    <a href="#" class="box-placeholder">이미지</a>
+	                </c:otherwise>
+	            </c:choose>
+	            <figcaption class="figure-caption">${place.title}</figcaption>
+	            ${place.addr1}
+				<button type="button" class="like-btn"
+				        data-place-id="${place.placeId}"
+				        data-place-type="STAY">
+				        <h1>❤️</h1>
+				</button>
+				<div class="like-count" id="likeCount-${place.placeId}">좋아요: ${place.likeCount}</div>
+	            <button type="button" class="add-to-cart-btn"
+	                    data-place-id="${place.placeId}"
+	                    data-place-title="${place.title}"
+	                    data-place-type="${place.placeType}">담기</button>
+	        </figure>
+	    </c:forEach>
+		</div>
+	
+		<div class = "button-container">
+			<button type="button" id="leisere"> <<= 레저스포츠</button>
+		    <button type="button" id="restaurant"> <= 음식점 </button>
+		</div>
+		</main>
 	</div>
-
-	<div class="container">
-    <c:forEach var="place" items="${stayPlaceList}">
-        <figure class="figure">
-            <c:choose>
-                <c:when test="${not empty place.firstImage}">
-                    <img src="${place.firstImage}" alt="${place.title}" class="box-placeholder" />
-                </c:when>
-                <c:otherwise>
-                    <a href="#" class="box-placeholder">이미지</a>
-                </c:otherwise>
-            </c:choose>
-            <figcaption class="figure-caption">${place.title}</figcaption>
-            ${place.addr1}
-			<button type="button" class="like-btn"
-			        data-place-id="${place.placeId}"
-			        data-place-type="STAY">
-			        <h1>❤️</h1>
-			</button>
-			<div class="like-count" id="likeCount-${place.placeId}">좋아요: ${place.likeCount}</div>
-            <button type="button" class="add-to-cart-btn"
-                    data-place-id="${place.placeId}"
-                    data-place-title="${place.title}"
-                    data-place-type="${place.placeType}">담기</button>
-        </figure>
-    </c:forEach>
-	</div>
-
-	<div class = "button-container">
-		<button id="leisere"> <<= 레저스포츠</button>
-	    <button id="restaurant"> <= 음식점 </button>
-	</div>
-	</main>
-</div>
+</form>
 
 <script type="text/javascript">
 

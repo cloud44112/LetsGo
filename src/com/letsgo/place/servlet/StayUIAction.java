@@ -17,6 +17,7 @@ public class StayUIAction implements Action {
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		List<PlaceVO> stayPlaceList = new PlaceService().getPlaceOrderByLike("STAY");
         request.setAttribute("stayPlaceList", stayPlaceList);
+        request.setAttribute("totalCount", stayPlaceList.size());
         
 		return "stay.jsp";
 	}

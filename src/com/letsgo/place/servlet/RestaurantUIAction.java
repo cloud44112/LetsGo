@@ -17,6 +17,7 @@ public class RestaurantUIAction implements Action {
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
         List<PlaceVO> restaurantPlaceList = new PlaceService().getPlaceOrderByLike("RESTAURANT");
         request.setAttribute("restaurantPlaceList", restaurantPlaceList);
+        request.setAttribute("totalCount", restaurantPlaceList.size());
         
 		return "restaurant.jsp";
 		
