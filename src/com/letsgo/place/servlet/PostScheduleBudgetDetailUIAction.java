@@ -29,7 +29,7 @@ public class PostScheduleBudgetDetailUIAction implements Action{
 		String budgetDetail = service.getBudgetDetail(postId);
 		String scheduleTitle = service.getScheduleTitle(postId);
 
-		request.setAttribute("postScheduleRoute", list);
+		request.setAttribute("ScheduleRoute", list);
 		request.setAttribute("budgetDetail", budgetDetail);
 		request.setAttribute("scheduleTitle", scheduleTitle);
 		

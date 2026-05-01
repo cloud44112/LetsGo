@@ -20,9 +20,14 @@
                     <select name="sortOrder">
                         <option value="latest">날짜순</option>
                         <option value="name">이름순</option>
+                        <option value="name">좋아요순</option>
+                        <option value="name">조회순</option>
                     </select>
                 </div>
             </div>
+           	<div class="edit-area">
+				<button><a href="controller?cmd=myScheduleListUI">내 일정 공유</a></button>
+			</div>
         </div> </div> <div class="container">
         <c:forEach var="postSchedule" items="${postScheduleList}">
             <figure class="figure">
