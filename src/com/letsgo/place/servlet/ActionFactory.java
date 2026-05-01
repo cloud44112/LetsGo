@@ -117,6 +117,9 @@ public class ActionFactory {
 		case "postScheduleListUI":
 			tmp = new PostScheduleListUIAction();
 			break;
+		case "postScheduleLike":
+			tmp = new PostScheduleLikeAction();
+			break;
 		default:
 			tmp = new IndexUIAction();
 			break;

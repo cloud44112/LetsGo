@@ -15,16 +15,15 @@ public class PostScheduleLikeAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
-		HttpSession session = request.getSession();
 		String postId = request.getParameter("postId");
 		PostScheduleService service = new PostScheduleService();
-		boolean flag;
+		boolean flag = false;
 
 		if (postId != null && !postId.trim().isEmpty()) {
 			flag = service.plusLike(postId);
 		}
 		
-		session.setAttribute("result", flag);
+		request.setAttribute("result", flag);
 
 		return "jsonResult.jsp";
 	}
