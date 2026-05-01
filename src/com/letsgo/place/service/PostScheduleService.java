@@ -69,6 +69,10 @@ public class PostScheduleService {
 		return dao.getMapSchedule(postId);
 	}
 	
+	public String getScheduleTitle (String postId) {
+		return dao.getScheduleTitle(postId);
+	}
+	
 	public boolean plusLike(String postId) {
 		return dao.plusLike(postId);
 	}

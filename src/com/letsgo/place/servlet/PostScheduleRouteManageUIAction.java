@@ -25,16 +25,16 @@ public class PostScheduleRouteManageUIAction implements Action {
 		}
 		String postId = request.getParameter("postId");
 		if (postId != null) {
-			session.setAttribute("currentPostId", postId);
+			session.setAttribute("currentPostScheduleId", postId);
 		} else {
-			postId = (String) session.getAttribute("currentPostId");
+			postId = (String) session.getAttribute("currentPostScheduleId");
 		}
 		PostScheduleService service = new PostScheduleService();
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(postId);
+		String scheduleTitle = service.getScheduleTitle(postId);
 
 		request.setAttribute("PostScheduleRoute", list);
-		
-		
+		request.setAttribute("scheduleTitle", scheduleTitle);
 		
 		return "postScheduleRouteManage.jsp";
 	}

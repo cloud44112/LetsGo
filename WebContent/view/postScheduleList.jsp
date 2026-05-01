@@ -24,26 +24,26 @@
                 </div>
             </div>
         </div> </div> <div class="container">
-        <c:forEach var="item" items="${postScheduleList}">
+        <c:forEach var="postSchedule" items="${postScheduleList}">
             <figure class="figure">
                 <div>
-                    ${item.title}
+                    ${postSchedule.title}
                 </div>
 
-                <a href="controller?cmd=postScheduleRouteManageUI&postId=${item.postId}" class="box-placeholder">
-  					  <img src="${item.firstImage}" alt="일정 이미지" class="box-placeholder">
+                <a href="controller?cmd=postScheduleRouteManageUI&postId=${postSchedule.postId}" class="box-placeholder">
+  					  <img src="${postSchedule.firstImage}" alt="일정 이미지" class="box-placeholder">
 				</a>
                 
-                <figcaption class="figure-caption">${item.placeTitle}</figcaption>
+                <figcaption class="figure-caption">${postSchedule.placeTitle}</figcaption>
 
                 <div>
-                	<span type = "button" class="like-btn" data-postId="${item.postId}">❤️ ${item.likeCount}</span>
-                    <span>조회수: ${item.viewCount}</span>	
-                    <span>👤 ${item.isAnonymous == 1 ? '익명' : item.userName} 님</span>
+                	<span type = "button" class="like-btn" data-postId="${postSchedule.postId}">❤️ ${postSchedule.likeCount}</span>
+                    <span>조회수: ${postSchedule.viewCount}</span>	
+                    <span>👤 ${postSchedule.isAnonymous == 1 ? '익명' : postSchedule.userName} 님</span>
                 </div>
                 
                 <div>
-                    📍 ${item.addr1}
+                    📍 ${postSchedule.addr1}
                 </div>
             </figure>
         </c:forEach>

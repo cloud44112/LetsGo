@@ -23,13 +23,16 @@ public class PostScheduleBudgetDetailUIAction implements Action{
 			return "login.jsp";
 		}
 
-		String postId = (String) session.getAttribute("currentPostId");
+		String postId = (String) session.getAttribute("currentPostScheduleId");
 		PostScheduleService service = new PostScheduleService();
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(postId);
 		String budgetDetail = service.getBudgetDetail(postId);
+		String scheduleTitle = service.getScheduleTitle(postId);
 
 		request.setAttribute("postScheduleRoute", list);
 		request.setAttribute("budgetDetail", budgetDetail);
+		request.setAttribute("scheduleTitle", scheduleTitle);
+		
 		return "postScheduleBudgetDetail.jsp";
 	}
 }

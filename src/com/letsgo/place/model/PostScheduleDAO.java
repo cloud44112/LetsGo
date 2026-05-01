@@ -196,16 +196,32 @@ public class PostScheduleDAO {
 			return list;
 		}
 		
-		public boolean deletePostSchedule(String scheduleId) {
+		public String getScheduleTitle(String postId) {
+			String str = null;
+			try {
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_SCHEDULE_TITLE);
+				stmt.setString(1, postId);
+				ResultSet rs = stmt.executeQuery();
+				if (rs.next())
+					str = rs.getString(1);
+				rs.close();
+				stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return str;
+		}
+		
+		public boolean deletePostSchedule(String postId) {
 			boolean flag = false;
 			try {
 
 				PreparedStatement stmtVisitItem = conn.prepareStatement(PostScheduleQuery.DELETE_VISIT_ITEM);
 				PreparedStatement stmtSchedulePost = conn.prepareStatement(PostScheduleQuery.DELETE_SCHEDULE_POST);
-				stmtVisitItem.setString(1, scheduleId);
+				stmtVisitItem.setString(1, postId);
 				stmtVisitItem.executeUpdate();
 
-				stmtSchedulePost.setString(1, scheduleId);
+				stmtSchedulePost.setString(1, postId);
 				stmtSchedulePost.executeUpdate();
 		
 				stmtVisitItem.close();
@@ -222,7 +238,7 @@ public class PostScheduleDAO {
 			boolean flag = false;
 			try {
 				
-				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.INCREAMENT_LIKE);
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.PLUS_LIKE);
 				
 				stmt.setString(1, postId);
 				flag = (stmt.executeUpdate() == 1);
