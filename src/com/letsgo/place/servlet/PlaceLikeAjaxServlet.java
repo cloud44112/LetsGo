@@ -48,6 +48,6 @@ public class PlaceLikeAjaxServlet extends HttpServlet {
         int likeCount = service.getPlaceLikeCount(placeType, placeId);
 
         // JSON 응답
-        out.print("{\"result\":\"success\", \"likeCount\":" + likeCount + "}");
+        out.print("{\"result\":\"success\", \"placeId\":\"" + placeId + "\", \"likeCount\":" + likeCount + "}");
     }
 }
