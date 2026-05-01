@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<body>
 <div class="content-left">
     <div class="schedule-header">
         <span id="scheduleTitle" class="title-input">${scheduleTitle}</span>
@@ -14,16 +15,16 @@
     </ul>
     <div class="content-left-bottom">
         <span type = "button" class="like-btn" data-postId="${postId}">❤️좋아요!</span>
-        <span type = "text" class="like-Count" data-likeCount="${count}">❤️ + ${count}</span>
+        <span type = "text" class="like-Count" data-likeCount="${count}">❤️    ${count}</span>
     </div>
 </div>
 	<script type="text/javascript">
 	
 	let likeBtn = document.querySelector(".like-btn");
 	let likeCount = document.querySelector(".like-Count");
-	
 	let idEvent = function() {
-        let postId = likeBtn.getAttribute("data-postId"); 
+        let postId = this.getAttribute("data-postId");
+        console.log("확인된 postId:", postId); // 브라우저 콘솔(F12)에서 확인 필수!
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
@@ -32,7 +33,7 @@
                 	let dbCount = parseInt(response.count);
                 	let currentCount = parseInt(likeCount.innerText.replace(/[^0-9]/g, "")) || 0;
                 	if(dbCount > currentCount) {
-                		likeCount.innerText = "❤️ +  " + dbCount;  
+                		likeCount.innerText = "❤️   " + dbCount;  
                 	}   
                 } else {
                 	alert("좋아요 처리에 실패했습니다.");
@@ -44,3 +45,4 @@
     };
     likeBtn.onclick = idEvent;
 	</script>
+	</body>

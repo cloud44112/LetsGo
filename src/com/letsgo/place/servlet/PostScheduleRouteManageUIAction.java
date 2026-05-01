@@ -19,11 +19,11 @@ public class PostScheduleRouteManageUIAction implements Action {
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("loginOK");
+		String postId = request.getParameter("postId");
 		
 		if (userId == null) {
 			return "login.jsp";
 		}
-		String postId = request.getParameter("postId");
 		if (postId != null) {
 			session.setAttribute("currentPostScheduleId", postId);
 		} else {
@@ -32,11 +32,12 @@ public class PostScheduleRouteManageUIAction implements Action {
 		PostScheduleService service = new PostScheduleService();
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(postId);
 		String scheduleTitle = service.getScheduleTitle(postId);
-		int count = service.getLikeCount(postId); 
+		int likeCount = service.getLikeCount(postId); 
 
 		request.setAttribute("ScheduleRoute", list);
 		request.setAttribute("scheduleTitle", scheduleTitle);
-		request.setAttribute("count", count);
+		request.setAttribute("postId", postId);
+		request.setAttribute("count", likeCount);
 		
 		return "postScheduleRouteManage.jsp";
 	}

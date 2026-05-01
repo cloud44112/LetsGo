@@ -29,12 +29,13 @@ public class PostScheduleTodoListUIAction implements Action {
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>)service.getScheduleRoute(postId);
 		String todoDetail = service.getTodoDetail(postId);
 		String scheduleTitle = service.getScheduleTitle(postId);
-		int count = service.getLikeCount(postId);
+		int likeCount = service.getLikeCount(postId);
 		
 		request.setAttribute("ScheduleRoute", list);
 		request.setAttribute("todoDetail", todoDetail);
 		request.setAttribute("scheduleTitle", scheduleTitle);
-		request.setAttribute("count", count);
+		request.setAttribute("postId", postId);
+		request.setAttribute("count", likeCount);
 		
 		return "postScheduleTodoList.jsp";
 	}
