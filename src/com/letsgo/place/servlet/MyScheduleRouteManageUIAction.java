@@ -3,11 +3,13 @@ package com.letsgo.place.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.letsgo.place.model.MapScheduleVO;
 import com.letsgo.place.model.RouteScheduleVO;
 import com.letsgo.place.service.MyScheduleService;
 public class MyScheduleRouteManageUIAction implements Action {
@@ -30,9 +32,11 @@ public class MyScheduleRouteManageUIAction implements Action {
 		MyScheduleService service = new MyScheduleService();
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(userId, myScheduleId);
 		String scheduleTitle = service.getScheduleTitle(myScheduleId);
+		List<MapScheduleVO> mapList = service.getMapSchedule(myScheduleId);
 
 		request.setAttribute("ScheduleRoute", list);
 		request.setAttribute("scheduleTitle", scheduleTitle);
+		request.setAttribute("MapSchedule", mapList);
 		
 		return "myScheduleRouteManage.jsp";
 	}

@@ -297,7 +297,7 @@ public class MyScheduleDAO {
 			ResultSet rs = stmt.executeQuery();
 			list = new ArrayList<MapScheduleVO>();
 			while (rs.next()) {
-				list.add(new MapScheduleVO(rs.getString("TITLE"), rs.getString("VISIT_ORDER"), rs.getString("MAPX"),
+				list.add(new MapScheduleVO(rs.getString("VISIT_ORDER"), rs.getString("TITLE"), rs.getString("MAPX"),
 						rs.getString("MAPY"), rs.getString("DISTANCE_TO_NEXT")));
 			}
 			rs.close();

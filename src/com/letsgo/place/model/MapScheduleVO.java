@@ -1,25 +1,25 @@
 package com.letsgo.place.model;
 
 public class MapScheduleVO {
-	private String placeId;
+	private String visitOrder;
 	private String title;
 	private String mapX;
 	private String mapY;
 	private String distanceToNext;
-	
-	
-	public MapScheduleVO(String placeId, String title, String mapX, String mapY, String distanceToNext) {
-		this.placeId = placeId;
+
+
+	public MapScheduleVO(String visitOrder, String title, String mapX, String mapY, String distanceToNext) {
+		this.visitOrder = visitOrder;
 		this.title = title;
 		this.mapX = mapX;
 		this.mapY = mapY;
 		this.distanceToNext = distanceToNext;
 	}
-	public String getPlaceId() {
-		return placeId;
+	public String getVisitOrder() {
+		return visitOrder;
 	}
-	public void setPlaceId(String placeId) {
-		this.placeId = placeId;
+	public void setVisitOrder(String visitOrder) {
+		this.visitOrder = visitOrder;
 	}
 	public String getTitle() {
 		return title;
