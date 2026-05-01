@@ -32,9 +32,11 @@ public class PostScheduleRouteManageUIAction implements Action {
 		PostScheduleService service = new PostScheduleService();
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(postId);
 		String scheduleTitle = service.getScheduleTitle(postId);
+		int count = service.getLikeCount(postId); 
 
 		request.setAttribute("ScheduleRoute", list);
 		request.setAttribute("scheduleTitle", scheduleTitle);
+		request.setAttribute("count", count);
 		
 		return "postScheduleRouteManage.jsp";
 	}

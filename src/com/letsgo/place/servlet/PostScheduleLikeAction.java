@@ -27,7 +27,7 @@ public class PostScheduleLikeAction implements Action {
 			}
 		}
 		request.setAttribute("result", flag);
-		request.setAttribute("Count", likeCount);
+		request.setAttribute("count", likeCount);
 
 		return "jsonResultCount.jsp";
 	}

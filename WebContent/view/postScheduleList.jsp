@@ -41,8 +41,9 @@
                 <figcaption class="figure-caption">${postSchedule.placeTitle}</figcaption>
 
                 <div>
-                	<span type = "button" class="like-btn" data-postId="${postSchedule.postId}">❤️ ${postSchedule.likeCount}</span>
-                    <span>조회수: ${postSchedule.viewCount}</span>	
+                	<span type = "button" class="like-btn" data-postId="${postSchedule.postId}">❤️ 좋아요 : ${postSchedule.likeCount}</span>
+                	<span>&ensp;</span>
+                    <span>조회수 : ${postSchedule.viewCount}</span>	
                     
                 </div>
                 
@@ -69,10 +70,10 @@
             if (xhr.readyState === 4 && xhr.status === 200) {
             	let response = JSON.parse(xhr.responseText);
                 if (response.result === true) {
-                	let dbCount = parseInt(response.Count);
+                	let dbCount = parseInt(response.count);
                 	let currentCount = parseInt(clickedBtn.innerText.replace(/[^0-9]/g, "")) || 0;
                 	if(dbCount > currentCount) {
-                		clickedBtn.innerText = "❤️ " + dbCount;  
+                		clickedBtn.innerText = "❤️ 좋아요 : " + dbCount;  
                 	}   
                 } else {
                 	alert("좋아요 처리에 실패했습니다.");

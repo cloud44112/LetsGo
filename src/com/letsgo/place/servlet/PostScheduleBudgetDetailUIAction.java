@@ -28,10 +28,12 @@ public class PostScheduleBudgetDetailUIAction implements Action{
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(postId);
 		String budgetDetail = service.getBudgetDetail(postId);
 		String scheduleTitle = service.getScheduleTitle(postId);
+		int count = service.getLikeCount(postId);
 
 		request.setAttribute("ScheduleRoute", list);
 		request.setAttribute("budgetDetail", budgetDetail);
 		request.setAttribute("scheduleTitle", scheduleTitle);
+		request.setAttribute("count", count);
 		
 		return "postScheduleBudgetDetail.jsp";
 	}

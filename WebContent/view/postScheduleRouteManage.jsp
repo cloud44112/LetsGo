@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="content-right-bottom">
-                <c:forEach var="route" items="${PostScheduleRoute}">
+                <c:forEach var="route" items="${ScheduleRoute}">
                     ${route.visitOrder}. ${route.title}<br/>
                 </c:forEach>
             </div>
