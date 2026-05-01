@@ -45,12 +45,12 @@ public class PostScheduleService {
 	}
 	
 	
-	public List<PostScheduleVO> getPostScheduleList(String keyword, String searchType, String sortType) {
-		return dao.getPostScheduleList(keyword, searchType, sortType);
+	public List<PostScheduleVO> getPostScheduleList(String keyword, String sortType) {
+		return dao.getPostScheduleList(keyword, sortType);
 	}
 	
-	public List<PostScheduleVO> getUserPostScheduleList(String userId, String keyword, String searchType, String sortType) {
-		return dao.getUserPostScheduleList(userId, keyword, searchType, sortType);
+	public List<PostScheduleVO> getUserPostScheduleList(String userId, String keyword, String sortType) {
+		return dao.getUserPostScheduleList(userId, keyword, sortType);
 	}
 	
 	public String getBudgetDetail(String postId) {

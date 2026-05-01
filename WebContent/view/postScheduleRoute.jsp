@@ -14,9 +14,15 @@
         </c:forEach>
     </ul>
     <div class="content-left-bottom">
-        <span type = "button" class="like-btn" data-postId="${postId}">❤️좋아요!</span>
-        <span type = "text" class="like-Count" data-likeCount="${count}">❤️    ${count}</span>
-    </div>
+    <span>
+        <button type="button" class="like-btn" data-postId="${postId}">
+            	❤️
+        </button>
+    <span>좋아요!</span>
+        
+    </span>
+    <span>❤️ + <span class="like-Count">${count}</span></span>
+</div>
 </div>
 	<script type="text/javascript">
 	
@@ -31,10 +37,12 @@
             	let response = JSON.parse(xhr.responseText);
                 if (response.result === true) {
                 	let dbCount = parseInt(response.count);
-                	let currentCount = parseInt(likeCount.innerText.replace(/[^0-9]/g, "")) || 0;
-                	if(dbCount > currentCount) {
-                		likeCount.innerText = "❤️   " + dbCount;  
-                	}   
+                	if (likeCount) {
+                        let currentCount = parseInt(likeCount.innerText) || 0;
+                        if (dbCount > currentCount) {
+                        	likeCount.innerText = dbCount;
+                        }
+                    } 
                 } else {
                 	alert("좋아요 처리에 실패했습니다.");
            		}

@@ -14,16 +14,20 @@
     <div class="content-container">
         <div class="content-left">
             <div class="search-area">
-                <input type="text" placeholder="장소 이름이나 일정 이름을 검색하세요" />
-                <button type="button">검색하기</button>
-                <div class="sort-area">
-                    <select name="sortOrder">
-                        <option value="latest">날짜순</option>
-                        <option value="name">이름순</option>
-                        <option value="name">좋아요순</option>
-                        <option value="name">조회순</option>
+            <form method="post" action="controller?cmd=postScheduleListUI">
+            	<input type="text" placeholder="장소 이름이나 일정 이름을 검색하세요" name = "searchTitle" />
+               		 <button type="submit" >
+                		검색하기
+                	 </button>
+             	   		<div class="sort-area">
+                    		<select name="sortOrder">
+                        		<option value="latest">날짜순</option>
+                        		<option value="title">이름순</option>
+                        		<option value="like">좋아요순</option>
+                        		<option value="view">조회순</option>
                     </select>
                 </div>
+            </form>
             </div>
            	<div class="edit-area">
 				<button><a href="controller?cmd=myScheduleListUI">내 일정 공유</a></button>
@@ -41,11 +45,13 @@
                 <figcaption class="figure-caption">${postSchedule.placeTitle}</figcaption>
 
                 <div>
-                	<span type = "button" class="like-btn" data-postId="${postSchedule.postId}">❤️ 좋아요 : ${postSchedule.likeCount}</span>
-                	<span>&ensp;</span>
-                    <span>조회수 : ${postSchedule.viewCount}</span>	
-                    
-                </div>
+    				<button type="button" class="like-btn" data-postId="${postSchedule.postId}">
+  					  ❤️
+					</button>
+					<span>좋아요 : <span class="like-Count">${postSchedule.likeCount}</span></span>
+    				<span>&ensp;</span>
+    				<span>조회수 : ${postSchedule.viewCount}</span>	
+				</div>
                 
                 <div>
                 	<span>
@@ -71,10 +77,13 @@
             	let response = JSON.parse(xhr.responseText);
                 if (response.result === true) {
                 	let dbCount = parseInt(response.count);
-                	let currentCount = parseInt(clickedBtn.innerText.replace(/[^0-9]/g, "")) || 0;
-                	if(dbCount > currentCount) {
-                		clickedBtn.innerText = "❤️ 좋아요 : " + dbCount;  
-                	}   
+                	let likeCount = clickedBtn.parentElement.querySelector(".like-Count");
+                	if (likeCount) {
+                        let currentCount = parseInt(likeCount.innerText) || 0;
+                        if (dbCount > currentCount) {
+                        	likeCount.innerText = dbCount;
+                        }
+                    }  
                 } else {
                 	alert("좋아요 처리에 실패했습니다.");
            		}

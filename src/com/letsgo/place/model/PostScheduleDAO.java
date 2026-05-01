@@ -16,18 +16,14 @@ public class PostScheduleDAO {
 	}
 	
 	
-	public List<PostScheduleVO> getPostScheduleList(String keyword, String searchType, String sortType) {
+	public List<PostScheduleVO> getPostScheduleList(String keyword, String sortType) {
 		List<PostScheduleVO> tmp = null;
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append(PostScheduleQuery.GET_POST_SCHEDULE_LIST);
 		
 		if (keyword != null && !keyword.trim().isEmpty()) {
-			if ("schedule".equals(searchType)) {
-				sql.append(PostScheduleQuery.SEARCH_TYPE_SCHEDULE);
-			}else if("place".equals(searchType)){
-				sql.append(PostScheduleQuery.SEARCH_TYPE_PLACE);
-			}
+				sql.append(PostScheduleQuery.SEARCH_TYPE_FILTER);
 		}
 		
 		if ("like".equals(sortType)) {
@@ -64,20 +60,15 @@ public class PostScheduleDAO {
 		return tmp;
 		}
 	
-		public List<PostScheduleVO> getUserPostScheduleList(String userId, String keyword, String searchType, String sortType) {
+		public List<PostScheduleVO> getUserPostScheduleList(String userId, String keyword, String sortType) {
 			List<PostScheduleVO> tmp = null;
 
 			StringBuilder sql = new StringBuilder();
 			sql.append(PostScheduleQuery.GET_USER_POST_SCHEDULE_LIST);
 		
 			if (keyword != null && !keyword.trim().isEmpty()) {
-				if ("schedule".equals(searchType)) {
-					sql.append(PostScheduleQuery.SEARCH_TYPE_USER_SCHEDULE);
-				}else if("place".equals(searchType)){
-					sql.append(PostScheduleQuery.SEARCH_TYPE_USER_PLACE);
-				}
+					sql.append(PostScheduleQuery.SEARCH_TYPE_USER_FILTER);
 			}
-			
 			
 			if ("like".equals(sortType)) {
 				sql.append(PostScheduleQuery.ORDER_BY_LIKE);

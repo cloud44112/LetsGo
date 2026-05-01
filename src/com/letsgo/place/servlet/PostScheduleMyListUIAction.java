@@ -21,13 +21,15 @@ public class PostScheduleMyListUIAction implements Action {
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("loginOK");
+		String keyword = (String) request.getParameter("searchTitle");
+		String sortOrder = (String) request.getParameter("sortOrder");
 		
 		if (userId == null) {
 			return "login.jsp";
 		}
 	
 		PostScheduleService service = new PostScheduleService();
-		List<PostScheduleVO> list = service.getUserPostScheduleList(userId, "", "", "");
+		List<PostScheduleVO> list = service.getUserPostScheduleList(userId, keyword, sortOrder);
 		
 		Map<String, PostScheduleVO> uniqueMap = new LinkedHashMap<>();
 		for (PostScheduleVO vo : list) {
