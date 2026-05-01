@@ -234,11 +234,28 @@ public class PostScheduleDAO {
 
 		}
 		
+		public int getLikeCount(String postId) {
+			int likeCount = 0; 
+			try {
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_LIKE_COUNT);
+				stmt.setString(1, postId);
+				ResultSet rs = stmt.executeQuery();
+				if (rs.next()) {
+					likeCount = rs.getInt(1);
+				}
+				rs.close();
+				stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return likeCount;
+		}
+		
 		public boolean plusLike(String postId) {
 			boolean flag = false;
 			try {
 				
-				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.PLUS_LIKE);
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.INCREASE_LIKE_COUNT);
 				
 				stmt.setString(1, postId);
 				flag = (stmt.executeUpdate() == 1);

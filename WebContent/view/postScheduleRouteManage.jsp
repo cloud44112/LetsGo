@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
 	<link rel="stylesheet" type="text/css" href="/LetsGo/view/css/mySchedule.css">
@@ -31,7 +30,7 @@
     window.onload = function () {
         var map = new naver.maps.Map('map', {
             center: new naver.maps.LatLng(37.5665, 126.9780),
-            zoom: 10
+            zoom: 15
         });
     };
 </script>

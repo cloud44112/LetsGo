@@ -17,14 +17,18 @@ public class PostScheduleLikeAction implements Action {
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		String postId = request.getParameter("postId");
 		PostScheduleService service = new PostScheduleService();
+		int likeCount = 0;
 		boolean flag = false;
 
 		if (postId != null && !postId.trim().isEmpty()) {
 			flag = service.plusLike(postId);
+			if(flag) {
+				likeCount = service.getLikeCount(postId);
+			}
 		}
-		
 		request.setAttribute("result", flag);
+		request.setAttribute("Count", likeCount);
 
-		return "jsonResult.jsp";
+		return "jsonResultCount.jsp";
 	}
 }

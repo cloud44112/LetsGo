@@ -36,8 +36,7 @@
                 </div>
 
                 <a href="controller?cmd=postScheduleRouteManageUI&postId=${postSchedule.postId}" class="box-placeholder">
-  					  <img src="${postSchedule.firstImage}" alt="일정 이미지" class="box-placeholder">
-				</a>
+  					  <img src="${postSchedule.firstImage}" alt="일정 이미지" class="box-placeholder"></a>
                 
                 <figcaption class="figure-caption">${postSchedule.placeTitle}</figcaption>
 
@@ -63,16 +62,18 @@
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
-            	let parsed = JSON.parse(xhr.responseText);
-                if (parsed.result === true) {
-                	let currentText = clickedBtn.innerText;
-                	let currentCount = parseInt(currentText.replace(/[^0-9]/g, "")) || 0;
-                    clickedBtn.innerText = "❤️ " + (currentCount + 1);                  
+            	let response = JSON.parse(xhr.responseText);
+                if (response.result === true) {
+                	let dbCount = parseInt(response.Count);
+                	let currentCount = parseInt(clickedBtn.innerText.replace(/[^0-9]/g, "")) || 0;
+                	if(dbCount > currentCount) {
+                		clickedBtn.innerText = "❤️ " + dbCount;  
+                	}   
                 } else {
-                    alert("좋아요 처리에 실패했습니다.");
-                }
-            }
-        };
+                	alert("좋아요 처리에 실패했습니다.");
+           		}
+        	}
+      	};
         xhr.open("GET", "controller?cmd=postScheduleLike&postId=" + postId, true);
         xhr.send(null);
     };
