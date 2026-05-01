@@ -36,10 +36,15 @@ public class PostScheduleListUIAction implements Action {
 				uniqueMap.put(vo.getPostId(), vo);
 			} else {
 				PostScheduleVO existingVO = uniqueMap.get(vo.getPostId());
+				if (existingVO.getFirstImage() == null) {
+					existingVO.setFirstImage(vo.getFirstImage());
+				}
 		        String combinedPlaces = existingVO.getPlaceTitle() + " / " + vo.getPlaceTitle();
 		        existingVO.setPlaceTitle(combinedPlaces);
 			}
 		}
+		
+
 
 		request.setAttribute("postScheduleList", new ArrayList<>(uniqueMap.values()));
 		

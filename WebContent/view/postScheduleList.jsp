@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%-- 1. JSTL 선언 추가 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -43,11 +43,16 @@
                 <div>
                 	<span type = "button" class="like-btn" data-postId="${postSchedule.postId}">❤️ ${postSchedule.likeCount}</span>
                     <span>조회수: ${postSchedule.viewCount}</span>	
-                    <span>👤 ${postSchedule.isAnonymous == 1 ? '익명' : postSchedule.userName}</span>
+                    
                 </div>
                 
                 <div>
-                    📍 ${postSchedule.addr1}
+                	<span>
+                		📍 ${fn:substring(postSchedule.addr1, 0, 10)}
+                	</span>
+                    <span>
+                    	👤 ${postSchedule.isAnonymous == 1 ? '익명' : postSchedule.userName}
+                    </span>
                 </div>
             </figure>
         </c:forEach>
