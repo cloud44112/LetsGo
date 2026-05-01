@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8" />
 
-<link rel="stylesheet" type="text/css" href="/LetsGo/view/css/leisure.css">
+<link rel="stylesheet" href="/LetsGo/view/css/leisure.css?v=2">
 <link rel="stylesheet" type="text/css" href="/LetsGo/common/floating-cart.css">
 </head>
 <body>
@@ -142,12 +142,12 @@
             <figcaption class="figure-caption">${place.title}</figcaption>
             ${place.addr1}
 
-            <form method="post" action="/LetsGo/controller?cmd=placeLikeAction">
-                <input type="hidden" name="placeId" value="${place.placeId}" />
-                <input type="hidden" name="redirectCmd" value="leisureUI" />
-                <button type="submit" class="like-btn">❤️</button>
-                <span>좋아요: ${place.likeCount}</span>
-            </form>
+            <button type="button" class="like-btn"
+					data-place-id="${place.placeId}"
+					data-place-type="LEISURE">
+					<h1>❤️</h1>
+			</button>
+			<div class="like-count" id="likeCount-${place.placeId}">좋아요: ${place.likeCount}</div>
 
             <button type="button" class="add-to-cart-btn"
                     data-place-id="${place.placeId}"
@@ -166,16 +166,53 @@
 
 <script type="text/javascript">
 	
-		window.onload = function(){
-			document.querySelector("#restaurant").onclick = function(){
-				window.location.href = '/LetsGo/controller?cmd=restaurantUI';
-			}
-			
-			document.querySelector("#stay").onclick = function(){
-				window.location.href = '/LetsGo/controller?cmd=stayUI';
-			}
+	window.onload = function(){
+		document.querySelector("#restaurant").onclick = function(){
+			window.location.href = '/LetsGo/controller?cmd=restaurantUI';
 		}
+		
+		document.querySelector("#stay").onclick = function(){
+			window.location.href = '/LetsGo/controller?cmd=stayUI';
+		}
+	}
 	
+	// (1) 모든 좋아요 버튼을 선택
+	let likeBtns = document.querySelectorAll(".like-btn");
+
+	for (let i = 0; i < likeBtns.length; i++) {
+		likeBtns[i].onclick = function () {
+
+			let placeId = this.getAttribute("data-place-id");
+			let placeType = this.getAttribute("data-place-type");
+			if (placeType == null || placeType == "") {
+				placeType = "RESTAURANT";
+			}
+
+			let xhr = new XMLHttpRequest();
+
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState == 4) {
+					if (xhr.status == 200) {
+						let parsed = JSON.parse(xhr.responseText);
+
+						if (parsed.result == "success") {
+							document.getElementById("likeCount-" + placeId)
+								.innerText = "좋아요: " + parsed.likeCount;
+						} else {
+							alert("로그인이 필요합니다.");
+						}
+					}
+				}
+			};
+
+			xhr.open("GET",
+				"${pageContext.request.contextPath}/placeLikeAjax?placeId=" + placeId + "&placeType=" + placeType,
+				true);
+
+			xhr.send(null);
+		};
+	}
+
 </script>
 
 <div id="session-cart-data" style="display: none;">
@@ -186,6 +223,8 @@
 			data-place-type="<c:out value='${cartPlace.placeType}' />"></div>
 	</c:forEach>
 </div>
+
+
 <script src="/LetsGo/common/floating-cart.js"></script>
 
 </body>
