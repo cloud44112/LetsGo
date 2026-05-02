@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<aside class="sidebar">
-     <ul>
-       <button><a href="controller?cmd=postScheduleListUI">전체 게시물</a></button>
-       <button><a href="controller?cmd=postScheduleMyListUI">내가 올린 게시물</a></button>
-    </ul>
-</aside> 
-</html>
+	<aside class="sidebar">
+		<ul>
+			<li><a href="controller?cmd=postScheduleListUI"><button type="button">전체 게시물</button></a></li>
+			<li><a href="controller?cmd=postScheduleMyListUI"><button type="button">내가 올린 게시물</button></a></li>
+		</ul>
+	</aside>

@@ -55,6 +55,25 @@
     padding: 6px 12px;
 }
 
+.cart-schedule-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+#btn-add-to-schedule {
+    padding: 6px 10px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.cart-footer-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .btn-open-modal {
     position: fixed;
     bottom: 30px;

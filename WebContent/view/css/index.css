@@ -1,8 +1,7 @@
-@CHARSET "EUC-KR";
+@charset "UTF-8";
 body {
 	margin: 0;
-	display: flex;
-	height: 100vh;
+	min-height: 100vh;
 	font-family: system-ui, sans-serif;
 }
 
@@ -39,8 +38,7 @@ aside.sidebar button {
 
 main {
 	flex-grow: 1;
-	display: flex;
-	flex-direction: column;
+	display: block;
 }
 
 header {
@@ -164,10 +162,11 @@ header {
 
 .container {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 20px;
-	max-width: 960px;
-	margin: 0 auto;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	gap: 28px;
+	width: min(1100px, calc(100% - 48px));
+	margin: 0 auto 40px;
+	box-sizing: border-box;
 }
 
 a {
@@ -177,4 +176,109 @@ a {
 
 .sort-area {
 	text-align: right;
+}
+
+.like-btn {
+	background: none;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 0;
+	transition: transform 0.12s ease, filter 0.12s ease;
+}
+
+.like-btn:hover {
+	transform: scale(1.12);
+	filter: brightness(1.05);
+}
+
+.like-btn:active {
+	transform: scale(0.9);
+}
+
+/* theme */
+body {
+	background: #f7f3ec;
+	color: #222;
+}
+
+h1 {
+	text-align: center;
+	color: #111;
+	margin: 30px 0 20px;
+}
+
+.container {
+	padding: 20px 0 40px;
+}
+
+.figure {
+	background: #fff;
+	border: 2px solid #ff7a00;
+	border-radius: 16px;
+	padding: 16px;
+	box-sizing: border-box;
+	box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.figure:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
+}
+
+.figure-caption {
+	margin-top: 10px;
+	font-weight: 700;
+	font-size: 18px;
+	color: #111;
+}
+
+.box-placeholder {
+	width: 100%;
+	height: 170px;
+	border: none;
+	border-radius: 12px;
+	overflow: hidden;
+	object-fit: cover;
+}
+
+button, select {
+	border: none;
+	border-radius: 20px;
+	background: #ff7a00;
+	color: #111;
+	font-weight: 700;
+	padding: 8px 14px;
+	cursor: pointer;
+}
+
+.sort-area {
+	margin: 20px auto;
+	width: fit-content;
+	padding: 10px 14px;
+	background: #fff;
+	border: 2px solid #ff7a00;
+	border-radius: 999px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+.location-link {
+	color: #ff7a00;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+.add-to-cart-btn {
+	margin-top: 10px;
+}
+
+.like-count {
+	margin: 6px 0;
+	font-weight: 700;
+	color: #ff7a00;
 }

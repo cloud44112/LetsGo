@@ -9,9 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			document.body.insertAdjacentHTML('beforeend', html);
 			startFloatingCart(contextPath);
 		})
-		.catch(function (err) {
-			console.error('플로팅 박스 로딩 실패:', err);
-		});
+		
 });
 
 function startFloatingCart(contextPath) {
@@ -22,9 +20,10 @@ function startFloatingCart(contextPath) {
 	var closeButton = document.getElementById('btn-close-modal');
 	var selectAllButton = document.getElementById('btn-select-all');
 	var deleteButton = document.getElementById('btn-delete-selected');
+	var addToScheduleButton = document.getElementById('btn-add-to-schedule');
 
 	if (modal == null || cartBox == null || countText == null || openButton == null || closeButton == null
-			|| selectAllButton == null || deleteButton == null) {
+			|| selectAllButton == null || deleteButton == null || addToScheduleButton == null) {
 		console.error('데이터가 없습니다.');
 		return;
 	}
@@ -74,6 +73,11 @@ function startFloatingCart(contextPath) {
 			return;
 		}
 
+		if (placeType == 'STAY' && hasStayPlace(cartBox)) {
+			alert('숙박은 1개만 담을 수 있습니다.');
+			return;
+		}
+
 		saveCartToSession(contextPath, placeId, placeType);
 		addCartRow(cartBox, placeId, placeTitle, placeType);
 		refreshCartCount(cartBox, countText);
@@ -84,7 +88,68 @@ function startFloatingCart(contextPath) {
 	});
 
 	deleteButton.addEventListener('click', function () {
-		deleteSelectedRows(cartBox, countText, selectAllButton);
+		deleteSelectedRows(cartBox, countText, selectAllButton, contextPath);
+	});
+
+	addToScheduleButton.addEventListener('click', function () {
+		var items = cartBox.querySelectorAll('.place-item');
+		var ids = [];
+		for (var i = 0; i < items.length; i++) {
+			var pid = items[i].dataset.placeId;
+			if (pid != null && pid !== '') {
+				ids.push(pid);
+			}
+		}
+
+		if (ids.length == 0) {
+			alert('카트에 담긴 장소가 없습니다.');
+			return;
+		}
+
+		var body = 'placeIds=' + encodeURIComponent(ids.join(','));
+
+		fetch(contextPath + '/addCartToScheduleAjax', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: body
+		})
+			.then(function (response) {
+				return response.json();
+			})
+			.then(function (data) {
+				if (data == null) {
+					return;
+				}
+				if (data.ok != true) {
+					alert(data.message != null ? data.message : '추가에 실패했습니다.');
+					return;
+				}
+				var added = data.added != null ? data.added : 0;
+				var idSet = {};
+				if (data.addedPlaceIds != null) {
+					for (var k = 0; k < data.addedPlaceIds.length; k++) {
+						idSet[data.addedPlaceIds[k]] = true;
+					}
+				}
+				var items = cartBox.querySelectorAll('.place-item');
+				for (var m = 0; m < items.length; m++) {
+					var row = items[m];
+					var pid = row.dataset.placeId;
+					if (pid != null && idSet[pid]) {
+						row.remove();
+					}
+				}
+				refreshCartCount(cartBox, countText);
+				selectAllButton.textContent = '전체 선택';
+				if (added == 0) {
+					alert('일정에 넣은 장소가 없습니다.');
+				} else {
+					alert('카트에 담긴 ' + added + '곳으로 새 일정을 만들었습니다. 내 일정에서 확인할 수 있습니다.');
+				}
+			})
+			
 	});
 
 	loadCartFromSession(cartBox, countText);
@@ -170,6 +235,20 @@ function hasLeisurePlace(cartBox) {
 	return false;
 }
 
+function hasStayPlace(cartBox) {
+	var cartItems = cartBox.querySelectorAll('.place-item');
+
+	for (var i = 0; i < cartItems.length; i++) {
+		var cartItem = cartItems[i];
+
+		if (cartItem.dataset.placeType == 'STAY') {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 function toggleAllCheckboxes(cartBox, selectAllButton) {
 	var checkboxes = cartBox.querySelectorAll('.place-checkbox');
 	var allChecked = true;
@@ -191,8 +270,8 @@ function toggleAllCheckboxes(cartBox, selectAllButton) {
 	}
 }
 
-function deleteSelectedRows(cartBox, countText, selectAllButton) {
-	var checkedBoxes = cartBox.querySelectorAll('.place-checkbox:checked');
+function deleteSelectedRows(cartBox, countText, selectAllButton, contextPath) {
+	var checkedBoxes = Array.prototype.slice.call(cartBox.querySelectorAll('.place-checkbox:checked'));
 
 	if (checkedBoxes.length == 0) {
 		alert('삭제할 항목을 선택해주세요.');
@@ -204,12 +283,26 @@ function deleteSelectedRows(cartBox, countText, selectAllButton) {
 		return;
 	}
 
+	var removeIds = [];
 	for (var i = 0; i < checkedBoxes.length; i++) {
 		var checkbox = checkedBoxes[i];
 		var row = checkbox.parentElement;
+		if (row != null && row.dataset.placeId != null && row.dataset.placeId != '') {
+			removeIds.push(row.dataset.placeId);
+		}
 		row.remove();
 	}
 
 	refreshCartCount(cartBox, countText);
 	selectAllButton.textContent = '전체 선택';
+
+	if (removeIds.length > 0 && contextPath != null) {
+		fetch(contextPath + '/removeCartItemsAjax', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: 'placeIds=' + encodeURIComponent(removeIds.join(','))
+		}).catch(function () { });
+	}
 }

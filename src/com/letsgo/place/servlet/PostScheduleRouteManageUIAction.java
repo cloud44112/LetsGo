@@ -3,13 +3,14 @@ package com.letsgo.place.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.letsgo.place.model.MapScheduleVO;
 import com.letsgo.place.model.RouteScheduleVO;
-import com.letsgo.place.service.MyScheduleService;
 import com.letsgo.place.service.PostScheduleService;
 
 public class PostScheduleRouteManageUIAction implements Action {
@@ -31,10 +32,12 @@ public class PostScheduleRouteManageUIAction implements Action {
 		}
 		PostScheduleService service = new PostScheduleService();
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(postId);
+		List<MapScheduleVO> mapList = service.getMapSchedule(postId);
 		String scheduleTitle = service.getScheduleTitle(postId);
 		int likeCount = service.getLikeCount(postId); 
 
 		request.setAttribute("ScheduleRoute", list);
+		request.setAttribute("MapSchedule", mapList);
 		request.setAttribute("scheduleTitle", scheduleTitle);
 		request.setAttribute("postId", postId);
 		request.setAttribute("count", likeCount);

@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+.loginbox {
+	width: 340px;
+	border: 2px solid #ff7a00;
+	border-radius: 16px;
+	padding: 28px;
+	box-sizing: border-box;
+	background: #fff;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.loginbox h1 {
+	text-align: center;
+	margin-top: 0;
+	color: #111;
+}
+
+.loginbox .id,
+.loginbox .pw {
+	width: 100%;
+	height: 50px;
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.loginbox > div,
+.loginbox > form > div {
+	border: none;
+	margin-bottom: 10px;
+	text-align: center;
+	padding: 5px 0;
+}
+
+.loginbox input {
+	width: 80%;
+	padding: 10px;
+	margin: auto;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	box-sizing: border-box;
+}
+
+.loginbox button {
+	border: none;
+	border-radius: 24px;
+	background: #ff7a00;
+	color: #111;
+	cursor: pointer;
+	font-weight: 700;
+	padding: 10px 18px;
+	font-family: inherit;
+}
+
+.loginbox a {
+	display: inline-block;
+	color: #ff7a00;
+	font-weight: 700;
+	text-decoration: none;
+	margin: 0 6px;
+}
+
+#loginMessage {
+	color: red;
+	text-align: center;
+	margin-bottom: 10px;
+	display: none;
+}

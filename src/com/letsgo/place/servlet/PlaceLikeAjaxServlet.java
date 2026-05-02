@@ -19,6 +19,8 @@ public class PlaceLikeAjaxServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        response.setContentType("application/json;charset=UTF-8");
+
         //플레이스 데이터 확인함
         String placeId   = request.getParameter("placeId");   
         String placeType = request.getParameter("placeType"); 

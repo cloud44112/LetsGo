@@ -7,9 +7,10 @@
     <link rel="stylesheet" type="text/css" href="/LetsGo/view/css/myScheduleList.css">
 </head>
 <body>
-<jsp:include page="postScheduleListSideBar.jsp" />
 <jsp:include page="header.jsp" />
 
+<div class="layout-wrapper">
+<jsp:include page="postScheduleListSideBar.jsp" />
 <main>
     <div class="content-container">
         <div class="content-left">
@@ -32,7 +33,10 @@
            	<div class="edit-area">
 				<button><a href="controller?cmd=myScheduleListUI">내 일정 공유</a></button>
 			</div>
-        </div> </div> <div class="container">
+        </div>
+    </div>
+
+    <div class="container">
         <c:forEach var="postSchedule" items="${postScheduleList}">
             <figure class="figure">
                 <div>
@@ -65,6 +69,7 @@
         </c:forEach>
     </div>
 </main>
+</div>
 	<script type="text/javascript">
 	let likeButtons = document.querySelectorAll(".like-btn");
 	let idEvent = function() {

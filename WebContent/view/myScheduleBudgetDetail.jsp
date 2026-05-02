@@ -6,35 +6,36 @@
 <link rel="stylesheet" type="text/css" href="/LetsGo/view/css/mySchedule.css">
 </head>
 <body>
-<jsp:include page="mySchduleSideBar.jsp" />
 <jsp:include page="header.jsp" />
 
-
-<main>
-    <div class="content-container">
-        <jsp:include page="MyScheduleRoute.jsp" />
-        <div class="divider"></div>
-        <div class="content-right">
-            <div class="memo">
-                <div>
-                    <h3>예산관리</h3>
+<div class="layout-wrapper">
+    <jsp:include page="mySchduleSideBar.jsp" />
+    <main>
+        <div class="content-container">
+            <jsp:include page="MyScheduleRoute.jsp" />
+            <div class="divider"></div>
+            <div class="content-right">
+                <div class="memo">
+                    <div>
+                        <h3>예산관리</h3>
+                    </div>
+                    <form method="post" action="controller">
+                        <input type="hidden" name="cmd" value="myScheduleBudgetDetailAction">
+                        <textarea name="budgetDetail" class="detail-textarea"
+                            placeholder="1. 금원 수원 수영장 - 입장권 5000원">${budgetDetail}</textarea>
+                        <button type="submit" class="save-btn">저장하기</button>
+                    </form>
+                    <c:if test="${BudgetDetailResult == true}">
+                        <p>저장되었습니다.</p>
+                    </c:if>
+                    <c:if test="${BudgetDetailResult == false}">
+                        <p>저장에 실패했습니다.</p>
+                    </c:if>
                 </div>
-                <form method="post" action="controller">
-                    <input type="hidden" name="cmd" value="myScheduleBudgetDetailAction">
-                    <textarea name="budgetDetail" class="detail-textarea"
-                        placeholder="1. 금원 수원 수영장 - 입장권 5000원">${budgetDetail}</textarea>
-                    <button type="submit" class="save-btn">저장하기</button>
-                </form>
-                <c:if test="${BudgetDetailResult == true}">
-                    <p>저장되었습니다.</p>
-                </c:if>
-                <c:if test="${BudgetDetailResult == false}">
-                    <p>저장에 실패했습니다.</p>
-                </c:if>
             </div>
         </div>
-    </div>
-</main>
+    </main>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script>

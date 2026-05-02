@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+.signupbox {
+	background-color: #fff;
+	width: 400px;
+	border: 2px solid #ff7a00;
+	border-radius: 16px;
+	padding: 30px;
+	box-sizing: border-box;
+	text-align: left;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.signupbox h1 {
+	text-align: center;
+	margin-top: 0;
+	color: #111;
+}
+
+.signupbox .name,
+.signupbox .id,
+.signupbox .email,
+.signupbox .pw {
+	margin-bottom: 15px;
+	display: flex;
+	align-items: center;
+}
+
+.signupbox > div {
+	margin-bottom: 10px;
+	padding: 5px 0;
+}
+
+.signupbox label {
+	white-space: nowrap;
+	flex-shrink: 0;
+}
+
+.signupbox input {
+	flex-grow: 1;
+	padding: 10px;
+	margin-left: 10px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	box-sizing: border-box;
+}
+
+.signupbox button[type="submit"] {
+	width: 100%;
+	padding: 10px;
+	border: none;
+	border-radius: 24px;
+	background: #ff7a00;
+	color: #111;
+	cursor: pointer;
+	font-weight: 700;
+	margin-bottom: 15px;
+	font-family: inherit;
+}
+
+.signupbox a {
+	color: #ff7a00;
+	text-decoration: none;
+	margin: 0 5px;
+	display: block;
+	text-align: center;
+	font-weight: 700;
+}
+
+.signupbox a:hover {
+	text-decoration: underline;
+}
+
+#signupMessage {
+	color: red;
+	display: none;
+	margin-bottom: 10px;
+	text-align: center;
+}

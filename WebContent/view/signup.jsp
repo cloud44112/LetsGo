@@ -3,80 +3,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
-	margin: 0;
-}
-
-.signupbox {
-	background-color: white;
-	width: 400px;
-	border: 1px solid;
-	padding: 30px;
-	box-sizing: border-box;
-	text-align: left;
-}
-
-.name, .id, .email, .pw {
-	margin-bottom: 15px;
-	display: flex;
-	align-items: center;
-}
-
-.signupbox>div {
-	margin-bottom: 10px;
-	padding: 5px 0;
-}
-
-input {
-	flex-grow: 1;
-	padding: 8px;
-	margin-left: 10px;
-	border: 1px solid;
-	border-radius: 4px;
-}
-
-button {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid;
-	margin-bottom: 15px;
-}
-
-.back-button {
-	position: fixed;
-	top: 16px;
-	left: 16px;
-	z-index: 1000;
-	width: auto;
-	margin-bottom: 0;
-	padding: 8px 12px;
-}
-
-a {
-	color: #007bff;
-	text-decoration: none;
-	margin: 0 5px;
-	display: block;
-	text-align: center;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-</style>
 <meta charset="UTF-8">
+<title>회원가입</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/auth-common.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/signup.css">
 </head>
 <body>
 
 	<div class="signupbox">
 	<h1>회원가입</h1>
 		<jsp:include page="/view/errorMessage.jsp" />
-		<form method="post" action="<%=request.getContextPath()%>/controller?cmd=signupAction">
+		<div id="signupMessage"></div>
+		<form id="signupForm" method="post" action="<%=request.getContextPath()%>/controller?cmd=signupAction">
 			<div class="name">
 				<label for="nameInput">이름</label><input id="nameInput" name="NAME" placeholder="이름">
 			</div>
@@ -103,5 +41,73 @@ a:hover {
 		</div>
 		<button type="button" class="back-button" onclick="history.back()">뒤로가기</button>
 	</div>
+	<script type="text/javascript">
+		document.getElementById("signupForm").onsubmit = function (event) {
+			event.preventDefault();
+
+			var name = document.getElementById("nameInput").value;
+			var userId = document.getElementById("idInput").value;
+			var email = document.getElementById("emailInput").value;
+			var password = document.getElementById("pwInput").value;
+			var passwordConfirm = document.getElementById("pwConfirmInput").value;
+			var message = document.getElementById("signupMessage");
+
+			message.style.display = "none";
+			message.innerText = "";
+			message.style.color = "red";
+
+			if (name.trim() == "" || userId.trim() == "" || email.trim() == "" || password.trim() == "" || passwordConfirm.trim() == "") {
+				message.style.display = "block";
+				message.innerText = "필수 항목을 모두 입력해주세요.";
+				return;
+			}
+
+			if (password != passwordConfirm) {
+				message.style.display = "block";
+				message.innerText = "비밀번호 확인이 일치하지 않습니다.";
+				return;
+			}
+
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState != 4) {
+					return;
+				}
+				if (xhr.status != 200) {
+					message.style.display = "block";
+					message.innerText = "회원가입을 다시해주세요.";
+					return;
+				}
+
+				var data;
+				try {
+					data = JSON.parse(xhr.responseText);
+				} catch (e) {
+					message.style.display = "block";
+					message.innerText = "회원가입 오류.";
+					return;
+				}
+				message.style.display = "block";
+				message.innerText = data.message;
+
+				if (data.result == "success") {
+					message.style.color = "black";
+					setTimeout(function () {
+						location.href = data.url;
+					}, 700);
+				} else {
+					message.style.color = "red";
+				}
+			};
+
+			xhr.open("POST", "<%=request.getContextPath()%>/signupAjax", true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.send("NAME=" + encodeURIComponent(name)
+					+ "&USER_ID=" + encodeURIComponent(userId)
+					+ "&EMAIL=" + encodeURIComponent(email)
+					+ "&PASSWORD=" + encodeURIComponent(password)
+					+ "&PASSWORD_CONFIRM=" + encodeURIComponent(passwordConfirm));
+		};
+	</script>
 </body>
 </html>

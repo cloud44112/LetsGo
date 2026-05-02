@@ -9,34 +9,117 @@ body {
 }
 
 aside.sidebar {
-    width: 220px;
-    border-right: 1px solid #000;
-    padding: 10px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    align-self: stretch;
+	width: 220px;
+	flex-shrink: 0;
+	align-self: stretch;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	gap: 12px;
+	min-height: 0;
+	height: 100%;
+	overflow-y: auto;
+	padding: 14px 12px;
+	background: #fff;
+	border-right: 1px solid #e5ddd0;
+}
+
+aside.sidebar > div {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	min-height: 0;
+}
+
+aside.sidebar > div:only-child {
+	flex: 1;
 }
 
 aside.sidebar ul {
 	list-style: none;
 	padding: 0;
-	margin: 0 0 20px 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
 }
 
-aside.sidebar li {
-	margin-bottom: 10px;
+aside.sidebar > div > ul > li {
+	margin: 0;
+}
+
+aside.sidebar details {
+	border: 1px solid #ff7a00;
+	border-radius: 8px;
+	background: #fff;
+	overflow: hidden;
+}
+
+aside.sidebar summary {
+	padding: 9px 10px;
+	cursor: pointer;
+	font-size: 0.9375rem;
+	font-weight: 600;
+	font-family: inherit;
+	color: #222;
+	background: #fff;
+	list-style: none;
+}
+
+aside.sidebar summary::-webkit-details-marker {
+	display: none;
+}
+
+aside.sidebar details[open] summary {
+	background: #fff5eb;
+}
+
+aside.sidebar details > ul {
+	margin: 0;
+	padding: 8px 10px 10px;
+	gap: 6px;
+	border-top: 1px solid #e5ddd0;
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+}
+
+aside.sidebar details li {
+	margin: 0;
+	font-size: 0.875rem;
+	line-height: 1.35;
+}
+
+aside.sidebar details label {
+	cursor: pointer;
+	display: block;
+	padding: 2px 0;
+}
+
+aside.sidebar a {
+	color: inherit;
+	text-decoration: none;
 }
 
 aside.sidebar button {
+	box-sizing: border-box;
 	width: 100%;
-	padding: 6px 0;
-	margin-bottom: 10px;
-	border: 1px solid #000;
-	background: transparent;
+	margin: 0;
+	padding: 9px 10px;
+	border: 1px solid #ff7a00;
+	border-radius: 8px;
+	background: #fff;
 	cursor: pointer;
-	font-size: 1rem;
+	font-size: 0.9375rem;
+	font-weight: 600;
+	font-family: inherit;
+	color: #222;
+	text-align: center;
+}
+
+aside.sidebar button:hover {
+	background: #fff5eb;
 }
 
 main {
@@ -223,4 +306,47 @@ a {
 	padding: 0;
 	font-size: 1.5rem;
 	line-height: 1;
+}
+
+body, main {
+	background: #faf7f2;
+	color: #222;
+}
+
+h1 {
+	text-align: center;
+	color: #111;
+}
+
+.container {
+	padding: 24px;
+}
+
+.figure {
+	background: #fff;
+	border: 2px solid #ff7a00;
+	border-radius: 16px;
+	padding: 16px;
+	box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.figure-caption {
+	margin-top: 10px;
+	font-weight: 700;
+}
+
+.box-placeholder {
+	border: none;
+	border-radius: 12px;
+	overflow: hidden;
+}
+
+button, select {
+	border: none;
+	border-radius: 20px;
+	background: #ff7a00;
+	color: #111;
+	font-weight: 700;
+	padding: 8px 14px;
+	cursor: pointer;
 }

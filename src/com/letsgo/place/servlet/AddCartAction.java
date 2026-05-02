@@ -42,6 +42,11 @@ public class AddCartAction implements Action {
 			request.setAttribute("cartMessage", "레포츠는 1개만 담을 수 있습니다.");
 			return new IndexUIAction().execute(request);
 		}
+
+		if ("STAY".equals(placeType) && hasStayPlace(cartList)) {
+			request.setAttribute("cartMessage", "숙박은 1개만 담을 수 있습니다.");
+			return new IndexUIAction().execute(request);
+		}
 	
 		PlaceService service = new PlaceService();
 		PlaceVO place = service.getPlaceById(placeId);
@@ -66,6 +71,15 @@ public class AddCartAction implements Action {
 	private boolean hasLeisurePlace(List<PlaceVO> cartList) {
 		for (PlaceVO place : cartList) {
 			if ("LEISURE".equals(place.getPlaceType())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean hasStayPlace(List<PlaceVO> cartList) {
+		for (PlaceVO place : cartList) {
+			if ("STAY".equals(place.getPlaceType())) {
 				return true;
 			}
 		}

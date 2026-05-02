@@ -4,20 +4,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8"> <link rel="stylesheet" type="text/css" href="/LetsGo/view/css/myScheduleList.css">
+<meta charset="UTF-8"> <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/myScheduleList.css">
 </head>
 <body>
+<jsp:include page="header.jsp" />
+<div class="layout-wrapper">
 	<jsp:include page="myScheduleListSideBar.jsp" />
-	<jsp:include page="header.jsp" />
-
+	<main>
 	<div class="content-container">
 		<div class="content-left">
 			<div class="search-area">
 			<form method="post" action="controller?cmd=myScheduleListUI">
 				<input type="text" placeholder="장소 이름이나 일정 이름을 검색하세요" name = "searchTitle"/>
-				
+
 				<button type="submit" >검색하기</button>
-				
+
 				<div class="sort-area">
 					<select name="sortOrder">
 						<option value="	">날짜순</option>
@@ -26,9 +27,9 @@
 				</div>
 				</form>
 			</div>
-			
+
 			<div class="edit-area">
-				<button>수정하기</button>
+				<button type="button">수정하기</button>
 			</div>
 			<div class="container" id="scheduleListContainer">
 			<c:forEach var="item" items="${myScheduleList}">
@@ -46,10 +47,8 @@
 			</div>
 		</div>
 	</div>
-	<div></div>
-
 	</main>
-	
+</div>
 
 
 </body>

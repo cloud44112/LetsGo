@@ -1,5 +1,5 @@
 <!-- 플로팅 버튼 -->
-<button class="btn-open-modal"><h1>🛒</h1></button>
+<button type="button" class="btn-open-modal"><h1>🛒</h1></button>
 
 <!-- 모달 -->
 <div class="modal">
@@ -7,12 +7,18 @@
         <div class="cart-header">
             <h2>🛒 총 <span id="place-count">0</span>개</h2>
             <div>
-                <button id="btn-select-all">전체 선택</button>
-                <button id="btn-delete-selected">선택 삭제</button>
+                <button type="button" id="btn-select-all">전체 선택</button>
+                <button type="button" id="btn-delete-selected">선택 삭제</button>
             </div>
         </div>
 
+        <div class="cart-schedule-row">
+            <button type="button" id="btn-add-to-schedule">카트로 새 일정 만들기</button>
+        </div>
+
         <div class="shoppingbox" id="shoppingbox"></div>
-        <button id="btn-close-modal">닫기</button>
+        <div class="cart-footer-buttons">
+            <button type="button" id="btn-close-modal">닫기</button>
+        </div>
     </div>
 </div>

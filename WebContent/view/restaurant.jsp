@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8" />
 
-<link rel="stylesheet" type="text/css" href="/LetsGo/view/css/restaurant.css?v=2">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/restaurant.css?v=3">
 <link rel="stylesheet" type="text/css" href="/LetsGo/common/floating-cart.css">
 </head>
 <body>

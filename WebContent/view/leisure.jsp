@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8" />
 
-<link rel="stylesheet" href="/LetsGo/view/css/leisure.css?v=2">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/leisure.css?v=3">
 <link rel="stylesheet" type="text/css" href="/LetsGo/common/floating-cart.css">
 </head>
 <body>
@@ -71,9 +71,8 @@
 	
 		<main> 
 		<div class="content-container">
-			<h3></h1>
+			<h3>총 ${totalCount}개의 항목 </h3>
 			<div class="content-left">
-				<h3>총 ${totalCount}개의 항목 </h3>
 				<div class="search-area">
 					<input type="text" name="keyword" placeholder="장소 이름이나 지역을 검색하세요" 
 					       value="${param.keyword}" />
@@ -150,7 +149,7 @@
 			let placeId = this.getAttribute("data-place-id");
 			let placeType = this.getAttribute("data-place-type");
 			if (placeType == null || placeType == "") {
-				placeType = "RESTAURANT";
+				placeType = "LEISURE";
 			}
 
 			let xhr = new XMLHttpRequest();

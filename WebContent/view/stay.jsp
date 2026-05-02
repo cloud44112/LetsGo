@@ -7,7 +7,7 @@
 
 <meta charset="UTF-8" />
 
-<link rel="stylesheet" type="text/css" href="/LetsGo/view/css/stay.css?v=2">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/stay.css?v=3">
 <link rel="stylesheet" type="text/css" href="/LetsGo/common/floating-cart.css">
 </head>
 <body>
@@ -23,9 +23,11 @@
 				<ul>
 					<li><details>
 							<summary>호텔</summary>
-							<li><label><input type="radio" name="category" value="AC010100"
-                                onchange="this.form.submit()"
-                                ${param.category == 'AC010100' ? 'checked' : ''}> 호텔</label></li>
+							<ul>
+								<li><label><input type="radio" name="category" value="AC010100"
+	                                onchange="this.form.submit()"
+	                                ${param.category == 'AC010100' ? 'checked' : ''}> 호텔</label></li>
+							</ul>
 						</details></li>
 	
 					<li><details>

@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+.getidbox {
+	width: 400px;
+	border: 2px solid #ff7a00;
+	border-radius: 16px;
+	padding: 28px;
+	box-sizing: border-box;
+	background: #fff;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.getidbox h1 {
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: 12px;
+	color: #111;
+	font-size: 1.35rem;
+	font-weight: 700;
+}
+
+.getidbox .name,
+.getidbox .emaile,
+.getidbox .id,
+.getidbox .pw {
+	width: 100%;
+	height: 50px;
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.getidbox > div,
+.getidbox > form > div {
+	border: none;
+	margin-bottom: 10px;
+	text-align: center;
+	padding: 5px 0;
+}
+
+.getidbox input {
+	width: 80%;
+	padding: 10px;
+	margin: auto;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	box-sizing: border-box;
+}
+
+.getidbox button {
+	border: none;
+	border-radius: 24px;
+	background: #ff7a00;
+	color: #111;
+	cursor: pointer;
+	font-weight: 700;
+	padding: 10px 18px;
+	font-family: inherit;
+}
+
+.getidbox a {
+	color: #ff7a00;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+#getIdMessage,
+#foundIdMessage {
+	border: none;
+	display: none;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+#getIdMessage {
+	color: red;
+}
+
+#foundIdMessage {
+	color: black;
+}

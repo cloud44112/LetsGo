@@ -6,24 +6,26 @@
 	<link rel="stylesheet" type="text/css" href="/LetsGo/view/css/mySchedule.css">
 </head>
 <body>
-<jsp:include page="postScheduleDetailSideBar.jsp" />
 <jsp:include page="header.jsp" />
-<main>
-    <div class="content-container">
-        <jsp:include page="postScheduleRoute.jsp" />
-        <div class="divider"></div>
-        <div class="content-right">
-            <div class="memo">
-                <div>
-                    <h3>To-Do</h3>
+<div class="layout-wrapper">
+    <jsp:include page="postScheduleDetailSideBar.jsp" />
+    <main>
+        <div class="content-container">
+            <jsp:include page="postScheduleRoute.jsp" />
+            <div class="divider"></div>
+            <div class="content-right">
+                <div class="memo">
+                    <div>
+                        <h3>To-Do</h3>
+                    </div>
+                    <form method="post" action="controller">
+                        <span id="todoDetail" class="detail-textarea">${todoDetail}</span>
+                    </form>
                 </div>
-                <form method="post" action="controller">
-                    <span id="todoDetail" class="detail-textarea">${todoDetail}</span>
-                </form>
             </div>
         </div>
-    </div>
-</main>
+    </main>
+</div>
 
 </body>
 </html>

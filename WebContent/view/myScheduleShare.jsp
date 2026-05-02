@@ -4,15 +4,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8"> <link rel="stylesheet" type="text/css" href="/LetsGo/view/css/myScheduleList.css">
-
+<meta charset="UTF-8"> <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/myScheduleList.css">
 </head>
 <body>
-<jsp:include page="mySchduleSideBar.jsp" />
 <jsp:include page="header.jsp" />
-	
+<div class="layout-wrapper">
+    <jsp:include page="mySchduleSideBar.jsp" />
+    <main>
 
-<main>
     <div class="content">
         <h3>동반자 추가</h3>
         <div class="invite-row">
@@ -41,16 +40,16 @@
             </c:forEach>
         </div>
 
-        <!-- 게시판 공유 폼 -->
         <form id="shareForm" action="controller">
             <input type="hidden" name="cmd" value="shareToPost">
             <input type="hidden" name="myScheduleId" value="${sessionScope.currentScheduleId}">
-            
+
             <button class="export-btn" type="button" onclick="sendShareRequest()">게시판에 공유</button>
             <input type="checkbox" name="isAnonymous" value="1"> 익명으로 게시
         </form>
     </div>
 </main>
+</div>
 
 <script type="text/javascript">
 

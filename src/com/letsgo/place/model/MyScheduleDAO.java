@@ -263,6 +263,72 @@ public class MyScheduleDAO {
 		return str;
 	}
 
+	public String allocateNextMyScheduleId() {
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.NEXT_MY_SCHEDULE_ID);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				String id = rs.getString(1);
+				rs.close();
+				stmt.close();
+				return id;
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public boolean insertMyScheduleRow(String myScheduleId, String title, String userId) {
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.INSERT_MY_SCHEDULE_ROW);
+			stmt.setString(1, myScheduleId);
+			stmt.setString(2, title);
+			stmt.setString(3, userId);
+			boolean ok = stmt.executeUpdate() == 1;
+			stmt.close();
+			return ok;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean isScheduleOwnedByUser(String scheduleId, String userId) {
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.IS_MY_SCHEDULE_OF_USER);
+			stmt.setString(1, scheduleId);
+			stmt.setString(2, userId);
+			ResultSet rs = stmt.executeQuery();
+			boolean ok = rs.next();
+			rs.close();
+			stmt.close();
+			return ok;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public List<String[]> listMyScheduleIdAndTitle(String userId) {
+		List<String[]> list = new ArrayList<>();
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.LIST_MY_SCHEDULE_ID_TITLE);
+			stmt.setString(1, userId);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				list.add(new String[] { rs.getString(1), rs.getString(2) });
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	public List<RouteScheduleVO> getScheduleRoute(String userId, String scheduleId) {
 		List<RouteScheduleVO> list = null;
 		try {

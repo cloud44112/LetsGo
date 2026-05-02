@@ -7,6 +7,9 @@ public class ActionFactory {
 			return new IndexUIAction();
 		}
 		switch (cmd) {
+		case "addCartAction":
+			tmp = new AddCartAction();
+			break;
 		case "placeLikeAction":
 			tmp = new PlaceLikeAction();
 			break;
