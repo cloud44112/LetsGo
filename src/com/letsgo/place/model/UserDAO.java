@@ -9,10 +9,6 @@ public class UserDAO implements UserQury {
 
     private Connection conn;
 
-    public UserDAO() throws Exception {
-        conn = DBCP.getConnection();
-    }
-
     public UserDAO(Connection conn) throws Exception {
         this.conn = conn;
     }
