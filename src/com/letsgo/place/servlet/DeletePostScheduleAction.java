@@ -17,9 +17,13 @@ public class DeletePostScheduleAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request) throws ClassNotFoundException, SQLException {
-		String scheduleId = request.getParameter("postScheduleId");
-		request.setAttribute("result", new PostScheduleService().deletePostSchedule(scheduleId));
-		return "index.jsp";
+		String postId = request.getParameter("postId");
+		
+		PostScheduleService service = new PostScheduleService();
+		boolean result = service.deletePostSchedule(postId);
+		
+		request.setAttribute("result", result);
+		return "controller?cmd=postScheduleMyListUI";
 	}
 
 }
