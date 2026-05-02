@@ -77,8 +77,16 @@ public class PostScheduleService {
 		return dao.getLikeCount(postId);
 	}
 	
+	public int getViewCount(String postId) {
+		return dao.getViewCount(postId);
+	}
+	
 	public boolean plusLike(String postId) {
 		return dao.plusLike(postId);
+	}
+	
+	public boolean plusView(String postId) {
+		return dao.plusView(postId);
 	}
 	
 	

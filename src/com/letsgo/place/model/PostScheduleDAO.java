@@ -243,11 +243,45 @@ public class PostScheduleDAO {
 			return likeCount;
 		}
 		
+		public int getViewCount(String postId) {
+			int viewCount = 0; 
+			try {
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_LIKE_COUNT);
+				stmt.setString(1, postId);
+				ResultSet rs = stmt.executeQuery();
+				if (rs.next()) {
+					viewCount = rs.getInt(1);
+				}
+				rs.close();
+				stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return viewCount;
+		}
+		
 		public boolean plusLike(String postId) {
 			boolean flag = false;
 			try {
 				
-				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.INCREASE_LIKE_COUNT);
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.PLUS_LIKE_COUNT);
+				
+				stmt.setString(1, postId);
+				flag = (stmt.executeUpdate() == 1);
+				stmt.close();
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+
+			return flag;
+		}
+		
+		public boolean plusView(String postId) {
+			boolean flag = false;
+			try {
+				
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.PLUS_VIEW_COUNT);
 				
 				stmt.setString(1, postId);
 				flag = (stmt.executeUpdate() == 1);

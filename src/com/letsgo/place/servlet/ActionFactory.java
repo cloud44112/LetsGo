@@ -126,6 +126,9 @@ public class ActionFactory {
 		case "postScheduleLike":
 			tmp = new PostScheduleLikeAction();
 			break;
+		case "postScheduleView":
+			tmp = new PostScheduleDetailAction();
+			break;
 		default:
 			tmp = new IndexUIAction();
 			break;
