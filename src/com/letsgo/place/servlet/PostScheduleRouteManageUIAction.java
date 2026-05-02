@@ -20,11 +20,14 @@ public class PostScheduleRouteManageUIAction implements Action {
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("loginOK");
-		String postId = request.getParameter("postId");
+		
 		
 		if (userId == null) {
 			return "login.jsp";
 		}
+		
+		String postId = request.getParameter("postId");
+		
 		if (postId != null) {
 			session.setAttribute("currentPostScheduleId", postId);
 		} else {

@@ -89,6 +89,7 @@ public class PostScheduleDAO {
 				if (keyword != null && !keyword.trim().isEmpty()) {
 					String searchKey = "%" + keyword + "%";
 					stmt.setString(idx++, searchKey);
+					stmt.setString(idx++, searchKey);
 				}
 				ResultSet rs = stmt.executeQuery();
 				tmp = new ArrayList<>();
@@ -176,7 +177,7 @@ public class PostScheduleDAO {
 				ResultSet rs = stmt.executeQuery();
 				list = new ArrayList<MapScheduleVO>();
 				while (rs.next()) {
-					list.add(new MapScheduleVO(rs.getString("TITLE"), rs.getString("VISIT_ORDER"), rs.getString("MAPX"),
+					list.add(new MapScheduleVO(rs.getString("VISIT_ORDER"), rs.getString("TITLE"), rs.getString("MAPX"),
 							rs.getString("MAPY"), rs.getString("DISTANCE_TO_NEXT")));
 				}
 				rs.close();

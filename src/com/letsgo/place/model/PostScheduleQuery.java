@@ -14,7 +14,7 @@ public interface PostScheduleQuery {
 	String ORDER_BY_DEFAULT = "ORDER BY p.posted_at ASC, p.post_id ASC, v.VISIT_ORDER ASC";
 	
 	String SEARCH_TYPE_FILTER = "WHERE p.TITLE LIKE ? OR pl.TITLE LIKE ? ";
-	String SEARCH_TYPE_USER_FILTER = "AND p.TITLE LIKE ? OR pl.TITLE LIKE ? ";
+	String SEARCH_TYPE_USER_FILTER = "AND (p.TITLE LIKE ? OR pl.TITLE LIKE ?) ";
 	
 	String DELETE_VISIT_ITEM = "DELETE FROM visit_item WHERE schedule_id = ? ";
 	String DELETE_SCHEDULE_POST = "DELETE FROM schedule_post WHERE post_ID = ? ";
