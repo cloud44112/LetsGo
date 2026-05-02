@@ -16,7 +16,7 @@
         <div class="content-left">
             <div class="search-area">
             <form method="post" action="controller?cmd=postScheduleListUI">
-            	<input type="text" placeholder="장소 이름이나 일정 이름을 검색하세요" name = "searchTitle" />
+            	<input type="text" placeholder="장소 이름이나 게시물 이름을 검색하세요" name = "searchTitle" />
                		 <button type="submit" >
                 		검색하기
                 	 </button>

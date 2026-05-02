@@ -30,12 +30,12 @@ public class TestPostScheduleService {
 	
 	@Test
 	public void getPostScheduleList() {
-		assertNotNull(service.getPostScheduleList("", "", "latest"));
+		assertNotNull(service.getPostScheduleList("", "latest"));
 	}
 	
 	@Test
 	public void getUserPostScheduleList() {
-		assertNotNull(service.getUserPostScheduleList("user01", "", "", "latest"));
+		assertNotNull(service.getUserPostScheduleList("user01","", "latest"));
 	}
 	
 	@Test

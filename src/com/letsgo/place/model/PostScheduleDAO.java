@@ -46,6 +46,7 @@ public class PostScheduleDAO {
 			if (keyword != null && !keyword.trim().isEmpty()) {
 				String searchKey = "%" + keyword + "%";
 				stmt.setString(idx++, searchKey);
+				stmt.setString(idx++, searchKey);
 			}
 			ResultSet rs = stmt.executeQuery();
 			tmp = new ArrayList<>();

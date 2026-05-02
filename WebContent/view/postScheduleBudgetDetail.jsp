@@ -7,8 +7,10 @@
 	<link rel="stylesheet" type="text/css" href="/LetsGo/view/css/mySchedule.css">
 </head>
 <body>
-<jsp:include page="postScheduleDetailSideBar.jsp" />
 <jsp:include page="header.jsp" />
+<div class="layout-wrapper">
+<jsp:include page="postScheduleDetailSideBar.jsp" />
+
 <main>
     <div class="content-container">
         <jsp:include page="postScheduleRoute.jsp" />
@@ -26,6 +28,7 @@
         </div>
     </div>
 </main>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script>
