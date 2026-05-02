@@ -50,11 +50,14 @@
 
                 <div>
     				<button type="button" class="like-btn" data-postId="${postSchedule.postId}">
-  					  ❤️
+  					  <h1>❤️</h1>
 					</button>
 					<span>좋아요 : <span class="like-Count">${postSchedule.likeCount}</span></span>
     				<span>&ensp;</span>
-    				<span>조회수 : ${postSchedule.viewCount}</span>	
+    					
+				</div>
+				<div>
+				<span>조회수 : ${postSchedule.viewCount}</span>
 				</div>
                 
                 <div>
@@ -62,8 +65,11 @@
                 		📍 ${fn:substring(postSchedule.addr1, 0, 10)}
                 	</span>
                     <span>
-                    	👤 ${postSchedule.isAnonymous == 1 ? '익명' : postSchedule.userName}
+                    	
                     </span>
+                </div>
+                <div>
+                	👤 ${postSchedule.isAnonymous == 1 ? '익명' : postSchedule.userName}
                 </div>
             </figure>
         </c:forEach>

@@ -116,6 +116,28 @@ aside.sidebar #deleteBtn:hover {
 	padding: 20px;
 }
 
+.like-btn {
+    background: transparent !important; 
+    border: none !important;
+    padding: 0 !important; /* 위쪽 코드의 8px 14px를 무시해야 함 */
+    width: auto !important;
+    height: auto !important;
+    cursor: pointer;
+}
+
+.like-btn h1 {
+    margin: 0 !important;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+.like-btn:hover {
+    transform: scale(1.15);
+}
+
+.like-btn:active {
+	transform: scale(0.9);
+}
+
 .content-container {
 	flex-grow: 1;
 	display: flex;
