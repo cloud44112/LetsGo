@@ -294,6 +294,23 @@ public class PostScheduleDAO {
 
 			return flag;
 		}
+		
+		public String getUserId(String postId) {
+			String str = ""; 
+			try {
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_USER_ID);
+				stmt.setString(1, postId);
+				ResultSet rs = stmt.executeQuery();
+				if (rs.next()) {
+					str = rs.getString(1);
+				}
+				rs.close();
+				stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return str;
+		}
 
 	}
 

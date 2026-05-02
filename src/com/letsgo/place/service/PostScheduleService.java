@@ -89,6 +89,10 @@ public class PostScheduleService {
 		return dao.plusView(postId);
 	}
 	
+	public String getUserId(String postId) {
+		return dao.getUserId(postId);
+	}
+	
 	
 	
 	
