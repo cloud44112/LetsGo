@@ -25,7 +25,7 @@ public class MyScheduleTodoListUIAction implements Action {
 
 		String myScheduleId = (String) session.getAttribute("currentScheduleId");
 		MyScheduleService service = new MyScheduleService();
-		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(userId, myScheduleId);
+		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(myScheduleId);
 		String todoDetail = service.getTodoDetail(myScheduleId);
 		String scheduleTitle = service.getScheduleTitle(myScheduleId);
 

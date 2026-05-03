@@ -334,13 +334,12 @@ public class MyScheduleDAO {
 		return list;
 	}
 
-	public List<RouteScheduleVO> getScheduleRoute(String userId, String scheduleId) {
+	public List<RouteScheduleVO> getScheduleRoute(String scheduleId) {
 		List<RouteScheduleVO> list = null;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.GET_SCHEDULE_ROUTE);
 
-			stmt.setString(1, userId);
-			stmt.setString(2, scheduleId);
+			stmt.setString(1, scheduleId);
 			ResultSet rs = stmt.executeQuery();
 			list = new ArrayList<RouteScheduleVO>();
 			while (rs.next()) {

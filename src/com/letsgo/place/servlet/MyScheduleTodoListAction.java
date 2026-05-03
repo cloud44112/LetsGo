@@ -26,7 +26,7 @@ public class MyScheduleTodoListAction implements Action {
 		String myScheduleId = (String) session.getAttribute("currentScheduleId");
 		String todoDetail = request.getParameter("todoDetail");
 		MyScheduleService service = new MyScheduleService();
-		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(userId, myScheduleId);
+		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(myScheduleId);
 
 		boolean flag = service.setTodoDetail(myScheduleId, todoDetail);
 

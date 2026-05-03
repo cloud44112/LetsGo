@@ -50,7 +50,7 @@ public class MyScheduleVO {
 		return firstImage;
 	}
 
-	public void setMyScheduleId(String myScheduleId) {
+	private void setMyScheduleId(String myScheduleId) {
 		this.myScheduleId = myScheduleId;
 	}
 
@@ -58,7 +58,7 @@ public class MyScheduleVO {
 		this.myScheduleTitle = myScheduleTitle;
 	}
 
-	public void setStartAt(String startAt) {
+	private void setStartAt(String startAt) {
 		this.startAt = startAt;
 	}
 

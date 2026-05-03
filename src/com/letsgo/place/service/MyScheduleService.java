@@ -162,8 +162,8 @@ public class MyScheduleService {
 		return dao.getTodoDetail(scheduleId);
 	}
 
-	public List<RouteScheduleVO> getScheduleRoute(String userId, String scheduleId) {
-		return dao.getScheduleRoute(userId, scheduleId);
+	public List<RouteScheduleVO> getScheduleRoute(String scheduleId) {
+		return dao.getScheduleRoute(scheduleId);
 	}
 
 	public List<MapScheduleVO> getMapSchedule(String scheduleId) {
@@ -379,7 +379,7 @@ public class MyScheduleService {
 				conn.rollback();
 				return null;
 			}
-			List<RouteScheduleVO> route = dao.getScheduleRoute(userId, scheduleId);
+			List<RouteScheduleVO> route = dao.getScheduleRoute(scheduleId);
 			Set<String> existing = new HashSet<>();
 			int maxOrder = 0;
 			if (route != null) {
