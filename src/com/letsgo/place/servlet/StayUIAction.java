@@ -15,7 +15,17 @@ public class StayUIAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
-		List<PlaceVO> stayPlaceList = new PlaceService().getPlaceOrderByLike("STAY");
+		String sortOrder = request.getParameter("sortOrder");
+	    PlaceService placeService = new PlaceService();
+		
+		List<PlaceVO> stayPlaceList;
+		
+		if ("popular".equals(sortOrder)) {
+	        stayPlaceList = placeService.getPlaceOrderByLike("STAY");
+	    } else {
+	        stayPlaceList = placeService.getPlaceOrderByTitle("STAY");
+	    }
+		
         request.setAttribute("stayPlaceList", stayPlaceList);
         request.setAttribute("totalCount", stayPlaceList.size());
         

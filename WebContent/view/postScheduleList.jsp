@@ -44,7 +44,7 @@
                     ${postSchedule.title}
                 </div>
 
-                <a href="controller?cmd=postScheduleRouteManageUI&postId=${postSchedule.postId}" class="box-placeholder">
+                <a href="controller?cmd=postScheduleDetail&postId=${postSchedule.postId}" class="box-placeholder">
   					  <img src="${postSchedule.firstImage}" alt="일정 이미지" class="box-placeholder"></a>
                 
                 <figcaption class="figure-caption">${postSchedule.placeTitle}</figcaption>

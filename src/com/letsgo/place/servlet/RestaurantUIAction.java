@@ -15,7 +15,17 @@ public class RestaurantUIAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
-        List<PlaceVO> restaurantPlaceList = new PlaceService().getPlaceOrderByLike("RESTAURANT");
+		String sortOrder = request.getParameter("sortOrder");
+		PlaceService placeService = new PlaceService();
+		
+        List<PlaceVO> restaurantPlaceList;
+        
+        if ("popular".equals(sortOrder)) {
+            restaurantPlaceList = placeService.getPlaceOrderByLike("RESTAURANT");
+        } else {
+            restaurantPlaceList = placeService.getPlaceOrderByTitle("RESTAURANT"); 
+        }
+
         request.setAttribute("restaurantPlaceList", restaurantPlaceList);
         request.setAttribute("totalCount", restaurantPlaceList.size());
         

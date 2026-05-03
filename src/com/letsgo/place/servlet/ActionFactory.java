@@ -126,7 +126,7 @@ public class ActionFactory {
 		case "postScheduleLike":
 			tmp = new PostScheduleLikeAction();
 			break;
-		case "postScheduleView":
+		case "postScheduleDetail":
 			tmp = new PostScheduleDetailAction();
 			break;
 		default:
