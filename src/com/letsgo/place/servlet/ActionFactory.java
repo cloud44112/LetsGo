@@ -19,6 +19,9 @@ public class ActionFactory {
 		case "updateScheduleTitle":
 			tmp = new UpdateScheduleTitleAction();
 			break;
+		case "updateStartAt":
+			tmp = new UpdateStartAtAction();
+			break;
 		case "deleteVisitItem":
 			tmp = new DeleteVisitItemAction();
 			break;
