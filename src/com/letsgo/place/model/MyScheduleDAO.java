@@ -268,18 +268,53 @@ public class MyScheduleDAO {
 		return str;
 	}
 
+	public String getStartAt(String scheduleId) {
+		String str = null;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.GET_START_AT);
+			stmt.setString(1, scheduleId);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next())
+				str = rs.getString(1);
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return str;
+	}
+
+	public boolean setStartAt(String scheduleId, String startAt, String userId) {
+		boolean flag = false;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.SET_START_AT);
+			stmt.setString(1, startAt);
+			stmt.setString(2, scheduleId);
+			stmt.setString(3, userId);
+			flag = (stmt.executeUpdate() == 1);
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+
 	public String allocateNextMyScheduleId() {
 		try {
-			PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.NEXT_MY_SCHEDULE_ID);
-			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				String id = rs.getString(1);
+			for (int i = 0; i < 100; i++) {
+				PreparedStatement stmt = conn.prepareStatement(MyScheduleQuery.NEXT_MY_SCHEDULE_ID);
+				ResultSet rs = stmt.executeQuery();
+				String id = rs.next() ? rs.getString(1) : null;
 				rs.close();
 				stmt.close();
-				return id;
+				if (id == null) break;
+				PreparedStatement check = conn.prepareStatement(MyScheduleQuery.CHECK_MY_SCHEDULE_ID_EXISTS);
+				check.setString(1, id);
+				ResultSet cr = check.executeQuery();
+				boolean exists = cr.next();
+				cr.close();
+				check.close();
+				if (!exists) return id;
 			}
-			rs.close();
-			stmt.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

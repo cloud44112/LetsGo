@@ -73,7 +73,7 @@ public class TestMyScheduleSevice {
 
 	@Test
 	public void getScheduleRouteTest() throws Exception {
-		assertEquals(new ArrayList<RouteScheduleVO>(), service.getScheduleRoute("user01", "SCH001"));
+		assertEquals(new ArrayList<RouteScheduleVO>(), service.getScheduleRoute("SCH001"));
 	}
 
 	@Test
