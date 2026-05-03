@@ -129,6 +129,9 @@ public class ActionFactory {
 		case "postScheduleDetail":
 			tmp = new PostScheduleDetailAction();
 			break;
+		case "postScheduleAddToMySchedule":
+			tmp = new PostScheduleAddToMyScheduleAction();
+			break;	
 		default:
 			tmp = new IndexUIAction();
 			break;
