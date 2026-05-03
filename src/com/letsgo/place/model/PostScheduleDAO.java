@@ -312,21 +312,6 @@ public class PostScheduleDAO {
 			}
 			return str;
 		}
-		public String getNextMyScheduleSequence(){
-			String str = ""; 
-			try {
-				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_NEXT_MY_SCHEDULE_SEQUENCE);
-				ResultSet rs = stmt.executeQuery();
-				if (rs.next()) {
-					str = rs.getString(1);
-				}
-				rs.close();
-				stmt.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return str;
-		}
 		
 		public String copyToMySchedule(String title, String budgetDetail, String todoDetail, String userId) throws SQLException {
 		    try (PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.COPY_TO_MY_SCHEDULE, new String[]{"MY_SCHEDULE_ID"})) {
