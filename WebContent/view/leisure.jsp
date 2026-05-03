@@ -23,86 +23,46 @@
 					<li><details>
 							<summary>육상레저스포츠</summary>
 							<ul>
-								<li><label><input type="radio" name="category" value="NO_DATA_INLINE" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_INLINE' ? 'checked' : ''}> 인라인</label></li>
-								<li><label><input type="radio" name="category" value="LS010200" 
-									onchange="this.form.submit()" ${param.category == 'LS010200' ? 'checked' : ''}> 자전거 (둘레길)</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_CART" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_CART' ? 'checked' : ''}> 카트</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_GOLF" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_GOLF' ? 'checked' : ''}> 골프</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_HORSE_RACE" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_HORSE_RACE' ? 'checked' : ''}> 경마</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_HORSE_RIDE" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_HORSE_RIDE' ? 'checked' : ''}> 승마</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_SKI" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_SKI' ? 'checked' : ''}> 스키/스노보드</label></li>
-								<li><label><input type="radio" name="category" value="LS010900" 
-									onchange="this.form.submit()" ${param.category == 'LS010900' ? 'checked' : ''}> 스케이트</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_SLED" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_SLED' ? 'checked' : ''}> 썰매장</label></li>
-								<li><label><input type="radio" name="category" value="LS011200" 
-									onchange="this.form.submit()" ${param.category == 'LS011200' ? 'checked' : ''}> 사격장</label></li>
-								<li><label><input type="radio" name="category" value="LS011900" 
-									onchange="this.form.submit()" ${param.category == 'LS011900' ? 'checked' : ''}> 산책/둘레길</label></li>
-								<li><label><input type="radio" name="category" value="VE100100" 
-									onchange="this.form.submit()" ${param.category == 'VE100100' ? 'checked' : ''}> 종합체육시설</label></li>
-								<li><label><input type="radio" name="category" value="VE100200" 
-									onchange="this.form.submit()" ${param.category == 'VE100200' ? 'checked' : ''}> 수련시설</label></li>
+								<li><label><input type="radio" name="category" value="LS010200" onchange="this.form.submit()" ${param.category == 'LS010200' ? 'checked' : ''}> 자전거 (둘레길)</label></li>
+								<li><label><input type="radio" name="category" value="LS010900" onchange="this.form.submit()" ${param.category == 'LS010900' ? 'checked' : ''}> 스케이트</label></li>
+								<li><label><input type="radio" name="category" value="LS011200" onchange="this.form.submit()" ${param.category == 'LS011200' ? 'checked' : ''}> 사격장</label></li>
+								<li><label><input type="radio" name="category" value="LS011900" onchange="this.form.submit()" ${param.category == 'LS011900' ? 'checked' : ''}> 산책/둘레길</label></li>
+								<li><label><input type="radio" name="category" value="VE100100" onchange="this.form.submit()" ${param.category == 'VE100100' ? 'checked' : ''}> 종합체육시설</label></li>
+								<li><label><input type="radio" name="category" value="VE100200" onchange="this.form.submit()" ${param.category == 'VE100200' ? 'checked' : ''}> 수련시설</label></li>
 							</ul>
 						</details></li>
 						
 					<li><details>
 							<summary>수상레저스포츠</summary>
 							<ul>
-								<li><label><input type="radio" name="category" value="LS020100" 
-									onchange="this.form.submit()" ${param.category == 'LS020100' ? 'checked' : ''}> 윈드서핑/수상스키</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_KAYAK" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_KAYAK' ? 'checked' : ''}> 카약/카누</label></li>
-								<li><label><input type="radio" name="category" value="LS020300" 
-									onchange="this.form.submit()" ${param.category == 'LS020300' ? 'checked' : ''}> 요트</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_SCUBA" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_SCUBA' ? 'checked' : ''}> 스노쿨링/스킨스쿠버다이빙</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_FISHING" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_FISHING' ? 'checked' : ''}> 낚시</label></li>
-								<li><label><input type="radio" name="category" value="LS020700" 
-									onchange="this.form.submit()" ${param.category == 'LS020700' ? 'checked' : ''}> 수영</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_JET_SKI" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_JET_SKI' ? 'checked' : ''}> 수상오토바이</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_WATER_BIKE" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_WATER_BIKE' ? 'checked' : ''}> 수상자전거</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_WATER_SLED" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_WATER_SLED' ? 'checked' : ''}> 워터슬레드</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_PARASAIL" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_PARASAIL' ? 'checked' : ''}> 패러세일</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_WATER_ETC" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_WATER_ETC' ? 'checked' : ''}> 기타수상레저스포츠</label></li>
+								<li><label><input type="radio" name="category" value="LS020100" onchange="this.form.submit()" ${param.category == 'LS020100' ? 'checked' : ''}> 윈드서핑/수상스키</label></li>
+								<li><label><input type="radio" name="category" value="LS020300" onchange="this.form.submit()" ${param.category == 'LS020300' ? 'checked' : ''}> 요트</label></li>
+								<li><label><input type="radio" name="category" value="LS020700" onchange="this.form.submit()" ${param.category == 'LS020700' ? 'checked' : ''}> 수영</label></li>
 							</ul>
 						</details></li>
 	
 					<li><details>
 							<summary>항공레저스포츠</summary>
 							<ul>
-								<li><label><input type="radio" name="category" value="NO_DATA_SKYDIVE" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_SKYDIVE' ? 'checked' : ''}> 스카이다이빙</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_ULTRALIGHT" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_ULTRALIGHT' ? 'checked' : ''}> 초경량비행</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_PARAGLIDE" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_PARAGLIDE' ? 'checked' : ''}> 헹글라이딩/패러글라이딩</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_BALLOON" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_BALLOON' ? 'checked' : ''}> 열기구</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_DRONE" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_DRONE' ? 'checked' : ''}> 무인비행장치(드론)</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_AIR_ETC" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_AIR_ETC' ? 'checked' : ''}> 기타항공레저스포츠</label></li>
+								<li><label><input type="radio" name="air-leisure">
+										스카이다이빙</label></li>
+								<li><label><input type="radio" name="air-leisure">
+										초경량비행</label></li>
+								<li><label><input type="radio" name="air-leisure">
+										헹글라이딩/패러글라이딩</label></li>
+								<li><label><input type="radio" name="air-leisure">
+										열기구</label></li>
+								<li><label><input type="radio" name="air-leisure">
+										무인비행장치(드론)</label></li>
+								<li><label><input type="radio" name="air-leisure">
+										기타항공레저스포츠</label></li>
 							</ul>
 						</details></li>
 	
 					<li><details>
 							<summary>복합레저스포츠</summary>
 							<ul>
-								<li><label><input type="radio" name="category" value="VE120200" 
-									onchange="this.form.submit()" ${param.category == 'VE120200' ? 'checked' : ''}> 복합레저스포츠 </label></li>
+								<li><label><input type="radio" name="category" value="VE120200" onchange="this.form.submit()" ${param.category == 'VE120200' ? 'checked' : ''}> 복합레저(카지노 등)</label></li>
 							</ul>
 						</details></li>
 				</ul>

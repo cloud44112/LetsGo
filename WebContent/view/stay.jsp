@@ -33,49 +33,49 @@
 					<li><details>
 							<summary>콘도</summary>
 							<ul>
-								<li><label><input type="radio" name="category" value="NO_DATA_CONDO" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_CONDO' ? 'checked' : ''}> 콘도</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_RESIDENCE" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_RESIDENCE' ? 'checked' : ''}> 레지던스</label></li>
+								<li><label><input type="radio" name="water-leisure">
+										콘도</label></li>
+								<li><label><input type="radio" name="water-leisure">
+										레지던스</label></li>
 							</ul>
 						</details></li>
 	
 					<li><details>
 							<summary>펜션/민박</summary>
 							<ul>
-								<li><label><input type="radio" name="category" value="NO_DATA_PENSION" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_PENSION' ? 'checked' : ''}> 펜션</label></li>
+								<li><label><input type="radio" name="air-leisure">
+										펜션</label></li>
 								<li><label><input type="radio" name="category" value="AC030200"
 						            onchange="this.form.submit()"
 						            ${param.category == 'AC030200' ? 'checked' : ''}> 한옥스테이</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_FARM" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_FARM' ? 'checked' : ''}> 농어촌</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_MINBAK" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_MINBAK' ? 'checked' : ''}> 민박</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_HOMESTAY" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_HOMESTAY' ? 'checked' : ''}> 홈스테이</label></li>
+								<li><label><input type="radio" name="air-leisure">
+										농어촌</label></li>
+								<li><label><input type="radio" name="air-leisure">
+										민박</label></li>
+								<li><label><input type="radio" name="air-leisure">
+										홈스테이</label></li>
 							</ul>
 						</details></li>
 	
 					<li><details>
 							<summary>모텔</summary>
 							<ul>
-								<li><label><input type="radio" name="category" value="NO_DATA_MOTEL" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_MOTEL' ? 'checked' : ''}> 모텔</label></li>
+								<li><label><input type="radio"
+										name="complex-leisure"> 모텔</label></li>
 							</ul>
 						</details></li>
 	
 					<li><details>
 							<summary>캠핑</summary>
 							<ul>
-								<li><label><input type="radio" name="category" value="NO_DATA_CAMP_GENERAL" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_CAMP_GENERAL' ? 'checked' : ''}> 일반야영장</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_CAMP_AUTO" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_CAMP_AUTO' ? 'checked' : ''}> 오토캠핑장</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_CAMP_CARAVAN" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_CAMP_CARAVAN' ? 'checked' : ''}> 카라반</label></li>
-								<li><label><input type="radio" name="category" value="NO_DATA_CAMP_GLAMPING" 
-									onchange="this.form.submit()" ${param.category == 'NO_DATA_CAMP_GLAMPING' ? 'checked' : ''}> 글램핑장</label></li>
+								<li><label><input type="radio"
+										name="complex-leisure"> 일반야영장</label></li>
+								<li><label><input type="radio"
+										name="complex-leisure"> 오토캠핑장</label></li>
+								<li><label><input type="radio"
+										name="complex-leisure"> 카라반</label></li>
+								<li><label><input type="radio"
+										name="complex-leisure"> 글램핑장</label></li>
 							</ul>
 						</details></li>
 				</ul>
