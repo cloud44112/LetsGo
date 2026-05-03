@@ -93,7 +93,30 @@ public class PostScheduleService {
 		return dao.getUserId(postId);
 	}
 	
-	
-	
-	
+	public boolean addToMySchedule(String postId, String userId) {
+		List<RouteScheduleVO> routes = dao.getScheduleRoute(postId);
+		String title = dao.getScheduleTitle(postId);
+		String budgetDetail = dao.getBudgetDetail(postId);
+		String todoDetail = dao.getTodoDetail(postId);
+	    
+		try {
+	        conn.setAutoCommit(false);
+	        String MyScheduleId = dao.copyToMySchedule(title, budgetDetail, todoDetail, userId);
+	        if (routes != null) {
+	            for (RouteScheduleVO route : routes) {
+	                dao.copyToVisitItem(MyScheduleId, route);
+	            }
+	        }
+
+	        conn.commit();
+	        return true;
+
+	    } catch (Exception e) {
+	        try { if (conn != null) conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+	        e.printStackTrace();
+	        return false;
+	    } finally {
+	        try { if (conn != null) conn.setAutoCommit(true); } catch (SQLException e) { e.printStackTrace(); }
+	    }
+	}
 }

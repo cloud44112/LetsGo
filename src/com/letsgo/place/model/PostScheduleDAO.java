@@ -3,6 +3,7 @@ package com.letsgo.place.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,7 +95,7 @@ public class PostScheduleDAO {
 				ResultSet rs = stmt.executeQuery();
 				tmp = new ArrayList<>();
 				while (rs.next()) {
-					tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), "", rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12)));
+					tmp.add(new PostScheduleVO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), "나", rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12)));
 				}
 				rs.close();
 				stmt.close();
@@ -311,6 +312,51 @@ public class PostScheduleDAO {
 			}
 			return str;
 		}
+		public String getNextMyScheduleSequence(){
+			String str = ""; 
+			try {
+				PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.GET_NEXT_MY_SCHEDULE_SEQUENCE);
+				ResultSet rs = stmt.executeQuery();
+				if (rs.next()) {
+					str = rs.getString(1);
+				}
+				rs.close();
+				stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return str;
+		}
+		
+		public String copyToMySchedule(String title, String budgetDetail, String todoDetail, String userId) throws SQLException {
+		    try (PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.COPY_TO_MY_SCHEDULE, new String[]{"MY_SCHEDULE_ID"})) {
+		        stmt.setString(1, title);
+		        stmt.setString(2, budgetDetail);
+		        stmt.setString(3, todoDetail);
+		        stmt.setString(4, userId);
 
+		        if (stmt.executeUpdate() == 1) {
+		            try (ResultSet rs = stmt.getGeneratedKeys()) {
+		                if (rs.next()) return rs.getString(1);
+		            }
+		        }
+		        throw new SQLException("일정 생성 실패");
+		    }
+		}
+		
+		public void copyToVisitItem(String myScheduleId, RouteScheduleVO route) throws SQLException {
+		    int idx = 1;
+		    try (PreparedStatement stmt = conn.prepareStatement(PostScheduleQuery.COPY_TO_VISIT_ITEM)) {
+		        stmt.setString(idx++, route.getVisitOrder());
+		        stmt.setDouble(idx++, route.getDistanceToNext());
+		        stmt.setString(idx++, route.getPlaceId());
+		        stmt.setString(idx++, myScheduleId);
+		        stmt.setString(idx++, "MY_SCH"); 
+		        
+		        if (stmt.executeUpdate() != 1) {
+		            throw new SQLException("방문지항목 생성 실패");
+		        }
+		    }
+		}
 	}
 
