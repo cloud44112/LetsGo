@@ -17,17 +17,19 @@ public class MyScheduleDAO {
 
 	public List<MyScheduleVO> getMyScheduleList(String userId, String keyword, String sortType, boolean sharedFilter) {
 		List<MyScheduleVO> tmp = null;
+		boolean hasKeyword = keyword != null && !keyword.trim().isEmpty();
+		String searchKey = hasKeyword ? "%" + keyword + "%" : null;
 
 		StringBuilder sql = new StringBuilder();
+
+		// 내가 소유한 일정
 		sql.append(MyScheduleQuery.GET_MY_SCHEDULE_LIST_SQL);
+		if (sharedFilter) sql.append(MyScheduleQuery.SHARED_FILTER);
+		if (hasKeyword) sql.append(MyScheduleQuery.KEYWORD_FILTER);
 
-		if (sharedFilter) {
-			sql.append(MyScheduleQuery.SHARED_FILTER);
-		}
-
-		if (keyword != null && !keyword.trim().isEmpty()) {
-			sql.append(MyScheduleQuery.KEYWORD_FILTER);
-		}
+		// 나를 동반자로 추가한 일정 (UNION으로 중복 제거)
+		sql.append(MyScheduleQuery.GET_SHARED_WITH_ME_SQL);
+		if (hasKeyword) sql.append(MyScheduleQuery.KEYWORD_FILTER);
 
 		if ("title".equals(sortType)) {
 			sql.append(MyScheduleQuery.ORDER_BY_TITLE);
@@ -39,9 +41,12 @@ public class MyScheduleDAO {
 			PreparedStatement stmt = conn.prepareStatement(sql.toString());
 			int idx = 1;
 			stmt.setString(idx++, userId);
-
-			if (keyword != null && !keyword.trim().isEmpty()) {
-				String searchKey = "%" + keyword + "%";
+			if (hasKeyword) {
+				stmt.setString(idx++, searchKey);
+				stmt.setString(idx++, searchKey);
+			}
+			stmt.setString(idx++, userId);
+			if (hasKeyword) {
 				stmt.setString(idx++, searchKey);
 				stmt.setString(idx++, searchKey);
 			}
