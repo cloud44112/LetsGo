@@ -15,6 +15,9 @@
     	<c:if test="${match}">
        		<button type="button" id="deleteBtn">삭제하기</button>
        </c:if>
+       <c:if test="${!match}">
+       		<button type="button" id="deleteBtn">내 일정 등록하기</button>
+       </c:if>
     </div>
 </aside> 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
