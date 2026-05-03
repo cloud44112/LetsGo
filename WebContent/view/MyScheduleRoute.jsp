@@ -84,6 +84,6 @@
     });
 
     document.getElementById('addVisitBtn').addEventListener('click', function() {
-        location.href = '/LetsGo/controller?cmd=indexUI';
+        location.href = '/LetsGo/controller?cmd=leisureUI&fromSchedule=true';
     });
 </script>

@@ -23,6 +23,9 @@ public class MyScheduleRouteManageUIAction implements Action {
 		if (userId == null) {
 			return "login.jsp";
 		}
+		session.removeAttribute("lockedCartItems");
+		session.removeAttribute("fromScheduleMode");
+
 		String myScheduleId = request.getParameter("myScheduleId");
 		if (myScheduleId != null) {
 			session.setAttribute("currentScheduleId", myScheduleId);
