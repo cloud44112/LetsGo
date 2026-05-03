@@ -11,6 +11,7 @@
        <button><a href="controller?cmd=postScheduleTodoListUI">To-Do 리스트</a></button>
     </ul>
     <div>
+    <button onclick="location.href='controller?cmd=postScheduleListUI'">목록으로</button>
     	<c:if test="${match}">
        		<button type="button" id="deleteBtn">삭제하기</button>
        </c:if>

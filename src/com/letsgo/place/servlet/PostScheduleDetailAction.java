@@ -21,8 +21,7 @@ public class PostScheduleDetailAction implements Action {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("loginOK");
 		String postId = request.getParameter("postId");
-		boolean flag = false;
-		int viewCount = 0;
+
 		PostScheduleService service = new PostScheduleService();
 		
 		if (userId == null) {
@@ -34,16 +33,14 @@ public class PostScheduleDetailAction implements Action {
 		} else {
 			postId = (String) session.getAttribute("currentPostScheduleId");
 		}
-		
-		flag = service.plusView(postId);
-		if(flag) {
-			viewCount = service.getViewCount(postId);
-		}
+		service.plusView(postId);
+
 		
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(postId);
 		List<MapScheduleVO> mapList = service.getMapSchedule(postId);
 		String scheduleTitle = service.getScheduleTitle(postId);
 		int likeCount = service.getLikeCount(postId); 
+		String userIdCheck = service.getUserId(postId);
 		
 		
 		request.setAttribute("postId", postId);
@@ -51,8 +48,7 @@ public class PostScheduleDetailAction implements Action {
 		request.setAttribute("ScheduleRoute", list);
 		request.setAttribute("MapSchedule", mapList);
 		request.setAttribute("scheduleTitle", scheduleTitle);
-		request.setAttribute("count", viewCount);
-		request.setAttribute("flag", flag);
+		request.setAttribute("match", userId != null && userId.equals(userIdCheck));
 		
 		return "postScheduleRouteManage.jsp";
 	}
