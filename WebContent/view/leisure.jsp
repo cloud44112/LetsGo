@@ -219,6 +219,18 @@
 
 </script>
 
+<div id="locked-cart-data" style="display: none;">
+    <c:if test="${sessionScope.fromScheduleMode}">
+        <input type="hidden" id="from-schedule-mode" value="true" />
+        <input type="hidden" id="current-schedule-id"
+               value="<c:out value='${sessionScope.currentScheduleId}' />" />
+    </c:if>
+    <c:forEach var="item" items="${sessionScope.lockedCartItems}">
+        <div class="locked-cart-item"
+             data-place-id="<c:out value='${item.placeId}' />"
+             data-place-title="<c:out value='${item.title}' />"></div>
+    </c:forEach>
+</div>
 <div id="session-cart-data" style="display: none;">
 	<c:forEach var="cartPlace" items="${sessionScope.placeCartList}">
 		<div class="session-cart-item"

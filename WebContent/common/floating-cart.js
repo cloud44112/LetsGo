@@ -28,6 +28,9 @@ function startFloatingCart(contextPath) {
 		return;
 	}
 
+	// 잠금 항목 먼저 로드 (isAlreadyInCart 중복 체크를 위해 일반 항목보다 먼저 실행)
+	loadLockedItemsFromDOM(cartBox, countText);
+
 	openButton.addEventListener('click', function () {
 		openCartModal(modal);
 	});
@@ -92,9 +95,11 @@ function startFloatingCart(contextPath) {
 	});
 
 	addToScheduleButton.addEventListener('click', function () {
+		var isFromScheduleMode = document.getElementById('from-schedule-mode') !== null;
 		var items = cartBox.querySelectorAll('.place-item');
 		var ids = [];
 		for (var i = 0; i < items.length; i++) {
+			if (items[i].dataset.locked === 'true') { continue; }
 			var pid = items[i].dataset.placeId;
 			if (pid != null && pid !== '') {
 				ids.push(pid);
@@ -102,45 +107,54 @@ function startFloatingCart(contextPath) {
 		}
 
 		if (ids.length == 0) {
-			alert('카트에 담긴 장소가 없습니다.');
+			alert('새로 담은 장소가 없습니다.');
 			return;
 		}
 
 		var body = 'placeIds=' + encodeURIComponent(ids.join(','));
+		if (isFromScheduleMode) {
+			var scheduleIdEl = document.getElementById('current-schedule-id');
+			if (!scheduleIdEl || !scheduleIdEl.value) {
+				alert('일정 정보를 찾을 수 없습니다.');
+				return;
+			}
+			body += '&myScheduleId=' + encodeURIComponent(scheduleIdEl.value);
+		}
 
 		fetch(contextPath + '/addCartToScheduleAjax', {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 			body: body
 		})
-			.then(function (response) {
-				return response.json();
-			})
-			.then(function (data) {
-				if (data == null) {
-					return;
+		.then(function (response) { return response.json(); })
+		.then(function (data) {
+			if (data == null) { return; }
+			if (data.ok != true) {
+				alert(data.message != null ? data.message : '추가에 실패했습니다.');
+				return;
+			}
+			var added = data.added != null ? data.added : 0;
+			var idSet = {};
+			if (data.addedPlaceIds != null) {
+				for (var k = 0; k < data.addedPlaceIds.length; k++) {
+					idSet[data.addedPlaceIds[k]] = true;
 				}
-				if (data.ok != true) {
-					alert(data.message != null ? data.message : '추가에 실패했습니다.');
-					return;
+			}
+			var rows = cartBox.querySelectorAll('.place-item');
+			for (var m = 0; m < rows.length; m++) {
+				var row = rows[m];
+				if (row.dataset.locked !== 'true' && idSet[row.dataset.placeId]) {
+					row.remove();
 				}
-				var added = data.added != null ? data.added : 0;
-				var idSet = {};
-				if (data.addedPlaceIds != null) {
-					for (var k = 0; k < data.addedPlaceIds.length; k++) {
-						idSet[data.addedPlaceIds[k]] = true;
-					}
+			}
+
+			if (isFromScheduleMode) {
+				if (added == 0) {
+					alert('일정에 넣은 장소가 없습니다.');
+				} else {
+					location.href = contextPath + '/controller?cmd=myScheduleRouteManageUI';
 				}
-				var items = cartBox.querySelectorAll('.place-item');
-				for (var m = 0; m < items.length; m++) {
-					var row = items[m];
-					var pid = row.dataset.placeId;
-					if (pid != null && idSet[pid]) {
-						row.remove();
-					}
-				}
+			} else {
 				refreshCartCount(cartBox, countText);
 				selectAllButton.textContent = '전체 선택';
 				if (added == 0) {
@@ -148,11 +162,16 @@ function startFloatingCart(contextPath) {
 				} else {
 					alert('카트에 담긴 ' + added + '곳으로 새 일정을 만들었습니다. 내 일정에서 확인할 수 있습니다.');
 				}
-			})
-			
+			}
+		});
 	});
 
 	loadCartFromSession(cartBox, countText);
+
+	var isFromScheduleMode = document.getElementById('from-schedule-mode') !== null;
+	if (isFromScheduleMode) {
+		addToScheduleButton.textContent = '일정에 추가';
+	}
 }
 
 function openCartModal(modal) {
@@ -226,7 +245,7 @@ function hasLeisurePlace(cartBox) {
 
 	for (var i = 0; i < cartItems.length; i++) {
 		var cartItem = cartItems[i];
-
+		if (cartItem.dataset.locked === 'true') { continue; }
 		if (cartItem.dataset.placeType == 'LEISURE') {
 			return true;
 		}
@@ -240,13 +259,34 @@ function hasStayPlace(cartBox) {
 
 	for (var i = 0; i < cartItems.length; i++) {
 		var cartItem = cartItems[i];
-
+		if (cartItem.dataset.locked === 'true') { continue; }
 		if (cartItem.dataset.placeType == 'STAY') {
 			return true;
 		}
 	}
 
 	return false;
+}
+
+function addLockedCartRow(cartBox, placeId, placeTitle) {
+	var row = document.createElement('div');
+	row.className = 'place-item locked-item';
+	row.dataset.placeId = placeId;
+	row.dataset.locked = 'true';
+	row.innerHTML = '🔒 ' + placeTitle;
+	cartBox.appendChild(row);
+}
+
+function loadLockedItemsFromDOM(cartBox, countText) {
+	var items = document.querySelectorAll('.locked-cart-item');
+	for (var i = 0; i < items.length; i++) {
+		var placeId = items[i].dataset.placeId;
+		var placeTitle = items[i].dataset.placeTitle || '(장소)';
+		if (placeId) {
+			addLockedCartRow(cartBox, placeId, placeTitle);
+		}
+	}
+	refreshCartCount(cartBox, countText);
 }
 
 function toggleAllCheckboxes(cartBox, selectAllButton) {
