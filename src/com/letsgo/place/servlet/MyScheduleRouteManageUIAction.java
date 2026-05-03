@@ -23,9 +23,6 @@ public class MyScheduleRouteManageUIAction implements Action {
 		if (userId == null) {
 			return "login.jsp";
 		}
-		session.removeAttribute("lockedCartItems");
-		session.removeAttribute("fromScheduleMode");
-
 		String myScheduleId = request.getParameter("myScheduleId");
 		if (myScheduleId != null) {
 			session.setAttribute("currentScheduleId", myScheduleId);
@@ -36,12 +33,10 @@ public class MyScheduleRouteManageUIAction implements Action {
 		ArrayList<RouteScheduleVO> list = (ArrayList<RouteScheduleVO>) service.getScheduleRoute(myScheduleId);
 		String scheduleTitle = service.getScheduleTitle(myScheduleId);
 		List<MapScheduleVO> mapList = service.getMapSchedule(myScheduleId);
-		String startAt = service.getStartAt(myScheduleId);
 
 		request.setAttribute("ScheduleRoute", list);
 		request.setAttribute("scheduleTitle", scheduleTitle);
 		request.setAttribute("MapSchedule", mapList);
-		request.setAttribute("startAt", startAt);
 		
 		
 		return "myScheduleRouteManage.jsp";

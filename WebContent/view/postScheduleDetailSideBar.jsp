@@ -33,15 +33,6 @@
                 alert('삭제에 실패했습니다.');
             }
         }
-        
-        const addResult = mainElement.dataset.addResult; 
-        if (addResult === 'true') {
-            alert('내 일정에 성공적으로 추가되었습니다!');
-            location.href = 'mylist.jsp'; // 이동할 페이지 확인
-        } else if (addResult === 'false') {
-            alert('추가에 실패했습니다. 다시 시도해주세요.');
-        }
-        
 
         const deleteBtn = document.getElementById('deleteBtn');
         if (deleteBtn) {
@@ -56,7 +47,7 @@
     if (addMyScheduleBtn) {
     	addMyScheduleBtn.addEventListener('click', function () {
             if (confirm('일정에 추가하시겠습니까?')) {
-                location.href = '/LetsGo/controller?cmd=postScheduleAddToMySchedule&postId=${postId}';
+                location.href = '/LetsGo/controller?cmd=deletePostSchedule&postId=${postId}';
             }
         });
     }

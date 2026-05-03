@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.letsgo.place.model.MyScheduleVO;
-import com.letsgo.place.model.PostScheduleVO;
 import com.letsgo.place.service.MyScheduleService;
 
 public class MyScheduleListUIAction implements Action {
@@ -36,19 +35,10 @@ public class MyScheduleListUIAction implements Action {
 
 		Map<String, MyScheduleVO> uniqueMap = new LinkedHashMap<>();
 		for (MyScheduleVO vo : list) {
+
 			if (!uniqueMap.containsKey(vo.getMyScheduleId())) {
 				uniqueMap.put(vo.getMyScheduleId(), vo);
-			} else {
-				MyScheduleVO existingVO = uniqueMap.get(vo.getMyScheduleId());
-				if (existingVO.getFirstImage() == null) {
-					existingVO.setFirstImage(vo.getFirstImage());
-				}
-		        String combinedPlaces = existingVO.getPlaceTitle() + " / " + vo.getPlaceTitle();
-		        existingVO.setPlaceTitle(combinedPlaces);
 			}
-//			if (!uniqueMap.containsKey(vo.getMyScheduleId())) {
-//				uniqueMap.put(vo.getMyScheduleId(), vo);
-//			}
 		}
 		request.setAttribute("myScheduleList", new ArrayList<>(uniqueMap.values()));
 

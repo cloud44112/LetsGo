@@ -1,9 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <link rel="stylesheet" type="text/css" href="/LetsGo/view/css/mySchedule.css">
-
+    
+    
+    
+    
 <aside class="sidebar">
      <ul>
        <button><a href="controller?cmd=myScheduleRouteManageUI">동선관리</a></button>
@@ -11,15 +13,6 @@
        <button><a href="controller?cmd=myScheduleTodoListUI">To-Do 리스트</a></button>
     </ul>
     <div>
-        <button type="button" id="dateEditBtn">날짜 수정</button>
-        <div id="dateEditForm" style="display:none; margin-top:6px;">
-            <form action="/LetsGo/controller" method="get">
-                <input type="hidden" name="cmd" value="updateStartAt">
-                <input type="date" name="startAt" id="startAtInput" value="${startAt}" required>
-                <button type="submit">확인</button>
-                <button type="button" id="dateCancelBtn">취소</button>
-            </form>
-        </div>
         <button><a href="controller?cmd=myScheduleShareUI">공유하기</a></button>
         <button type="button">저장하기</button>
         <button type="button" id="deleteBtn">삭제하기</button>
@@ -46,21 +39,6 @@
                 if (confirm('정말 삭제하시겠습니까?')) {
                     location.href = '/LetsGo/controller?cmd=deleteSchedule';
                 }
-            });
-        }
-
-        const dateEditBtn = document.getElementById('dateEditBtn');
-        const dateEditForm = document.getElementById('dateEditForm');
-        const dateCancelBtn = document.getElementById('dateCancelBtn');
-
-        if (dateEditBtn) {
-            dateEditBtn.addEventListener('click', function () {
-                dateEditForm.style.display = dateEditForm.style.display === 'none' ? 'block' : 'none';
-            });
-        }
-        if (dateCancelBtn) {
-            dateCancelBtn.addEventListener('click', function () {
-                dateEditForm.style.display = 'none';
             });
         }
     });

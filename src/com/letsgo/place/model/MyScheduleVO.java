@@ -58,7 +58,7 @@ public class MyScheduleVO {
 		this.myScheduleTitle = myScheduleTitle;
 	}
 
-	public void setStartAt(String startAt) {
+	private void setStartAt(String startAt) {
 		this.startAt = startAt;
 	}
 

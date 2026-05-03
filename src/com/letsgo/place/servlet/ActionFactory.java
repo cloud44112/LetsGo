@@ -19,9 +19,6 @@ public class ActionFactory {
 		case "updateScheduleTitle":
 			tmp = new UpdateScheduleTitleAction();
 			break;
-		case "updateStartAt":
-			tmp = new UpdateStartAtAction();
-			break;
 		case "deleteVisitItem":
 			tmp = new DeleteVisitItemAction();
 			break;
@@ -132,9 +129,6 @@ public class ActionFactory {
 		case "postScheduleDetail":
 			tmp = new PostScheduleDetailAction();
 			break;
-		case "postScheduleAddToMySchedule":
-			tmp = new PostScheduleAddToMyScheduleAction();
-			break;	
 		default:
 			tmp = new IndexUIAction();
 			break;

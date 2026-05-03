@@ -64,38 +64,8 @@ public class TestPostScheduleService {
 	}
 	
 	@Test
-	public void getScheduleTitle() {
-		assertNotNull(service.getScheduleTitle("P023"));
-	}
-	
-	@Test
-	public void getLikeCount() {
-		assertNotNull(service.getLikeCount("P001"));
-	}
-	
-	@Test
-	public void getViewCount() {
-		assertNotNull(service.getViewCount("P001"));
-	}
-	
-	@Test
 	public void plusLike() {
 		assertTrue(service.plusLike("P023"));
-	}
-	
-	@Test
-	public void plusView() {
-		assertTrue(service.plusView("P003"));
-	}
-	
-	@Test
-	public void getUserId() {
-		assertNotNull(service.getUserId("P001"));
-	}
-	
-	@Test
-	public void addToMySchedule() {
-		assertTrue(service.addToMySchedule("P001", "user02"));
 	}
 
 }

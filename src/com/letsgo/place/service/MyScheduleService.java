@@ -137,31 +137,6 @@ public class MyScheduleService {
 		return result;
 	}
 
-	public String getStartAt(String scheduleId) {
-		return dao.getStartAt(scheduleId);
-	}
-
-	public boolean setStartAt(String scheduleId, String startAt, String userId) {
-		boolean result = false;
-		try {
-			conn.setAutoCommit(false);
-			result = dao.setStartAt(scheduleId, startAt, userId);
-			if (result)
-				conn.commit();
-			else
-				conn.rollback();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.setAutoCommit(true);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return result;
-	}
-
 	public boolean setTodoDetail(String scheduleId, String todoDetail) {
 		boolean result = false;
 		try {

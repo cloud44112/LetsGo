@@ -80,7 +80,7 @@ public class TestMyScheduleDAO {
 
 	@Test
 	public void getScheduleRouteTest() throws Exception {
-		assertEquals(new ArrayList<RouteScheduleVO>(), dao.getScheduleRoute("SCH001"));
+		assertEquals(new ArrayList<RouteScheduleVO>(), dao.getScheduleRoute("user01", "SCH001"));
 	}
 
 	@Test

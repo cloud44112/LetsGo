@@ -105,12 +105,3 @@
     font-size: 32px;
     line-height: 1;
 }
-
-.place-item.locked-item {
-    background-color: #f0f0f0;
-    color: #888;
-    cursor: default;
-    font-style: italic;
-    border-bottom: 1px solid #ddd;
-    padding: 4px 6px;
-}

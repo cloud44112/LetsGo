@@ -6,8 +6,6 @@ public class RouteScheduleVO {
 	private String visitOrder;
 	private String placeId;
 	private String title;
-	private double distanceToNext;
-	private String scheduleType;
 
 	public RouteScheduleVO(String visitId, String visitOrder, String placeId, String title) {
 
@@ -16,17 +14,7 @@ public class RouteScheduleVO {
 		this.placeId = placeId;
 		this.title = title;
 	}
-
-	public RouteScheduleVO(String visitId, String visitOrder, String placeId, String title, double distanceToNext, String scheduleType) {
-
-		setVisitId(visitId);
-		setVisitOrder(visitOrder);
-		setPlaceId(placeId);
-		setTitle(title);
-		setDistanceToNext(distanceToNext);
-		setScheduleType(scheduleType);
-	}
-
+	
 
 	public String getVisitId() {
 		return visitId;
@@ -60,22 +48,6 @@ public class RouteScheduleVO {
 		this.title = title;
 	}
 
-	public double getDistanceToNext() {
-		return distanceToNext;
-	}
-
-	public void setDistanceToNext(double distanceToNext) {
-		this.distanceToNext = distanceToNext;
-	}
-
-
-	public String getScheduleType() {
-		return scheduleType;
-	}
-
-	public void setScheduleType(String scheduleType) {
-		this.scheduleType = scheduleType;
-	}
 
 	@Override
 	public String toString() {
