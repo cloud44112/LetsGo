@@ -48,7 +48,7 @@
                     <button type="submit">검색하기</button>
 					<div class="sort-area">
 						<select name="sortOrder" onchange="this.form.submit()">
-							<option value="distance">거리순</option>
+							<option value="name"    ${param.sortOrder != 'popular' ? 'selected' : ''}>이름순</option>
 							<option value="popular"  ${param.sortOrder == 'popular' ? 'selected' : ''}>인기순</option>
 						</select>
 					</div>
