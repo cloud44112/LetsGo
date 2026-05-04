@@ -284,7 +284,7 @@ public class MyScheduleService {
 	}
 
 	public String shareToPost(String myScheduleId, String userId, int isAnonymous) {
-		String result = "";
+		String result = null;
 		try {
 			conn.setAutoCommit(false);
 			result = dao.shareToPost(myScheduleId, userId, isAnonymous);
