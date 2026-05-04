@@ -19,7 +19,7 @@
                     <div class="map-area">
                         <c:choose>
                             <c:when test="${not empty MapSchedule}">
-                                <c:set var="staticMapUrl" value="https://maps.apigw.ntruss.com/map-static/v2/raster-cors?w=800&h=500"/>
+                                <c:set var="staticMapUrl" value="https://maps.apigw.ntruss.com/map-static/v2/raster-cors?w=1200&h=800"/>
                                 <c:forEach var="route" items="${MapSchedule}">
                                     <c:if test="${not empty route.mapX and not empty route.mapY}">
                                         <c:set var="staticMapUrl" value="${staticMapUrl}&markers=type:n|size:mid|color:Blue|label:${route.visitOrder}|pos:${route.mapX}%20${route.mapY}"/>
