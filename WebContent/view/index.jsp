@@ -44,7 +44,7 @@
 				<option value="like" <c:if test="${so eq 'like'}">selected</c:if>>좋아요순</option>
 			</select>
 		</label>
-		<a href="" class="location-link">위치서비스</a>
+		
 	</div>
 
 	<div class="container" id="leisurePlaceContainer">

@@ -20,7 +20,7 @@ public class PlaceLikeSortingAction implements Action {
             sort = "distance";
         }
         
-        PlaceService placeService = new PlaceService();
+        PlaceService placeService = new PlaceService();//else if가 너무 많아서 리팩토링 생각해보기.
         
         if ("restaurantUI".equals(redirectCmd)) {
             if ("like".equals(sort)) {

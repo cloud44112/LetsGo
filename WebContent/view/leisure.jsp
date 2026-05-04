@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8" />
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/leisure.css?v=3">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/view/css/leisure.css">
 <link rel="stylesheet" type="text/css" href="/LetsGo/common/floating-cart.css">
 </head>
 <body>
@@ -120,7 +120,7 @@
 	
 					<div class="sort-area">
 						<select name="sortOrder" onchange="this.form.submit()">
-							<option value="distance">거리순</option>
+							<option value="distance">전체</option>
 							<option value="popular"  ${param.sortOrder == 'popular'  ? 'selected' : ''}>인기순</option>
 						</select>
 					</div>
