@@ -21,7 +21,6 @@
             </form>
         </div>
         <button><a href="controller?cmd=myScheduleShareUI">공유하기</a></button>
-        <button type="button">저장하기</button>
         <button type="button" id="deleteBtn">삭제하기</button>
     </div>
 </aside>
