@@ -24,9 +24,13 @@ public class ShareToPostAction implements Action {
 		String isAnonParam = request.getParameter("isAnonymous");
 		int isAnonymous = (isAnonParam != null && isAnonParam.equals("1")) ? 1 : 0;
 		String myScheduleId = (String) session.getAttribute("currentScheduleId");
-		
+		boolean result;
 		MyScheduleService service = new MyScheduleService();
-		request.setAttribute("result", service.shareToPost(myScheduleId, userId, isAnonymous));
+		String strResult = service.shareToPost(myScheduleId, userId, isAnonymous);
+
+		result = (strResult == null) ? false : true;
+				
+		request.setAttribute("result", result);
 		
 		
 		return "jsonResult.jsp";
