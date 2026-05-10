@@ -1,6 +1,293 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="postScheduleMapper">
+<mapper namespace="PostSchedule">
+
+    <!-- ================================================================ -->
+    <!-- ResultMaps                                                        -->
+    <!-- ================================================================ -->
+
+    <resultMap id="postScheduleResultMap" type="com.letsgo.place.model.PostScheduleVO">
+        <result property="postId"       column="POST_ID"/>
+        <result property="title"        column="POST_TITLE"/>
+        <result property="likeCount"    column="LIKE_COUNT"/>
+        <result property="viewCount"    column="VIEW_COUNT"/>
+        <result property="isAnonymous"  column="IS_ANONYMOUS"/>
+        <result property="userName"     column="NAME"/>
+        <result property="visitItemId"  column="VISIT_ITEM_ID"/>
+        <result property="visitOrder"   column="VISIT_ORDER"/>
+        <result property="scheduleType" column="SCHEDULE_TYPE"/>
+        <result property="placeTitle"   column="PLACE_TITLE"/>
+        <result property="addr1"        column="addr1"/>
+        <result property="firstImage"   column="FIRST_IMAGE"/>
+        <result property="placeType"    column="PLACE_TYPE"/>
+    </resultMap>
+
+    <resultMap id="routeScheduleResultMap" type="com.letsgo.place.model.RouteScheduleVO">
+        <result property="visitId"       column="VISIT_ITEM_ID"/>
+        <result property="visitOrder"    column="VISIT_ORDER"/>
+        <result property="placeId"       column="PLACE_ID"/>
+        <result property="title"         column="TITLE"/>
+    </resultMap>
+
+    <resultMap id="mapScheduleResultMap" type="com.letsgo.place.model.MapScheduleVO">
+        <result property="visitOrder"      column="VISIT_ORDER"/>
+        <result property="title"           column="TITLE"/>
+        <result property="mapX"            column="MAPX"/>
+        <result property="mapY"            column="MAPY"/>
+        <result property="distanceToNext"  column="DISTANCE_TO_NEXT"/>
+    </resultMap>
+
+    <!-- ================================================================ -->
+    <!-- 공통 SQL 조각                                                     -->
+    <!-- ================================================================ -->
+
+    <sql id="postScheduleColumns">
+        p.POST_ID,
+        p.TITLE    AS POST_TITLE,
+        p.LIKE_COUNT,
+        p.VIEW_COUNT,
+        p.IS_ANONYMOUS,
+        u.NAME,
+        v.VISIT_ITEM_ID,
+        v.VISIT_ORDER,
+        v.SCHEDULE_TYPE,
+        pl.TITLE   AS PLACE_TITLE,
+        pl.addr1,
+        pl.FIRST_IMAGE,
+        pl.PLACE_TYPE
+    </sql>
+
+    <sql id="postScheduleJoins">
+        FROM SCHEDULE_POST p
+        JOIN VISIT_ITEM v  ON p.POST_ID   = v.SCHEDULE_ID
+        JOIN PLACE      pl ON v.PLACE_ID  = pl.PLACE_ID
+        JOIN USERS      u  ON p.user_id   = u.user_id
+    </sql>
+
+    <!-- ================================================================ -->
+    <!-- 전체 게시물 조회 (정렬 4종)                                       -->
+    <!-- ================================================================ -->
+
+    <select id="getPostScheduleListLike" resultMap="postScheduleResultMap">
+        SELECT <include refid="postScheduleColumns"/>
+        <include refid="postScheduleJoins"/>
+        ORDER BY p.like_count DESC, p.post_id ASC, v.VISIT_ORDER ASC
+    </select>
+
+    <select id="getPostScheduleListView" resultMap="postScheduleResultMap">
+        SELECT <include refid="postScheduleColumns"/>
+        <include refid="postScheduleJoins"/>
+        ORDER BY p.view_count DESC, p.post_id ASC, v.VISIT_ORDER ASC
+    </select>
+
+    <select id="getPostScheduleListTitle" resultMap="postScheduleResultMap">
+        SELECT <include refid="postScheduleColumns"/>
+        <include refid="postScheduleJoins"/>
+        ORDER BY p.title DESC, p.post_id ASC, v.VISIT_ORDER ASC
+    </select>
+
+    <select id="getPostScheduleListLatest" resultMap="postScheduleResultMap">
+        SELECT <include refid="postScheduleColumns"/>
+        <include refid="postScheduleJoins"/>
+        ORDER BY p.posted_at DESC, p.post_id ASC, v.VISIT_ORDER ASC
+    </select>
+
+    <!-- ================================================================ -->
+    <!-- 전체 게시물 키워드 검색 (정렬 4종)                                -->
+    <!-- DAOMb에서 %keyword% 로 pre-format 후 전달                        -->
+    <!-- ================================================================ -->
+
+    <select id="getPostScheduleListSearchLike" parameterType="String" resultMap="postScheduleResultMap">
+        SELECT <include refid="postScheduleColumns"/>
+        <include refid="postScheduleJoins"/>
+        WHERE p.TITLE LIKE '%' || #{keyword} || '%' OR pl.TITLE LIKE '%' || #{keyword} || '%'
+        ORDER BY p.like_count DESC, p.post_id ASC, v.VISIT_ORDER ASC
+    </select>
+
+    <select id="getPostScheduleListSearchView" parameterType="String" resultMap="postScheduleResultMap">
+        SELECT <include refid="postScheduleColumns"/>
+        <include refid="postScheduleJoins"/>
+        WHERE p.TITLE LIKE '%' || #{keyword} || '%' OR pl.TITLE LIKE '%' || #{keyword} || '%'
+        ORDER BY p.view_count DESC, p.post_id ASC, v.VISIT_ORDER ASC
+    </select>
+
+    <select id="getPostScheduleListSearchTitle" parameterType="String" resultMap="postScheduleResultMap">
+        SELECT <include refid="postScheduleColumns"/>
+        <include refid="postScheduleJoins"/>
+        WHERE p.TITLE LIKE '%' || #{keyword} || '%' OR pl.TITLE LIKE '%' || #{keyword} || '%'
+        ORDER BY p.title DESC, p.post_id ASC, v.VISIT_ORDER ASC
+    </select>
+
+    <select id="getPostScheduleListSearchLatest" parameterType="String" resultMap="postScheduleResultMap">
+        SELECT <include refid="postScheduleColumns"/>
+        <include refid="postScheduleJoins"/>
+        WHERE p.TITLE LIKE '%' || #{keyword} || '%' OR pl.TITLE LIKE '%' || #{keyword} || '%'
+        ORDER BY p.posted_at DESC, p.post_id ASC, v.VISIT_ORDER ASC
+    </select>
+
+    <!-- ================================================================ -->
+    <!-- 내 게시물 조회 (정렬 4종)                                         -->
+    <!-- ================================================================ -->
+
+    <select id="getUserPostScheduleListLike" parameterType="String" resultMap="postScheduleResultMap">
+        SELECT <include refid="postScheduleColumns"/>
+        <include refid="postScheduleJoins"/>
+        WHERE p.USER_ID = #{userId}
+        ORDER BY p.like_count DESC, p.post_id ASC, v.VISIT_ORDER ASC
+    </select>
+
+    <select id="getUserPostScheduleListView" parameterType="String" resultMap="postScheduleResultMap">
+        SELECT <include refid="postScheduleColumns"/>
+        <include refid="postScheduleJoins"/>
+        WHERE p.USER_ID = #{userId}
+        ORDER BY p.view_count DESC, p.post_id ASC, v.VISIT_ORDER ASC
+    </select>
+
+    <select id="getUserPostScheduleListTitle" parameterType="String" resultMap="postScheduleResultMap">
+        SELECT <include refid="postScheduleColumns"/>
+        <include refid="postScheduleJoins"/>
+        WHERE p.USER_ID = #{userId}
+        ORDER BY p.title DESC, p.post_id ASC, v.VISIT_ORDER ASC
+    </select>
+
+    <select id="getUserPostScheduleListLatest" parameterType="String" resultMap="postScheduleResultMap">
+        SELECT <include refid="postScheduleColumns"/>
+        <include refid="postScheduleJoins"/>
+        WHERE p.USER_ID = #{userId}
+        ORDER BY p.posted_at DESC, p.post_id ASC, v.VISIT_ORDER ASC
+    </select>
+
+    <!-- ================================================================ -->
+    <!-- 내 게시물 키워드 검색 (정렬 4종)                                  -->
+    <!-- parameterType="map" : userId + keyword(%keyword%)                -->
+    <!-- ================================================================ -->
+
+    <select id="getUserPostScheduleListSearchLike" parameterType="map" resultMap="postScheduleResultMap">
+        SELECT <include refid="postScheduleColumns"/>
+        <include refid="postScheduleJoins"/>
+        WHERE p.USER_ID = #{userId}
+          AND (p.TITLE LIKE '%' || #{keyword} || '%' OR pl.TITLE LIKE '%' || #{keyword} || '%')
+        ORDER BY p.like_count DESC, p.post_id ASC, v.VISIT_ORDER ASC
+    </select>
+
+    <select id="getUserPostScheduleListSearchView" parameterType="map" resultMap="postScheduleResultMap">
+        SELECT <include refid="postScheduleColumns"/>
+        <include refid="postScheduleJoins"/>
+        WHERE p.USER_ID = #{userId}
+          AND (p.TITLE LIKE '%' || #{keyword} || '%' OR pl.TITLE LIKE '%' || #{keyword} || '%')
+        ORDER BY p.view_count DESC, p.post_id ASC, v.VISIT_ORDER ASC
+    </select>
+
+    <select id="getUserPostScheduleListSearchTitle" parameterType="map" resultMap="postScheduleResultMap">
+        SELECT <include refid="postScheduleColumns"/>
+        <include refid="postScheduleJoins"/>
+        WHERE p.USER_ID = #{userId}
+          AND (p.TITLE LIKE '%' || #{keyword} || '%' OR pl.TITLE LIKE '%' || #{keyword} || '%')
+        ORDER BY p.title ASC, p.post_id ASC, v.VISIT_ORDER ASC
+    </select>
+
+    <select id="getUserPostScheduleListSearchLatest" parameterType="map" resultMap="postScheduleResultMap">
+        SELECT <include refid="postScheduleColumns"/>
+        <include refid="postScheduleJoins"/>
+        WHERE p.USER_ID = #{userId}
+          AND (p.TITLE LIKE '%' || #{keyword} || '%' OR pl.TITLE LIKE '%' || #{keyword} || '%')
+        ORDER BY p.posted_at DESC, p.post_id ASC, v.VISIT_ORDER ASC
+    </select>
+
+    <!-- ================================================================ -->
+    <!-- 상세 데이터 조회                                                  -->
+    <!-- ================================================================ -->
+
+    <select id="getBudgetDetail" parameterType="String" resultType="String">
+        SELECT BUDGET_DETAILS FROM SCHEDULE_POST WHERE POST_ID = #{postId}
+    </select>
+
+    <select id="getTodoDetail" parameterType="String" resultType="String">
+        SELECT TODO_DETAILS FROM SCHEDULE_POST WHERE POST_ID = #{postId}
+    </select>
+
+    <select id="getScheduleRoute" parameterType="String" resultMap="routeScheduleResultMap">
+        SELECT v.VISIT_ITEM_ID, v.VISIT_ORDER, p.PLACE_ID, p.TITLE
+        FROM SCHEDULE_POST sp
+        JOIN VISIT_ITEM v ON sp.POST_ID  = v.SCHEDULE_ID
+        JOIN PLACE      p ON v.PLACE_ID  = p.PLACE_ID
+        WHERE sp.POST_ID = #{postId}
+        ORDER BY v.VISIT_ORDER ASC
+    </select>
+
+    <select id="getMapSchedule" parameterType="String" resultMap="mapScheduleResultMap">
+        SELECT p.TITLE, v.VISIT_ORDER, p.MAPX, p.MAPY, v.DISTANCE_TO_NEXT
+        FROM SCHEDULE_POST sp
+        JOIN VISIT_ITEM v ON sp.POST_ID = v.SCHEDULE_ID
+        JOIN PLACE      p ON v.PLACE_ID = p.PLACE_ID
+        WHERE sp.POST_ID = #{postId}
+        ORDER BY v.VISIT_ORDER ASC
+    </select>
+
+    <select id="getScheduleTitle" parameterType="String" resultType="String">
+        SELECT TITLE FROM SCHEDULE_POST WHERE POST_ID = #{postId}
+    </select>
+
+    <select id="getLikeCount" parameterType="String" resultType="int">
+        SELECT LIKE_COUNT FROM SCHEDULE_POST WHERE POST_ID = #{postId}
+    </select>
+
+    <select id="getViewCount" parameterType="String" resultType="int">
+        SELECT VIEW_COUNT FROM SCHEDULE_POST WHERE POST_ID = #{postId}
+    </select>
+
+    <select id="getUserId" parameterType="String" resultType="String">
+        SELECT USER_ID FROM SCHEDULE_POST WHERE POST_ID = #{postId}
+    </select>
+
+    <!-- ================================================================ -->
+    <!-- 좋아요 / 조회수 증가                                              -->
+    <!-- ================================================================ -->
+
+    <update id="plusLike" parameterType="String">
+        UPDATE SCHEDULE_POST SET LIKE_COUNT = LIKE_COUNT + 1 WHERE POST_ID = #{postId}
+    </update>
+
+    <update id="plusView" parameterType="String">
+        UPDATE SCHEDULE_POST SET VIEW_COUNT = VIEW_COUNT + 1 WHERE POST_ID = #{postId}
+    </update>
+
+    <!-- ================================================================ -->
+    <!-- 삭제                                                             -->
+    <!-- ================================================================ -->
+
+    <!-- FK 제약 때문에 SCHEDULE_POST 삭제 전 VISIT_ITEM 먼저 삭제 필요   -->
+    <delete id="deleteVisitItem" parameterType="String">
+        DELETE FROM visit_item WHERE schedule_id = #{postId}
+    </delete>
+
+    <delete id="deleteSchedulePost" parameterType="String">
+        DELETE FROM schedule_post WHERE post_ID = #{postId}
+    </delete>
+
+    <!-- ================================================================ -->
+    <!-- 내 일정으로 복사                                                  -->
+    <!-- selectKey : INSERT 전에 Oracle 시퀀스 PK를 선취득하여             -->
+    <!--             CopyToMyScheduleParam.setGeneratedId()로 자동 주입   -->
+    <!-- ================================================================ -->
+
+    <insert id="copyToMySchedule" parameterType="com.letsgo.place.model.CopyToMyScheduleParam">
+        <selectKey keyProperty="generatedId" resultType="String" order="BEFORE">
+            SELECT 'SCH' || LPAD(SEQ_MY_SCHEDULE.NEXTVAL, 3, '0') FROM DUAL
+        </selectKey>
+        INSERT INTO MY_SCHEDULE
+            (MY_SCHEDULE_ID, TITLE, START_AT, BUDGET_DETAILS, TODO_DETAILS, USER_ID, IS_SHARED)
+        VALUES
+            (#{generatedId}, #{title}, SYSDATE, #{budgetDetail}, #{todoDetail}, #{userId}, 0)
+    </insert>
+
+    <!-- 방문 항목 복사 : scheduleType 은 CopyToVisitItemParam에서 "MY_SCH" 고정 -->
+    <insert id="copyToVisitItem" parameterType="com.letsgo.place.model.CopyToVisitItemParam">
+        INSERT INTO VISIT_ITEM
+            (VISIT_ITEM_ID, VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_ID, SCHEDULE_ID, SCHEDULE_TYPE)
+        VALUES
+            (SEQ_VISIT_ITEM.NEXTVAL, #{visitOrder}, #{distanceToNext}, #{placeId}, #{myScheduleId}, #{scheduleType})
+    </insert>
 
 </mapper>
