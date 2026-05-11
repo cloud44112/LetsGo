@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   
   <mappers>
     <mapper resource="config/memberMapper.xml"/>
-    <mapper resource="config/Place.xml"/>
+    <mapper resource="config/PlaceMapper.xml"/>
     <mapper resource="config/myScheduleMapper.xml"/>
     <mapper resource="config/postScheduleMapper.xml"/>
 

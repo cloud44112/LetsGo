@@ -141,7 +141,26 @@ public class PlaceService {
 	}
 	
 	public List<PlaceVO> searchPlaces(String placeType, String category, String keyword, String sortType) {
-		return dao.searchPlaces(placeType, category, keyword, sortType);
+		boolean hasCategory = category != null && !category.trim().isEmpty();
+		boolean hasKeyword = keyword != null && !keyword.trim().isEmpty();
+		boolean orderByLike = "popular".equals(sortType);
+
+		if (hasCategory && hasKeyword) {
+			return orderByLike
+					? dao.searchPlacesByCategoryAndKeywordOrderByLike(placeType, category, keyword)
+					: dao.searchPlacesByCategoryAndKeywordOrderByTitle(placeType, category, keyword);
+		}
+		if (hasCategory) {
+			return orderByLike
+					? dao.searchPlacesByCategoryOrderByLike(placeType, category)
+					: dao.searchPlacesByCategoryOrderByTitle(placeType, category);
+		}
+		if (hasKeyword) {
+			return orderByLike
+					? dao.searchPlacesByKeywordOrderByLike(placeType, keyword)
+					: dao.searchPlacesByKeywordOrderByTitle(placeType, keyword);
+		}
+		return orderByLike ? dao.searchPlacesOrderByLike(placeType) : dao.searchPlacesOrderByTitle(placeType);
 	}
 	
 	
