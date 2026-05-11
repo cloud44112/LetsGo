@@ -268,9 +268,9 @@ public class PlaceDAO implements PlaceDAOInterface {
     
 
     // 홈 레저 플레이스 좋아요 카운트 증가
-    public boolean setCounting(String postId) {
+    public boolean setCounting(String placeId) {
         try (PreparedStatement pstmt = conn.prepareStatement(PlaceQuery.SET_COUNTING_SQL)) {
-            pstmt.setString(1, postId);
+            pstmt.setString(1, placeId);
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -392,5 +392,39 @@ public class PlaceDAO implements PlaceDAOInterface {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public List<PlaceVO> searchPlacesOrderByTitle(String placeType) {
+        return searchPlaces(placeType, null, null, "title");
+    }
+
+    public List<PlaceVO> searchPlacesOrderByLike(String placeType) {
+        return searchPlaces(placeType, null, null, "popular");
+    }
+
+    public List<PlaceVO> searchPlacesByCategoryOrderByTitle(String placeType, String category) {
+        return searchPlaces(placeType, category, null, "title");
+    }
+
+    public List<PlaceVO> searchPlacesByCategoryOrderByLike(String placeType, String category) {
+        return searchPlaces(placeType, category, null, "popular");
+    }
+
+    public List<PlaceVO> searchPlacesByKeywordOrderByTitle(String placeType, String keyword) {
+        return searchPlaces(placeType, null, keyword, "title");
+    }
+
+    public List<PlaceVO> searchPlacesByKeywordOrderByLike(String placeType, String keyword) {
+        return searchPlaces(placeType, null, keyword, "popular");
+    }
+
+    public List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByTitle(String placeType, String category,
+            String keyword) {
+        return searchPlaces(placeType, category, keyword, "title");
+    }
+
+    public List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByLike(String placeType, String category,
+            String keyword) {
+        return searchPlaces(placeType, category, keyword, "popular");
     }
 }

@@ -44,7 +44,7 @@ public interface PlaceDAOInterface {
     List<PlaceVO> getLeisurePlaces();
 
     // 홈 레저 플레이스 좋아요 카운트 증가
-    boolean setCounting(String postId);
+    boolean setCounting(String placeId);
 
     // 홈 레포츠 플레이스 담기
     PlaceVO getPlaceById(String placeId);
@@ -54,6 +54,30 @@ public interface PlaceDAOInterface {
 
     // PLACE_ID로 장소 단건 조회
     PlaceVO getPlaceByPlaceId(String placeId);
+
+    // 전체 장소 제목순 검색
+    List<PlaceVO> searchPlacesOrderByTitle(String placeType);
+
+    // 전체 장소 좋아요순 검색
+    List<PlaceVO> searchPlacesOrderByLike(String placeType);
+
+    // 카테고리 조건 제목순 검색
+    List<PlaceVO> searchPlacesByCategoryOrderByTitle(String placeType, String category);
+
+    // 카테고리 조건 좋아요순 검색
+    List<PlaceVO> searchPlacesByCategoryOrderByLike(String placeType, String category);
+
+    // 키워드 조건 제목순 검색
+    List<PlaceVO> searchPlacesByKeywordOrderByTitle(String placeType, String keyword);
+
+    // 키워드 조건 좋아요순 검색
+    List<PlaceVO> searchPlacesByKeywordOrderByLike(String placeType, String keyword);
+
+    // 카테고리 + 키워드 조건 제목순 검색
+    List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByTitle(String placeType, String category, String keyword);
+
+    // 카테고리 + 키워드 조건 좋아요순 검색
+    List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByLike(String placeType, String category, String keyword);
 
    
 }

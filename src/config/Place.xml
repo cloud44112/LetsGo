@@ -1,44 +1,313 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PlaceMapper">
 
 	<select id="getPlaceByTitle" parameterType="map" resultType="com.letsgo.place.model.PlaceVO">
 		SELECT place_id AS placeId,
-		title,
-		first_image AS firstImage,
-		addr1,
-		mapx,
-		mapy,
-		like_count AS likeCount
+		       title,
+		       first_image AS firstImage,
+		       addr1,
+		       mapx,
+		       mapy,
+		       like_count AS likeCount,
+		       #{placeType} AS placeType
 		FROM place
-		WHERE place_type =
-		#{placeType}
-		AND title = #{title}
+		WHERE place_type = #{placeType}
+		  AND title = #{title}
 	</select>
 
 	<select id="getPlaceByCategory" parameterType="map" resultType="com.letsgo.place.model.PlaceVO">
-    SELECT place_id AS placeId,
-           title,
-           first_image AS firstImage,
-           addr1,
-           mapx,
-           mapy,
-           like_count AS likeCount
-    FROM place
-    WHERE place_type = #{placetype}
-      AND lclssystm3 = #{lclssystm3}
-</select>
+		SELECT place_id AS placeId,
+		       title,
+		       first_image AS firstImage,
+		       addr1,
+		       mapx,
+		       mapy,
+		       like_count AS likeCount,
+		       #{placeType} AS placeType
+		FROM place
+		WHERE place_type = #{placeType}
+		  AND lclssystm3 = #{lclssystm3}
+	</select>
 
-<select id="getPlaceOrderByLike" parameterType="string" resultType="com.letsgo.place.model.PlaceVO">
-    SELECT place_id AS placeId,
-           title,
-           first_image AS firstImage,
-           addr1,
-           mapx,
-           mapy,
-           like_count AS likeCount
-    FROM place
-    WHERE place_type = #{placeType}
-    ORDER BY like_count DESC
-</select>
+	<select id="getPlaceOrderByLike" parameterType="map" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		       title,
+		       first_image AS firstImage,
+		       addr1,
+		       mapx,
+		       mapy,
+		       like_count AS likeCount,
+		       #{placeType} AS placeType
+		FROM place
+		WHERE place_type = #{placeType}
+		ORDER BY like_count DESC
+	</select>
+
+	<select id="getPlaceOrderByTitle" parameterType="map" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		       title,
+		       first_image AS firstImage,
+		       addr1,
+		       mapx,
+		       mapy,
+		       like_count AS likeCount,
+		       #{placeType} AS placeType
+		FROM place
+		WHERE place_type = #{placeType}
+		ORDER BY title ASC
+	</select>
+
+	<select id="getPlaceByAddr" parameterType="map" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		       title,
+		       first_image AS firstImage,
+		       addr1,
+		       mapx,
+		       mapy,
+		       like_count AS likeCount,
+		       #{placeType} AS placeType
+		FROM place
+		WHERE place_type = #{placeType}
+		  AND addr1 LIKE #{addrPattern}
+	</select>
+
+	
+	<select id="getPlaceByPlaceIdList" parameterType="string" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT #{value} AS placeId,
+		       title,
+		       addr1,
+		       mapx,
+		       mapy
+		FROM place
+		WHERE place_id = #{value}
+	</select>
+
+	<select id="getPlaceCount" parameterType="string" resultType="int">
+		SELECT COUNT(place_id)
+		FROM place
+		WHERE place_type = #{value}
+	</select>
+
+	<update id="setPlaceLikeCount" parameterType="string">
+		UPDATE place
+		SET like_count = like_count + 1
+		WHERE place_id = #{value}
+	</update>
+
+	<select id="getPlaceLikeCount" parameterType="map" resultType="int">
+		SELECT like_count
+		FROM place
+		WHERE place_type = #{placeType}
+		  AND place_id = #{placeId}
+	</select>
+
+	<select id="getPlaces" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		       title,
+		       addr1,
+		       mapx,
+		       mapy
+		FROM place
+	</select>
+
+	<insert id="insertVisitItem" parameterType="map">
+		INSERT INTO VISIT_ITEM (VISIT_ITEM_ID, VISIT_ORDER, DISTANCE_TO_NEXT, PLACE_ID, SCHEDULE_ID, SCHEDULE_TYPE)
+		VALUES ((SELECT NVL(MAX(VISIT_ITEM_ID), 0) + 1 FROM VISIT_ITEM),
+		        #{visitOrder},
+		        #{distanceToNext},
+		        #{placeId},
+		        #{scheduleId},
+		        #{scheduleType})
+	</insert>
+
+	<select id="getLeisurePlacesOrderByLikeDesc" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		       title,
+		       addr1,
+		       mapx,
+		       mapy,
+		       first_image AS firstImage,
+		       like_count AS likeCount,
+		       place_type AS placeType
+		FROM place
+		WHERE place_type = 'LEISURE'
+		ORDER BY like_count DESC
+	</select>
+
+	<select id="getLeisurePlaces" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		       title,
+		       addr1,
+		       mapx,
+		       mapy,
+		       first_image AS firstImage,
+		       like_count AS likeCount,
+		       place_type AS placeType
+		FROM place
+		WHERE place_type = 'LEISURE'
+	</select>
+
+	<update id="setCounting" parameterType="string">
+		UPDATE place
+		SET like_count = like_count + 1
+		WHERE place_id = #{value}
+	</update>
+
+	<select id="getPlaceById" parameterType="string" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		       title,
+		       addr1,
+		       mapx,
+		       mapy
+		FROM place
+		WHERE place_id = #{value}
+	</select>
+
+	<resultMap id="visitItemResult" type="com.letsgo.place.model.VisitItemVO">
+		<result property="visitOrder" column="VISIT_ORDER"/>
+		<result property="distanceToNext" column="DISTANCE_TO_NEXT"/>
+		<result property="placeId" column="PLACE_ID"/>
+	</resultMap>
+
+	<select id="getVisitItemsByScheduleId" parameterType="string" resultMap="visitItemResult">
+		SELECT VISIT_ORDER,
+		       NVL(DISTANCE_TO_NEXT, 0) AS DISTANCE_TO_NEXT,
+		       PLACE_ID
+		FROM VISIT_ITEM
+		WHERE SCHEDULE_ID = #{value}
+		ORDER BY VISIT_ORDER ASC
+	</select>
+
+	<select id="getPlaceByPlaceId" parameterType="string" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		       title,
+		       addr1,
+		       mapx,
+		       mapy
+		FROM place
+		WHERE place_id = #{value}
+	</select>
+
+	
+	<select id="searchPlacesOrderByTitle" parameterType="map" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		       title,
+		       first_image AS firstImage,
+		       addr1,
+		       mapx,
+		       mapy,
+		       like_count AS likeCount,
+		       #{placeType} AS placeType
+		FROM place
+		WHERE place_type = #{placeType}
+		ORDER BY title ASC
+	</select>
+
+	<select id="searchPlacesOrderByLike" parameterType="map" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		       title,
+		       first_image AS firstImage,
+		       addr1,
+		       mapx,
+		       mapy,
+		       like_count AS likeCount,
+		       #{placeType} AS placeType
+		FROM place
+		WHERE place_type = #{placeType}
+		ORDER BY like_count DESC
+	</select>
+
+	<select id="searchPlacesByCategoryOrderByTitle" parameterType="map" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		       title,
+		       first_image AS firstImage,
+		       addr1,
+		       mapx,
+		       mapy,
+		       like_count AS likeCount,
+		       #{placeType} AS placeType
+		FROM place
+		WHERE place_type = #{placeType}
+		  AND lclssystm3 = #{category}
+		ORDER BY title ASC
+	</select>
+
+	<select id="searchPlacesByCategoryOrderByLike" parameterType="map" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		       title,
+		       first_image AS firstImage,
+		       addr1,
+		       mapx,
+		       mapy,
+		       like_count AS likeCount,
+		       #{placeType} AS placeType
+		FROM place
+		WHERE place_type = #{placeType}
+		  AND lclssystm3 = #{category}
+		ORDER BY like_count DESC
+	</select>
+
+	<select id="searchPlacesByKeywordOrderByTitle" parameterType="map" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		       title,
+		       first_image AS firstImage,
+		       addr1,
+		       mapx,
+		       mapy,
+		       like_count AS likeCount,
+		       #{placeType} AS placeType
+		FROM place
+		WHERE place_type = #{placeType}
+		  AND (title LIKE #{keywordPattern} OR addr1 LIKE #{keywordPattern})
+		ORDER BY title ASC
+	</select>
+
+	<select id="searchPlacesByKeywordOrderByLike" parameterType="map" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		       title,
+		       first_image AS firstImage,
+		       addr1,
+		       mapx,
+		       mapy,
+		       like_count AS likeCount,
+		       #{placeType} AS placeType
+		FROM place
+		WHERE place_type = #{placeType}
+		  AND (title LIKE #{keywordPattern} OR addr1 LIKE #{keywordPattern})
+		ORDER BY like_count DESC
+	</select>
+
+	<select id="searchPlacesByCategoryAndKeywordOrderByTitle" parameterType="map" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		       title,
+		       first_image AS firstImage,
+		       addr1,
+		       mapx,
+		       mapy,
+		       like_count AS likeCount,
+		       #{placeType} AS placeType
+		FROM place
+		WHERE place_type = #{placeType}
+		  AND lclssystm3 = #{category}
+		  AND (title LIKE #{keywordPattern} OR addr1 LIKE #{keywordPattern})
+		ORDER BY title ASC
+	</select>
+
+	<select id="searchPlacesByCategoryAndKeywordOrderByLike" parameterType="map" resultType="com.letsgo.place.model.PlaceVO">
+		SELECT place_id AS placeId,
+		       title,
+		       first_image AS firstImage,
+		       addr1,
+		       mapx,
+		       mapy,
+		       like_count AS likeCount,
+		       #{placeType} AS placeType
+		FROM place
+		WHERE place_type = #{placeType}
+		  AND lclssystm3 = #{category}
+		  AND (title LIKE #{keywordPattern} OR addr1 LIKE #{keywordPattern})
+		ORDER BY like_count DESC
+	</select>
+
 </mapper>

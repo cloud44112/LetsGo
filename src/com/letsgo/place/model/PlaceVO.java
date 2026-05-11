@@ -9,7 +9,10 @@ public class PlaceVO {
 	private String firstImage;
 	private int likeCount;
 	private String placeType;
-	
+
+	public PlaceVO() {
+	}
+
 	public PlaceVO(String placeId, String title, String addr1, String mapx, String mapy, String firstImage,
 			int likeCount, String placeType) {
 		setPlaceId(placeId);
