@@ -140,9 +140,9 @@ public class PlaceDAOMB implements PlaceDAOInterface {
 	}
 
 	@Override
-	public boolean setCounting(String postId) {
+	public boolean setCounting(String placeId) {
 		try (SqlSession session = DBCPMybatis.getSqlSessionFactory().openSession()) {
-			int rows = session.update("PlaceMapper.setCounting", postId);
+			int rows = session.update("PlaceMapper.setCounting", placeId);
 			if (rows > 0) {
 				session.commit();
 				return true;
@@ -165,6 +165,7 @@ public class PlaceDAOMB implements PlaceDAOInterface {
 		}
 	}
 
+	@Override
 	public List<PlaceVO> searchPlacesOrderByTitle(String placeType) {
 		try (SqlSession session = DBCPMybatis.getSqlSessionFactory().openSession()) {
 			Map<String, Object> params = new HashMap<>();
@@ -173,6 +174,7 @@ public class PlaceDAOMB implements PlaceDAOInterface {
 		}
 	}
 
+	@Override
 	public List<PlaceVO> searchPlacesOrderByLike(String placeType) {
 		try (SqlSession session = DBCPMybatis.getSqlSessionFactory().openSession()) {
 			Map<String, Object> params = new HashMap<>();
@@ -181,6 +183,7 @@ public class PlaceDAOMB implements PlaceDAOInterface {
 		}
 	}
 
+	@Override
 	public List<PlaceVO> searchPlacesByCategoryOrderByTitle(String placeType, String category) {
 		try (SqlSession session = DBCPMybatis.getSqlSessionFactory().openSession()) {
 			Map<String, Object> params = new HashMap<>();
@@ -190,6 +193,7 @@ public class PlaceDAOMB implements PlaceDAOInterface {
 		}
 	}
 
+	@Override
 	public List<PlaceVO> searchPlacesByCategoryOrderByLike(String placeType, String category) {
 		try (SqlSession session = DBCPMybatis.getSqlSessionFactory().openSession()) {
 			Map<String, Object> params = new HashMap<>();
@@ -199,6 +203,7 @@ public class PlaceDAOMB implements PlaceDAOInterface {
 		}
 	}
 
+	@Override
 	public List<PlaceVO> searchPlacesByKeywordOrderByTitle(String placeType, String keyword) {
 		try (SqlSession session = DBCPMybatis.getSqlSessionFactory().openSession()) {
 			Map<String, Object> params = new HashMap<>();
@@ -208,6 +213,7 @@ public class PlaceDAOMB implements PlaceDAOInterface {
 		}
 	}
 
+	@Override
 	public List<PlaceVO> searchPlacesByKeywordOrderByLike(String placeType, String keyword) {
 		try (SqlSession session = DBCPMybatis.getSqlSessionFactory().openSession()) {
 			Map<String, Object> params = new HashMap<>();
@@ -217,6 +223,7 @@ public class PlaceDAOMB implements PlaceDAOInterface {
 		}
 	}
 
+	@Override
 	public List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByTitle(String placeType, String category, String keyword) {
 		try (SqlSession session = DBCPMybatis.getSqlSessionFactory().openSession()) {
 			Map<String, Object> params = new HashMap<>();
@@ -227,6 +234,7 @@ public class PlaceDAOMB implements PlaceDAOInterface {
 		}
 	}
 
+	@Override
 	public List<PlaceVO> searchPlacesByCategoryAndKeywordOrderByLike(String placeType, String category, String keyword) {
 		try (SqlSession session = DBCPMybatis.getSqlSessionFactory().openSession()) {
 			Map<String, Object> params = new HashMap<>();
