@@ -192,11 +192,6 @@ public class PostScheduleDAOMB implements PostScheduleDAOInterface {
         return session.update("PostSchedule.plusView", postId) == 1;
     }
 
-    // ================================================================
-    // 삭제
-    // deletePostSchedule : JDBC 구현과 동일하게 visit_item → schedule_post 순서 삭제
-    // deleteVisitItem    : visit_item 만 단독 삭제 (서비스 트랜잭션에서 단계적 호출 시 사용)
-    // ================================================================
 
     @Override
     public boolean deletePostSchedule(String postId) {
@@ -210,12 +205,6 @@ public class PostScheduleDAOMB implements PostScheduleDAOInterface {
              
 
     }
-
-    // ================================================================
-    // 내 일정으로 복사
-    // selectKey 가 INSERT 전에 시퀀스 PK를 param.setGeneratedId() 로 주입
-    // insert 완료 후 param.getGeneratedId() 로 생성된 PK 반환
-    // ================================================================
 
     @Override
     public String copyToMySchedule(String title, String budgetDetail, String todoDetail, String userId) {
