@@ -1,4 +1,4 @@
-<div align="center">
+<img width="1053" height="415" alt="image" src="https://github.com/user-attachments/assets/779a246f-e688-4b76-af0f-9d993c932f5f" /><div align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=header&text=LetsGo&fontSize=80&fontAlignY=35&desc=여행%20일정%20플래너%20및%20공유%20플랫폼&descAlignY=55&descSize=20" alt="header">
 </div>
 
@@ -33,7 +33,6 @@
 ---
 
 ## 🏗️ Architecture Design (아키텍처 설계)
-![Uploading image.png…]()
 
 
 본 프로젝트는 유지보수성과 확장성을 위해 **MVC 패턴** 및 **Front Controller 패턴**을 엄격히 준수하여 설계되었습니다.
