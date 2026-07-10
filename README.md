@@ -1,29 +1,34 @@
-# ✈️ LetsGo (레츠고) - 여행 일정 플래너 및 공유 플랫폼
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=header&text=LetsGo&fontSize=80&fontAlignY=35&desc=여행%20일정%20플래너%20및%20공유%20플랫폼&descAlignY=55&descSize=20" alt="header">
+</div>
 
-**LetsGo**는 사용자가 가고 싶은 장소(식당, 숙박, 레저)를 검색하고, 나만의 맞춤형 여행 일정을 설계 및 동반자와 실시간 공유하며, 완성된 코스를 커뮤니티에 자랑할 수 있는 **Java/JSP 기반의 웹 애플리케이션**입니다.
+<div align="center">
+  <strong>가고 싶은 장소를 검색하고, 나만의 맞춤형 여행 일정을 설계하여 동반자와 공유해보세요!</strong><br>
+  완성된 코스를 커뮤니티에 자랑할 수 있는 Java/JSP 기반의 웹 애플리케이션입니다.
+</div>
 
 ---
 
 ## 🛠️ Tech Stacks (기술 스택)
 
-### Development Environment & Servers
-- **Java**: JDK (Servlet 3.0+, JSP 2.3)
-- **WAS / Web Container**: Apache Tomcat 8.5/9.0
-- **Database**: Oracle Database Express Edition (XE) / MariaDB 호환 가능
+### Environment & Database
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Apache Tomcat](https://img.shields.io/badge/Apache%20Tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black)
+![Oracle](https://img.shields.io/badge/Oracle-F00000?style=for-the-badge&logo=oracle&logoColor=white)
+![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
 
 ### Backend & Libraries
-- **Architecture Pattern**: MVC (Model-View-Controller) Architecture
-- **ORM / Persistence**: MyBatis 3.2.3 (XML-based SQL Mappers)
-- **Database Connection Pool**: Apache Commons DBCP / JNDI DataSource
-- **JSON Parser**: Google Gson 2.8.9
-- **Standard Tag Library**: JSTL 1.2
+- **Architecture Pattern**: MVC (Model-View-Controller)
+- **ORM / Persistence**: MyBatis 3.2.3
+- **Libraries**: Google Gson 2.8.9, JSTL 1.2, Apache DBCP
 
 ### Frontend
-- **Markup & Styling**: HTML5, CSS3 (Custom Responsive Grid System)
-- **Scripting & Async Communication**: Vanilla JavaScript, Ajax (Fetch API / XMLHttpRequest)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
 ### Modeling Tools
-- **ERD Modeling**: ExERD (`1팀_ERD.exerd`)
+- **ERD**: ExERD
 
 ---
 
@@ -31,21 +36,10 @@
 
 본 프로젝트는 유지보수성과 확장성을 위해 **MVC 패턴** 및 **Front Controller 패턴**을 엄격히 준수하여 설계되었습니다.
 
-```mermaid
-graph TD
-    Client[Client Browser] -->|HTTP Request /controller?cmd=...| FrontController[FrontControllerServlet]
-    FrontController -->|Get Action Instance| ActionFactory[ActionFactory]
-    ActionFactory -->|Return Action| FrontController
-    FrontController -->|execute| Action[Concrete Action Class]
-    Action -->|Invoke Service| Service[Service Layer]
-    Service -->|Invoke DAO| DAO[DAO Layer]
-    DAO -->|Query via MyBatis| DB[(Oracle / MariaDB)]
-    DAO -.->|Return VO/DTO| Service
-    Service -.->|Return Data| Action
-    Action -.->|Return View Path| FrontController
-    FrontController -->|Forward or Redirect| JSP[JSP View / View Page]
-    JSP -->|Render HTML/CSS/JS| Client
-```
+<div align="center">
+  <img src="architecture.png" alt="Architecture Diagram" width="800">
+  <p><em>(Client -> FrontController -> ActionFactory -> Action -> Service -> DAO -> Oracle DB & 외부 API)</em></p>
+</div>
 
 ### 1. Model (모델)
 - **DAO (Data Access Object)**: 데이터베이스 Access를 전담하며 MyBatis Mapper 파일(`userMapper.xml`, `Place.xml` 등)을 로드하여 SQL 쿼리를 실행합니다.
